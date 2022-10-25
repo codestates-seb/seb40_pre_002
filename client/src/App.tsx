@@ -2,16 +2,14 @@ import React from 'react';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import './App.css';
 import styled from 'styled-components';
+import { decrement, increment } from './counterSlice'
+
 
 function App() {
   return (
-    <BrowserRouter>
-      <Routes>
-        <div className="App">
-          TEST
-        </div>
-      </Routes>
-    </BrowserRouter>
+    <div className="App">
+      TEST
+    </div>
   );
 }
 
