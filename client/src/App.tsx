@@ -4,15 +4,7 @@ import './App.css';
 import styled from 'styled-components';
 
 function App() {
-  return (
-    <BrowserRouter>
-      <Routes>
-        <div className="App">
-          TEST
-        </div>
-      </Routes>
-    </BrowserRouter>
-  );
+  return <div className="App">ssasTEST</div>;
 }
 
 export default App;
