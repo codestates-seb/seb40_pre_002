@@ -5,13 +5,10 @@ import styled from 'styled-components';
 
 function App() {
   return (
-    <BrowserRouter>
-      <Routes>
-        <div className="App">
-          TEST
-        </div>
-      </Routes>
-    </BrowserRouter>
+    <div className="App">
+      ssasTEST
+      <div>hellp</div>
+    </div>
   );
 }
 
