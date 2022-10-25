@@ -8,7 +8,12 @@ import { decrement, increment } from './counterSlice'
 function App() {
   return (
     <div className="App">
+<<<<<<< HEAD
       TEST
+=======
+      ssasTEST
+      <div>hellp</div>
+>>>>>>> 7e350d849025d75baf3b281522b487eb73b83262
     </div>
   );
 }
