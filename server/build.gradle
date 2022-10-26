@@ -1,4 +1,10 @@
-
+plugins {
+	id 'org.springframework.boot' version '2.7.5'
+	id 'io.spring.dependency-management' version '1.0.15.RELEASE'
+	id "org.asciidoctor.jvm.convert" version "3.3.2" // asciidoc 플러그인
+	id 'war' // 통신테스트 위해 추가
+	id 'java'
+}
 
 group = 'pre_002'
 version = '0.0.1-SNAPSHOT'
@@ -23,7 +29,30 @@ configurations { // API 의존그룹 지정
 }
 
 dependencies {
+	testImplementation 'org.springframework.restdocs:spring-restdocs-mockmvc'
+	asciidoctorExtensions 'org.springframework.restdocs:spring-restdocs-asciidoctor'
 
+	implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
+	implementation 'org.springframework.boot:spring-boot-starter-validation'
+	implementation 'org.springframework.boot:spring-boot-starter-web'
+
+	// Spring Security 적용 위한 의존 라이브러리
+	implementation 'org.springframework.boot:spring-boot-starter-security'
+
+	// JWT 적용 위한 의존 라이브러리
+	implementation 'io.jsonwebtoken:jjwt-api:0.11.5'
+	runtimeOnly 'io.jsonwebtoken:jjwt-impl:0.11.5'
+	runtimeOnly	'io.jsonwebtoken:jjwt-jackson:0.11.5'
+
+	runtimeOnly 'com.h2database:h2' // InMemory DB
+	compileOnly 'org.projectlombok:lombok'
+	annotationProcessor 'org.projectlombok:lombok'
+	testImplementation 'org.springframework.boot:spring-boot-starter-test'
+	implementation 'org.mapstruct:mapstruct:1.5.3.Final' // mapper
+	annotationProcessor 'org.mapstruct:mapstruct-processor:1.5.3.Final' // mapper
+
+	implementation 'com.google.code.gson:gson'
+	runtimeOnly 'mysql:mysql-connector-java' // mysql
 }
 
 tasks.named('test') {
