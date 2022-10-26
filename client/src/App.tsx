@@ -1,15 +1,9 @@
-import React from 'react';
-import { BrowserRouter, Routes, Route } from 'react-router-dom';
-import './App.css';
-import styled from 'styled-components';
+import React from 'react'
 
 function App() {
   return (
-    <div className="App">
-      ssasTEST
-      <div>hellp</div>
-    </div>
-  );
+    <div>App</div>
+  )
 }
 
-export default App;
+export default App
