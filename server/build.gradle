@@ -1,13 +1,4 @@
-plugins {
-	id 'org.springframework.boot' version '2.7.5'
-	id 'io.spring.dependency-management' version '1.0.15.RELEASE'
-<<<<<<< HEAD
-	id 'war' // 통신테스트 위해 추가
-=======
-	id "org.asciidoctor.jvm.convert" version "3.3.2" // asciidoc 플러그인
->>>>>>> 61814eff36192301e9df44bc5f7fa927ec4c56ec
-	id 'java'
-}
+
 
 group = 'pre_002'
 version = '0.0.1-SNAPSHOT'
