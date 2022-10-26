@@ -55,10 +55,10 @@ dependencies {
 	runtimeOnly 'mysql:mysql-connector-java' // mysql
 }
 
-tasks.named('test') {
+/*tasks.named('test') {
 	outputs.dir snippetsDir
 	useJUnitPlatform()
-}
+}*/
 
 // snippets 디렉토리 경로 지정
 tasks.named('asciidoctor') {
