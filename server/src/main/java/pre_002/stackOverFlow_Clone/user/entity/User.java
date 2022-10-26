@@ -10,18 +10,18 @@ import javax.persistence.*;
 @Getter
 @Setter
 @Entity
+@Table(name="USERS")
 public class User {
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long userId;
 
-    @Column(nullable = false, updatable = false, unique = true)
+    @Column(nullable = false)
     private String email;
 
-    @Column(length = 100, nullable = false)
+    @Column(nullable = false)
     private String userName;
 
-    @Column(length = 16, nullable = false)
+    @Column(nullable = false)
     private String password;
 }

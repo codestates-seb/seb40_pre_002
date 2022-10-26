@@ -1,6 +1,7 @@
 plugins {
 	id 'org.springframework.boot' version '2.7.5'
 	id 'io.spring.dependency-management' version '1.0.15.RELEASE'
+	id 'war' // 통신테스트 위해 추가
 	id 'java'
 }
 
@@ -25,6 +26,9 @@ dependencies {
 	compileOnly 'org.projectlombok:lombok'
 	annotationProcessor 'org.projectlombok:lombok'
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
+	runtimeOnly 'com.h2database:h2' // test 추가
+	implementation 'org.mapstruct:mapstruct:1.4.2.Final'  // test 추가
+	annotationProcessor 'org.mapstruct:mapstruct-processor:1.4.2.Final' // test 추가
 }
 
 tasks.named('test') {
