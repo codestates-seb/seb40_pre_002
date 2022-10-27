@@ -45,7 +45,6 @@ public class QuestionController {
         DetailQuestionResponseDto response = mapper.questionToResponse(question);
 
 //        return new ResponseEntity<>(new SingleResponseDto<>(response), HttpStatus.CREATED);
-        System.out.println(response.getQuestionId());
         return response.getQuestionId();
     }
 }

@@ -1,9 +1,7 @@
 package pre_002.stackOverFlow_Clone.question.mapper;
 
-import org.mapstruct.BeanMapping;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
-import org.mapstruct.Mappings;
 import pre_002.stackOverFlow_Clone.question.dto.DetailQuestionResponseDto;
 import pre_002.stackOverFlow_Clone.question.dto.QuestionDto;
 import pre_002.stackOverFlow_Clone.question.dto.QuestionListResponseDto;

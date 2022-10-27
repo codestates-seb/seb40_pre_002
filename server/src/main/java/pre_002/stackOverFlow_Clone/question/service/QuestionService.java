@@ -1,20 +1,43 @@
 package pre_002.stackOverFlow_Clone.question.service;
 
-
+import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import pre_002.stackOverFlow_Clone.question.entity.Question;
+import pre_002.stackOverFlow_Clone.question.repository.QuestionRepository;
 
-import java.util.List;
-import java.util.Optional;
+@Service
+@RequiredArgsConstructor
+@Transactional
+public class QuestionService{
 
-public interface QuestionService {
-    Page<Question> getQuestionList(int page, int size);
+    private final QuestionRepository questionRepository;
 
-    Question getQuestion(Long questionId);
+    public Page<Question> getQuestionList(int page, int size) {
+        Pageable pageable =
+                PageRequest.of(page - 1, size,
+                        Sort.by("questionId").descending());
 
-    Question postQuestion(Question question);
+        return questionRepository.findAll(pageable);
+    }
 
-    Question editQuestion(Question question);
+    public Question getQuestion(Long questionId) {
+        return null;
+    }
 
-    void delete(Long id);
+    public Question postQuestion(Question question) {
+        return questionRepository.save(question);
+    }
+
+    public Question editQuestion(Question question) {
+        return null;
+    }
+
+    public void delete(Long id) {
+
+    }
 }
