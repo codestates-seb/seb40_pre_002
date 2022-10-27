@@ -16,10 +16,7 @@ public class AnswerController {
 
     private final AnswerService answerService;
 
-    @GetMapping("/")
-    public String test() {
-        return "hello ec2";
-    }
+
 
     @PostMapping("/questionlist/{question-id}")
     public ResponseEntity postAnswer(@PathVariable("question-id") Long questionId) {
