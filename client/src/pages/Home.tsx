@@ -19,7 +19,7 @@ export default function Home() {
           </Question>
 
           <FilterBtnList>
-            <button><span>271</span> Bountied</button>
+            <button><BountiedInfo>271</BountiedInfo> Bountied</button>
             <button>Interesting</button>
           </FilterBtnList>
 
@@ -28,15 +28,15 @@ export default function Home() {
         <ItemList>
           <QuestionLi>
             <QuestionInfo1>
-              <div className='voteinfo'>0 votes</div>
-              <div>0 answers</div>
-              <div>2 views</div>
+              <VoteInfo>0 votes</VoteInfo>
+              <AnswerInfo>0 answers</AnswerInfo>
+              <ViewInfo>2 views</ViewInfo>
             </QuestionInfo1>
 
             <QuestionInfo2>
-              <div className='titleinfo'>Title</div>
-              <div className='taginfo'><span>javascript</span></div>
-              <div className='timelineinfo'><span id='author'>author</span><span id='num'>1</span>timeline info</div>
+              <TitleInfo>Title</TitleInfo>
+              <TagInfo><span>javascript</span></TagInfo>
+              <TimelineInfo><AuthorInfo>author</AuthorInfo><NumInfo>1</NumInfo>timeline info</TimelineInfo>
             </QuestionInfo2>
           </QuestionLi>
         </ItemList>
@@ -124,14 +124,14 @@ const FilterBtnList = styled.div`
     background-color: white;
     border: solid 1px #959595;
     padding: 10px;
-
-    >span{
-      background-color: #1D74cc;
-      color: white;
-      padding: 3px;
-      border-radius: 3px;
-    }
   }
+`
+
+const BountiedInfo = styled.span`
+  background-color: #1D74cc;
+  color: white;
+  padding: 3px;
+  border-radius: 3px;
 `
 
 const ItemList = styled.ul`
@@ -153,34 +153,44 @@ const QuestionInfo1 = styled.span`
   flex-direction: column;
   justify-content: center;
   text-align: right;
+`
 
-  >div {
+const VoteInfo = styled.div`
+    margin-top: 5px;
+    margin-bottom: 5px;
+    color: black;
+    font-weight: bold;
+    font-size: 13px;
+`
+
+const AnswerInfo = styled.div`
     margin-top: 5px;
     margin-bottom: 5px;
     color: gray;
     font-size: 13px;
-  }
+`
 
-  .voteinfo{
-    color: black;
-    font-weight: bold;
-  }
+const ViewInfo = styled.div`
+    margin-top: 5px;
+    margin-bottom: 5px;
+    color: gray;
+    font-size: 13px;
 `
 
 const QuestionInfo2 = styled.span`
   margin-left: 20px;
   width: 100%;
   height: 110px;
-
-  .titleinfo{
+`
+const TitleInfo = styled.div`
     margin-top: 25px;
     margin-left: 25px;
     font-size: 17px;
     font-weight: bold;
     color: #1D74cc;
-  }
+`
 
-  .taginfo{
+const TagInfo = styled.div`
     margin-top: 10px;
     margin-left: 25px;
 
@@ -190,23 +200,23 @@ const QuestionInfo2 = styled.span`
       color: #1D74cc;
       background-color: #E1ECF4;
     }
-  }
-
-  .timelineinfo{
-    position: relative;
-    right: -70%;
-    font-size: 14px;
-    color: gray;
-
-    #author{
-      padding-right: 10px;
-      color: #1D74cc;
-    }
-
-    #num{
-      color: #000000ca;
-      font-weight: bold;
-      margin-right: 10px;
-    }
-  }
 `
+
+const TimelineInfo = styled.div`
+  position: relative;
+  right: -70%;
+  font-size: 14px;
+  color: gray;
+`
+
+const AuthorInfo = styled.span`
+  padding-right: 10px;
+  color: #1D74cc;
+`
+
+const NumInfo = styled.span`
+  color: #000000ca;
+  font-weight: bold;
+  margin-right: 10px;
+`
+
