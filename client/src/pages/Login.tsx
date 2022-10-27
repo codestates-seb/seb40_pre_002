@@ -2,10 +2,16 @@ import React, { useEffect, useState } from 'react';
 import { useLocation } from 'react-router-dom';
 import styled from 'styled-components';
 import SignInButton from '../components/button/SignInButton';
+import { initialUser, LoginUserType } from '../types/loginUserType';
 
 export default function Login() {
   const [isLogin, setIsLogin] = useState(false);
+  const [userData, setUserData] = useState<LoginUserType>(initialUser);
 
+  const handleDataInput = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const { name, value } = e.target;
+    setUserData({ ...userData, [name]: value });
+  };
   const handleLoginOrSignUp = () => {
     setIsLogin(!isLogin);
   };
@@ -17,17 +23,27 @@ export default function Login() {
           <div className="top-section">
             {!isLogin ? (
               <div className="input-ctn">
-                <label htmlFor="name">Display Name</label>
-                <input type="text" id="name" />
+                <label htmlFor="userName">Display Name</label>
+                <input onChange={handleDataInput} type="text" id="userName" />
               </div>
             ) : null}
             <div className="input-ctn">
-              <label htmlFor="email">Email</label>
-              <input type="email" name="email" id="" />
+              <label htmlFor="userEmail">Email</label>
+              <input
+                onChange={handleDataInput}
+                type="email"
+                name="userEmail"
+                id=""
+              />
             </div>
             <div className="input-ctn">
-              <label htmlFor="password">Password</label>
-              <input type="password" name="password" id="" />
+              <label htmlFor="userPassword">Password</label>
+              <input
+                onChange={handleDataInput}
+                type="password"
+                name="userPassword"
+                id=""
+              />
             </div>
             <div className="p-ctn">
               <p>
@@ -42,7 +58,7 @@ export default function Login() {
               {isLogin ? 'Dont have an account?' : 'Already have an account?'}
               <span style={{ marginLeft: '2px' }} onClick={handleLoginOrSignUp}>
                 {isLogin ? ' Sign up' : 'Log in'}
-              </span>{' '}
+              </span>
             </p>
           </div>
         </InputBox>
