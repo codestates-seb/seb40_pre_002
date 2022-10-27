@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useLocation } from 'react-router-dom';
 import styled from 'styled-components';
+import SignInButton from '../components/button/SignInButton';
 
 export default function Login() {
   const [isLogin, setIsLogin] = useState(false);
@@ -36,7 +37,7 @@ export default function Login() {
             </div>
           </div>
           <div className="bottom-section">
-            <button>{isLogin ? 'Sign in' : 'Sign up'}</button>
+            <SignInButton isLogin={isLogin} />
             <p>
               {isLogin ? 'Dont have an account?' : 'Already have an account?'}
               <span style={{ marginLeft: '2px' }} onClick={handleLoginOrSignUp}>
