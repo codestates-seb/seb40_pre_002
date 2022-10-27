@@ -22,12 +22,6 @@ public class UserController {
     private final UserMapper userMapper;
 
 
-    @GetMapping("/")
-    public String helloWorld(){
-        return "pre project: communication test";
-    }
-
-
     // 회원가입
     @PostMapping("/user/signup")
     public ResponseEntity signUp(@RequestBody UserPostDto userPostDto){

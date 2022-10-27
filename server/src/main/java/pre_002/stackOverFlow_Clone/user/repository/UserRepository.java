@@ -6,4 +6,5 @@ import pre_002.stackOverFlow_Clone.user.entity.User;
 
 @Repository
 public interface UserRepository extends JpaRepository<User, Long> {
+    User findUserById(Long userId);
 }

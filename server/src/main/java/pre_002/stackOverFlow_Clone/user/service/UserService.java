@@ -4,6 +4,9 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import pre_002.stackOverFlow_Clone.user.entity.User;
 import pre_002.stackOverFlow_Clone.user.repository.UserRepository;
+
+import java.util.Optional;
+
 @Service
 @RequiredArgsConstructor
 public class UserService {

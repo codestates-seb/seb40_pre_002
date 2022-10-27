@@ -31,6 +31,8 @@ public class Question {
 
     private int views;
 
+    private int countAnswer;
+
     @CreatedDate
     @Column(updatable = false)
     private LocalDateTime createdAt;
