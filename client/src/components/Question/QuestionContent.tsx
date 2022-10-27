@@ -1,7 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 import { Link } from 'react-router-dom';
-const QuestionBody = () => {
+const QuestionContent = () => {
   return (
     <Question>
       <Qbody>
@@ -72,4 +72,4 @@ const Date = styled.p`
 const Username = styled.p`
   color: #0074cc;
 `;
-export default QuestionBody;
+export default QuestionContent;

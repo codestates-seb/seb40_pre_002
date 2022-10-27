@@ -1,35 +1,35 @@
 import React, { useEffect, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
-import axios from '../api/axios';
-import QuestionAnswer from '../components/Question/QuestionAnswer';
-import QuestionAnswerForm from '../components/Question/QuestionAnswerForm';
-import QuestionBody from '../components/Question/QuestionBody';
-import QuestionHead from '../components/Question/QuestionHead';
+import { detailAPIs } from '../api/detail';
+import AnswerContent from '../components/Question/AnswerContent';
+import AnswerForm from '../components/Question/AnswerForm';
+import QuestionContent from '../components/Question/QuestionContent';
+import QuestionTitle from '../components/Question/QuestionTitle';
 
 export default function Detail() {
-  // const { id } = useParams();
-  // //const navigate = useNavigate();
+  const { id } = useParams();
+  const [question, setQuestion] = useState<any>(null);
+  const [answers, setAnswers] = useState<any>(null);
 
-  // const [post, setPost] = useState({});
+  useEffect(() => {
+    detailAPIs.getDetail(id).then((res) => {
+      const quest = res.data.Question;
+      const ans = res.data.AnswerList;
+      setQuestion(quest);
+      setAnswers(ans);
 
-  // useEffect(() => {
-  //   async function fetchData() {
-  //     const request = await axios.get(`/questionList/${id}`);
-  //     setPost(request.data);
-  //   }
-  //   fetchData();
-  // }, [id]);
-
-  // //데이터가 없다면
-  // if (!post) return <div>...loading</div>;
+      console.log('ans', res.data.Question);
+      console.log('question', res.data.AnswerList);
+    });
+  }, []);
 
   return (
     <>
       <div>
-        <QuestionHead />
-        <QuestionBody />
-        <QuestionAnswer />
-        <QuestionAnswerForm />
+        <QuestionTitle />
+        <QuestionContent />
+        <AnswerContent />
+        <AnswerForm />
       </div>
     </>
   );

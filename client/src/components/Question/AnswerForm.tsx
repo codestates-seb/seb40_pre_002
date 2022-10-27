@@ -1,7 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 
-const QuestionAnswerForm = () => {
+const AnswerForm = () => {
   return (
     <Answerform>
       <p>Your Answer</p>
@@ -59,4 +59,4 @@ const Button = styled.button`
   }
 `;
 
-export default QuestionAnswerForm;
+export default AnswerForm;

@@ -1,7 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 
-const QuestionHead = () => {
+const QuestionTitle = () => {
   return (
     <Head>
       <Title>
@@ -80,4 +80,4 @@ const Tbody = styled.div`
   border-color: hsl(210, 8%, 90%) !important;
 `;
 
-export default QuestionHead;
+export default QuestionTitle;
