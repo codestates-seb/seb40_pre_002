@@ -14,11 +14,12 @@ import javax.persistence.*;
 import java.sql.Timestamp;
 import java.time.LocalDateTime;
 
-@Entity(name = "ANSWER")
+@Entity(name = "ANSWERS")
 @Getter
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
+@Table(name = "ANSWERS")
 public class Answer {
 
     @Id
@@ -42,12 +43,4 @@ public class Answer {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name="question_id")
     private Question question;
-
-    private long lastTime;
-
-    public void getLastTime() {
-        long time1 = createdAt.getTime();
-        long time2 = modifiedAt.getTime();
-        lastTime = Math.min(time1, time2);
-    }
 }

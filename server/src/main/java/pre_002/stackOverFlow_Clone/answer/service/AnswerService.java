@@ -55,6 +55,6 @@ public class AnswerService {
     }
 
     private User findVerifiedUser(Long userId) {
-        return userRepository.findUserById(userId);
+        return userRepository.findByUserId(userId);
     }
 }

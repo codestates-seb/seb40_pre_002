@@ -6,7 +6,9 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
+import pre_002.stackOverFlow_Clone.answer.dto.AnswerDto;
 import pre_002.stackOverFlow_Clone.answer.entity.Answer;
+import pre_002.stackOverFlow_Clone.answer.mapper.AnswerMapper;
 import pre_002.stackOverFlow_Clone.answer.repository.AnswerRepository;
 import pre_002.stackOverFlow_Clone.answer.service.AnswerService;
 import pre_002.stackOverFlow_Clone.dto.MultiResponseDto;
@@ -32,7 +34,7 @@ public class QuestionController {
     private final QuestionService questionService;
     private final QuestionMapper questionMapper;
     private final AnswerService answerService;
-    private final AnswerRepository answerRepository;
+    private final AnswerMapper answerMapper;
 
     // 전체 질문 조회
     @GetMapping
@@ -49,16 +51,19 @@ public class QuestionController {
 
     // 상세 질문 조회
     @GetMapping("/{question-id}")
-    public ResponseEntity getDetailQuestion(@PathVariable("question_id") @Positive Long questionId,
+    public ResponseEntity getDetailQuestion(@PathVariable("question-id") @Positive Long questionId,
                                             @RequestParam(name = "page", required = false, defaultValue = "1") int page,
                                             @RequestParam(name = "size", required = false, defaultValue = "30") int size) {
 
         Question question = questionService.getQuestion(questionId);
+
         Pageable pageable = PageRequest.of(page, size, Sort.by("").descending());
 
-        Page<Answer> answers = answerService.readAnswers(question, pageable);
+        Page<Answer> answerPage = answerService.readAnswers(question, pageable);
 
-        DetailQuestionResponseDto responseDto = questionMapper.questionToResponse(question, answers);
+        Page<AnswerDto> answerDtos = answerMapper.answerToAnswerDto(answerPage);
+
+        DetailQuestionResponseDto responseDto = questionMapper.questionToResponse(question, answerDtos);
 
         return new ResponseEntity<>(new SingleResponseDto<>(responseDto), HttpStatus.OK);
     }
