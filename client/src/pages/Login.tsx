@@ -15,6 +15,7 @@ export default function Login() {
     const { name, value } = e.target;
     setUserData({ ...userData, [name]: value });
   };
+
   const handleLoginOrSignUp = () => {
     setIsLogin(!isLogin);
   };
