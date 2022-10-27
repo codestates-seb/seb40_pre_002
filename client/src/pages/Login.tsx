@@ -1,4 +1,3 @@
-/* eslint-disable react-hooks/exhaustive-deps */
 import React, { useEffect, useState } from 'react';
 import { useLocation } from 'react-router-dom';
 import styled from 'styled-components';
@@ -10,7 +9,7 @@ import { initialUser, LoginUserType } from '../types/loginUserType';
 export default function Login() {
   const [isLogin, setIsLogin] = useState(false);
   const [userData, setUserData] = useState<LoginUserType>(initialUser);
-  const [isValidPassword, setPassword] = useIsValidPassword();
+  const { isValidPassword } = useIsValidPassword(userData.userPassword);
 
   const handleDataInput = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
@@ -19,8 +18,6 @@ export default function Login() {
   const handleLoginOrSignUp = () => {
     setIsLogin(!isLogin);
   };
-
-  useEffect(() => setPassword(userData.userPassword));
 
   const handleSubmit = () => {
     //TODO: submit data to server
