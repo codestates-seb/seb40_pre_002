@@ -2,6 +2,10 @@ import React from 'react';
 import styled from 'styled-components';
 import { Link } from 'react-router-dom';
 
+// Aside -> Component -> 외부로 빼기
+// 로그인 창에 nav바, aside가 안보여야 됨
+// Question info 컴포넌트화
+
 export default function Home() {
   return (
     <HomeBody>
@@ -10,7 +14,7 @@ export default function Home() {
         <HomeBar>Home<Index /></HomeBar>
       </AsideLeft>
 
-      <main>
+      <Main>
         <MainHead>
 
           <Question>
@@ -26,7 +30,7 @@ export default function Home() {
         </MainHead>
 
         <ItemList>
-          <QuestionLi>
+          <QuestionLi> 
             <QuestionInfo1>
               <VoteInfo>0 votes</VoteInfo>
               <AnswerInfo>0 answers</AnswerInfo>
@@ -41,7 +45,7 @@ export default function Home() {
           </QuestionLi>
         </ItemList>
 
-      </main>
+      </Main>
 
       <AsideRight></AsideRight>
     </HomeBody>
@@ -52,22 +56,25 @@ const HomeBody = styled.body`
   width: 100vw;
   height: 100vh;
   margin: 0;
-  display: grid;
-  grid-template-columns: 245px auto 450px;
+  display: flex;
 `
 
 const AsideLeft = styled.aside`
+  min-width: 245px;
+  height: 100vh;
   border-right: solid 1px lightgray;
 `
 
 const AsideRight = styled.aside`
-  
+  min-width: 450px;
+  height: 100vh;
 `
 const HomeBar = styled.div`
   width: 143px;
   height: 34px;
   padding-left: 5px;
-  margin-left: 40%;
+  position: relative;
+  left: 98px;
   margin-top: 20px;
   background-color: #F1F2F3;
   font-size: 15px;
@@ -82,6 +89,11 @@ const Index = styled.span`
   height: 34px;
   background-color: orange;
 `
+
+const Main = styled.main`
+  min-width: 800px;
+`
+
 const MainHead = styled.div`
   height: 110px;
   margin: 20px;
