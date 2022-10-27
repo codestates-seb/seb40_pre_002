@@ -1,30 +1,23 @@
 package pre_002.stackOverFlow_Clone.question.dto;
 
-import lombok.*;
-import pre_002.stackOverFlow_Clone.answer.entity.Answer;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
-import javax.validation.constraints.NotBlank;
-import java.time.LocalDateTime;
-import java.util.ArrayList;
-import java.util.List;
+import javax.validation.Valid;
 
 public class QuestionDto {
 
     @Getter
     @Setter
+    @NoArgsConstructor
     @AllArgsConstructor
     public static class Post {
+        @Valid
         private String questionTitle;
-        private String questionContents;
-//        private Long userId;
-    }
 
-    @Getter
-    @Setter
-    @AllArgsConstructor
-    public static class Patch {
-        private Long questionId;
-        private String questionTitle;
+        @Valid
         private String questionContents;
     }
 
@@ -32,11 +25,9 @@ public class QuestionDto {
     @Setter
     @NoArgsConstructor
     @AllArgsConstructor
-    public static class Response {
+    public static class Patch {
         private Long questionId;
         private String questionTitle;
         private String questionContents;
-        private LocalDateTime createdAt;
-        private LocalDateTime modifiedAt;
     }
 }

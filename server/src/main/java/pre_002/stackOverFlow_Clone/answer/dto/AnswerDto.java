@@ -4,21 +4,19 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import pre_002.stackOverFlow_Clone.answer.entity.Answer;
+import pre_002.stackOverFlow_Clone.question.dto.QuestionDto;
 
 import java.sql.Timestamp;
-import java.time.LocalDateTime;
-import java.util.List;
 
+
+@Getter
+@Setter
+@NoArgsConstructor
+@AllArgsConstructor
 public class AnswerDto {
-    @Getter
-    @Setter
-    @NoArgsConstructor
-    @AllArgsConstructor
-    public static class Response {
-        private long answerId;
-        private List<Answer> answerList;
-        private LocalDateTime createdAt;
-        private Timestamp modifiedAt;
-    }
+    private Long answerId;
+    private String answerContents;
+//    private QuestionDto question;
+    private Timestamp createdAt;
+    private Timestamp modifiedAt;
 }

@@ -6,6 +6,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedDate;
+import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 import pre_002.stackOverFlow_Clone.answer.entity.Answer;
 
 import javax.persistence.*;
@@ -13,12 +14,11 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
-@Entity
+@Entity(name = "QUESTIONS")
 @Getter
 @Setter
 @NoArgsConstructor
-@AllArgsConstructor
-@Table(name = "QUESTIONS")
+@EntityListeners(AuditingEntityListener.class)
 public class Question {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -36,8 +36,13 @@ public class Question {
     @Column(updatable = false)
     private LocalDateTime createdAt;
 
-    @Column
+    @LastModifiedDate
+    @Column(insertable = false)
     private LocalDateTime modifiedAt;
+
+    @CreatedDate
+    @Column(insertable = false, updatable = false)
+    private LocalDateTime answeredAt;
 
 //    @ManyToOne(fetch = FetchType.EAGER)
 //    @JoinColumn(name = "USER_ID")
@@ -46,4 +51,7 @@ public class Question {
     @OneToMany(mappedBy = "question", cascade = CascadeType.ALL)
     private List<Answer> answers = new ArrayList<>();
 
+    public void addAnswer(Answer answer) {
+        answers.add(answer);
+    }
 }
