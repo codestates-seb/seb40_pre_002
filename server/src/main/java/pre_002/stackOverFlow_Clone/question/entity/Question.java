@@ -3,6 +3,7 @@ package pre_002.stackOverFlow_Clone.question.entity;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedDate;
 import pre_002.stackOverFlow_Clone.answer.entity.Answer;
@@ -14,22 +15,21 @@ import java.util.List;
 
 @Entity
 @Getter
+@Setter
 @NoArgsConstructor
 @AllArgsConstructor
 @Table(name = "QUESTIONS")
 public class Question {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "question_id", nullable = false)
     private Long questionId;
 
-    @Column(nullable = false)
+    @Column
     private String questionTitle;
 
-    @Column(nullable = false)
+    @Column
     private String questionContents;
 
-    @Column(nullable = false)
     private int views;
 
     @CreatedDate
@@ -43,7 +43,7 @@ public class Question {
 //    @JoinColumn(name = "USER_ID")
 //    private Users user;
 
-    @OneToMany(mappedBy = "question", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "question", cascade = CascadeType.ALL)
     private List<Answer> answers = new ArrayList<>();
 
 }

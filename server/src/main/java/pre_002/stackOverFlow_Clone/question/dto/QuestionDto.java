@@ -14,10 +14,9 @@ public class QuestionDto {
     @Setter
     @AllArgsConstructor
     public static class Post {
-
         private String questionTitle;
         private String questionContents;
-        private Long userId;
+//        private Long userId;
     }
 
     @Getter
@@ -30,31 +29,14 @@ public class QuestionDto {
     }
 
     @Getter
-    @NoArgsConstructor
-    @AllArgsConstructor
-    @Builder
-    public static class QuestionListResponse {
-        private Long questionId;
-        private String questionTitle;
-        private String questionContents;
-//        private UserResponseDto user;
-        private Integer views;
-        private LocalDateTime createdAt;
-        private LocalDateTime modifiedAt;
-    }
-
-    @Getter
     @Setter
     @NoArgsConstructor
     @AllArgsConstructor
-    public static class DetailQuestionResponse {
+    public static class Response {
         private Long questionId;
         private String questionTitle;
         private String questionContents;
-//        private UserResponseDto user;
-        private int views;
         private LocalDateTime createdAt;
         private LocalDateTime modifiedAt;
-        private List<Answer> answerList = new ArrayList<>();
     }
 }
