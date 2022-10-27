@@ -4,7 +4,6 @@ Spring:
     url: jdbc:mysql://localhost:3306/pre_project_db?createDatabaseIfNotExist=true&useUnicode=true&characterEncoding=UTF-8
     username: root
     password:
-
   jpa:
     database: mysql
     show-sql: true
@@ -14,3 +13,7 @@ Spring:
       hibernate:
         show_sql: true
         format_sql: true
+jwt:
+  secret-key: kevin1234123412341234123412341234
+  access-token-expiration-minutes: 30
+  refresh-token-expiration-minutes: 420

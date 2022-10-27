@@ -12,7 +12,5 @@ public class StackOverFlowCloneApplication extends SpringBootServletInitializer 
 		SpringApplication.run(StackOverFlowCloneApplication.class, args);
 	}
 
-	protected SpringApplicationBuilder configure(SpringApplicationBuilder builder) {
-		return builder.sources(StackOverFlowCloneApplication.class);
-	}
+
 }
