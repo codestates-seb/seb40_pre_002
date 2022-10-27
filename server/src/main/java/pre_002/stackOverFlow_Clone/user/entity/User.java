@@ -5,6 +5,8 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 
 @NoArgsConstructor
 @Getter
@@ -22,6 +24,15 @@ public class User {
     @Column(nullable = false)
     private String userName;
 
-    @Column(nullable = false)
+    @Column(length = 100, nullable = false)
     private String password;
+
+    @ElementCollection(fetch = FetchType.EAGER)
+    private List<String> roles = new ArrayList<>();
+
+    public enum UserRole {
+        ROLE_USER,
+        ROLE_ADMIN
+    }
+
 }
