@@ -25,6 +25,7 @@ const Head = styled.div`
 `;
 
 const Title = styled.div`
+  margin-top: 60px;
   display: flex;
   height: 100%;
   flex-direction: row;
@@ -68,7 +69,6 @@ const Title = styled.div`
 
 const Tbody = styled.div`
   display: flex;
-
   height: 30px;
   padding: 5px 20px;
   font-size: 13px;
