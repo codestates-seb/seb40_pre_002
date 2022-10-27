@@ -1,12 +1,16 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import React, { useEffect, useState } from 'react';
 import { useLocation } from 'react-router-dom';
 import styled from 'styled-components';
+import { UserAccess } from '../api/signin';
 import SignInButton from '../components/button/SignInButton';
+import { useIsValidPassword } from '../hooks/Login/LoginHooks';
 import { initialUser, LoginUserType } from '../types/loginUserType';
 
 export default function Login() {
   const [isLogin, setIsLogin] = useState(false);
   const [userData, setUserData] = useState<LoginUserType>(initialUser);
+  const [isValidPassword, setPassword] = useIsValidPassword();
 
   const handleDataInput = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
@@ -14,6 +18,13 @@ export default function Login() {
   };
   const handleLoginOrSignUp = () => {
     setIsLogin(!isLogin);
+  };
+
+  useEffect(() => setPassword(userData.userPassword));
+
+  const handleSubmit = () => {
+    //TODO: submit data to server
+    // UserAccess.login;
   };
 
   return (
@@ -46,14 +57,21 @@ export default function Login() {
               />
             </div>
             <div className="p-ctn">
-              <p>
-                Password Must contain at least eight characters, including at
-                least 1letter and 1 number.
-              </p>
+              {isValidPassword ? (
+                <p>
+                  Password Must contain at least eight characters, including at
+                  least 1 letter and 1 number.
+                </p>
+              ) : (
+                <p style={{ color: 'red' }}>
+                  Password Must contain at least eight characters, including at
+                  least 1 letter and 1 number.
+                </p>
+              )}
             </div>
           </div>
           <div className="bottom-section">
-            <SignInButton isLogin={isLogin} />
+            <SignInButton handleClick={handleSubmit} isLogin={isLogin} />
             <p>
               {isLogin ? 'Dont have an account?' : 'Already have an account?'}
               <span style={{ marginLeft: '2px' }} onClick={handleLoginOrSignUp}>

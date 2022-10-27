@@ -1,6 +1,6 @@
 import axios from 'axios';
 import { LoginUserType } from '../types/loginUserType';
 
-const UserAccess = {
+export const UserAccess = {
   login: async (userData: LoginUserType, isLogin: boolean) => {},
 };
