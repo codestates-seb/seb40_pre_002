@@ -8,12 +8,19 @@ Spring:
     database: mysql
     show-sql: true
     hibernate:
-      ddl-auto: create
+      ddl-auto: create-drop
     properties:
       hibernate:
         show_sql: true
         format_sql: true
+
+logging:
+  level:
+    org:
+      springframework:
+        orm:
+          jpa: DEBUG
 jwt:
-  secret-key: kevin1234123412341234123412341234
+  secret-key: dlatlqlalfqjsgh
   access-token-expiration-minutes: 30
   refresh-token-expiration-minutes: 420
