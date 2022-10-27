@@ -1,6 +1,8 @@
 import React from 'react';
 import styled from 'styled-components';
 import { Link } from 'react-router-dom';
+import HomeAsideLeft from '../components/Sidebar/HomeAsideLeft';
+import AsideRight from '../components/Sidebar/AsideRight';
 
 // Aside -> Component -> 외부로 빼기
 // 로그인 창에 nav바, aside가 안보여야 됨
@@ -10,9 +12,7 @@ export default function Home() {
   return (
     <HomeBody>
 
-      <AsideLeft>
-        <HomeBar>Home<Index /></HomeBar>
-      </AsideLeft>
+      <HomeAsideLeft/>
 
       <Main>
         <MainHead>
@@ -47,7 +47,7 @@ export default function Home() {
 
       </Main>
 
-      <AsideRight></AsideRight>
+      <AsideRight />
     </HomeBody>
   )
 }
@@ -59,38 +59,9 @@ const HomeBody = styled.body`
   display: flex;
 `
 
-const AsideLeft = styled.aside`
-  min-width: 245px;
-  height: 100vh;
-  border-right: solid 1px lightgray;
-`
-
-const AsideRight = styled.aside`
-  min-width: 450px;
-  height: 100vh;
-`
-const HomeBar = styled.div`
-  width: 143px;
-  height: 34px;
-  padding-left: 5px;
-  position: relative;
-  left: 98px;
-  margin-top: 20px;
-  background-color: #F1F2F3;
-  font-size: 15px;
-  font-weight: bold;
-  display: flex;
-  align-items: center;
-`
-
-const Index = styled.span`
-  margin-left: 98px;
-  width: 5px;
-  height: 34px;
-  background-color: orange;
-`
-
 const Main = styled.main`
+  position: fixed;
+  margin-left: 245px;
   min-width: 800px;
 `
 
