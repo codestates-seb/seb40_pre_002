@@ -39,7 +39,7 @@ public class Question {
     @Column(updatable = false)
     private LocalDateTime createdAt;
 
-    @LastModifiedDate
+//    @LastModifiedDate
     @Column(insertable = false)
     private LocalDateTime modifiedAt;
 
