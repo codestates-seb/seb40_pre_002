@@ -61,11 +61,12 @@ public class QuestionController {
 
         Page<Answer> answerPage = answerService.readAnswers(question, pageable);
 
-        Page<AnswerDto> answerDtos = answerMapper.answerToAnswerDto(answerPage);
+//        Page<AnswerDto> answerDtos = answerMapper.answerToAnswerDto(answerPage);
 
-        DetailQuestionResponseDto responseDto = questionMapper.questionToResponse(question, answerDtos);
+//        DetailQuestionResponseDto responseDto = questionMapper.questionToResponse(question, answerDtos);
 
-        return new ResponseEntity<>(new SingleResponseDto<>(responseDto), HttpStatus.OK);
+//        return new ResponseEntity<>(new SingleResponseDto<>(responseDto), HttpStatus.OK);
+        return null;
     }
 
     // 질문 등록

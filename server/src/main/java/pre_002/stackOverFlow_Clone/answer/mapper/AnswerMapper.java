@@ -7,5 +7,4 @@ import pre_002.stackOverFlow_Clone.answer.entity.Answer;
 
 @Mapper(componentModel = "spring")
 public interface AnswerMapper {
-    Page<AnswerDto> answerToAnswerDto(Page<Answer> answers);
 }
