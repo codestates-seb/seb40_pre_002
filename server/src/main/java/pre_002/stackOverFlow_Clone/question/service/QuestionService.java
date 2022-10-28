@@ -18,6 +18,7 @@ public class QuestionService{
     private final QuestionRepository questionRepository;
 
     public Page<Question> getQuestionList(int page, int size) {
+
         Pageable pageable =
                 PageRequest.of(page - 1, size,
                         Sort.by("questionId").descending());
@@ -26,6 +27,11 @@ public class QuestionService{
     }
 
     public Question getQuestion(Long questionId) {
+
+        Question question = questionRepository.findByQuestionId(questionId);
+        question.setViews(question.getViews() + 1);
+        questionRepository.save(question);
+
         return questionRepository.findByQuestionId(questionId);
     }
 

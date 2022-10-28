@@ -27,7 +27,7 @@ import java.sql.Timestamp;
 import java.util.List;
 
 @RequiredArgsConstructor
-@RequestMapping("/questionlist")
+@RequestMapping("/")
 @RestController
 @Validated
 public class QuestionController {
@@ -37,9 +37,9 @@ public class QuestionController {
     private final AnswerMapper answerMapper;
 
     // 전체 질문 조회
-    @GetMapping
+    @GetMapping("/questionlist")
     public ResponseEntity getQuestionList(@RequestParam(name = "page", required = false, defaultValue = "1") int page,
-                                          @RequestParam(name = "size", required = false, defaultValue = "15")int size) {
+                                          @RequestParam(name = "size", required = false, defaultValue = "15") int size) {
 
         Page<Question> questionPage = questionService.getQuestionList(page, size);
         PageInfo pageInfo = PageInfo.of(questionPage);
@@ -50,27 +50,20 @@ public class QuestionController {
     }
 
     // 상세 질문 조회
-    @GetMapping("/{question-id}")
+    @GetMapping("/questionlist/{question-id}")
     public ResponseEntity getDetailQuestion(@PathVariable("question-id") @Positive Long questionId,
                                             @RequestParam(name = "page", required = false, defaultValue = "1") int page,
                                             @RequestParam(name = "size", required = false, defaultValue = "30") int size) {
 
         Question question = questionService.getQuestion(questionId);
 
-        Pageable pageable = PageRequest.of(page, size, Sort.by("").descending());
-
-        Page<Answer> answerPage = answerService.readAnswers(question, pageable);
-
-//        Page<AnswerDto> answerDtos = answerMapper.answerToAnswerDto(answerPage);
-
-//        DetailQuestionResponseDto responseDto = questionMapper.questionToResponse(question, answerDtos);
-
-//        return new ResponseEntity<>(new SingleResponseDto<>(responseDto), HttpStatus.OK);
-        return null;
+        return new ResponseEntity<>(new SingleResponseDto<>(
+                questionMapper.questionToResponse(
+                        answerService, answerMapper, question, page - 1, size)), HttpStatus.OK);
     }
 
     // 질문 등록
-    @PostMapping
+    @PostMapping("/questionlist")
     public Long postQuestion(@Valid @RequestBody QuestionDto.Post post) {
 
         Question question = questionService.postQuestion(questionMapper.postToQuestion(post));
