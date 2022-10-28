@@ -10,8 +10,7 @@ import AsideRight from '../components/Sidebar/AsideRight';
 
 export default function Home() {
   return (
-    <HomeBody>
-
+    <>    
       <HomeAsideLeft/>
 
       <Main>
@@ -48,16 +47,9 @@ export default function Home() {
       </Main>
 
       <AsideRight />
-    </HomeBody>
+      </>
   )
 }
-
-const HomeBody = styled.body`
-  width: 100vw;
-  height: 100vh;
-  margin: 0;
-  display: flex;
-`
 
 const Main = styled.main`
   position: fixed;
