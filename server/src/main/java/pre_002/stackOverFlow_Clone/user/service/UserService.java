@@ -11,11 +11,12 @@ import pre_002.stackOverFlow_Clone.exception.ExceptionCode;
 import pre_002.stackOverFlow_Clone.user.entity.User;
 import pre_002.stackOverFlow_Clone.user.repository.UserRepository;
 
+
 import java.util.List;
 import java.util.Optional;
 
-@Transactional
 @Service
+@Transactional
 @RequiredArgsConstructor
 public class UserService {
     private final UserRepository userRepository;

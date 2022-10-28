@@ -26,7 +26,7 @@ public class QuestionService{
     }
 
     public Question getQuestion(Long questionId) {
-        return null;
+        return questionRepository.findByQuestionId(questionId);
     }
 
     public Question postQuestion(Question question) {
@@ -40,4 +40,5 @@ public class QuestionService{
     public void delete(Long id) {
 
     }
+
 }
