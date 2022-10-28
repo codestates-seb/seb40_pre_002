@@ -4,8 +4,11 @@ import lombok.*;
 import org.springframework.data.domain.Page;
 import pre_002.stackOverFlow_Clone.answer.dto.AnswerDto;
 import pre_002.stackOverFlow_Clone.answer.entity.Answer;
+import pre_002.stackOverFlow_Clone.dto.MultiResponseDto;
+import pre_002.stackOverFlow_Clone.user.entity.User;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Getter
 @Setter
@@ -15,7 +18,9 @@ public class DetailQuestionResponseDto {
     private Long questionId;
     private String questionTitle;
     private String questionContents;
+    private int view;
     private LocalDateTime createdAt;
     private LocalDateTime modifiedAt;
-    private Page<AnswerDto> answers;
+    private User user;
+    private MultiResponseDto<AnswerDto.Response> answers;
 }

@@ -2,14 +2,14 @@ Spring:
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
     url: jdbc:mysql://localhost:3306/pre_project_db?createDatabaseIfNotExist=true&useUnicode=true&characterEncoding=UTF-8
-    username: root
+    username: admin
     password:
 
   jpa:
     database: mysql
     show-sql: true
     hibernate:
-      ddl-auto: create-drop
+      ddl-auto: create
     properties:
       hibernate:
         show_sql: true
@@ -23,16 +23,16 @@ logging:
           jpa: DEBUG
 
 
-server:
-  port: 8080
-  ssl:
-    enabled: true
-    key-store: classpath:localhost.p12
-    key-store-type: PKCS12
+#server:
+#  port: 8080
+#  ssl:
+#    enabled: false
+#    key-store: classpath:localhost.p12
+#    key-store-type: PKCS12
 
 
 jwt:
-  secret-key: dlatlqlalfqjsgh
+  secret-key: dlatlqlalfqjsghdlatlqlalfqjsghdlatlqlalfqjsghdlatlqlalfqjsghdlatlqlalfqjsghdlatlqlalfqjsghdlatlqlalfqjsgh
   access-token-expiration-minutes: 30
   refresh-token-expiration-minutes: 420
 
