@@ -9,3 +9,8 @@ export const initialUser = {
   userPassword: '',
   userName: '',
 };
+
+export interface ISingupUserResponse {
+  email: string;
+  name: string;
+}

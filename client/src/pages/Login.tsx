@@ -21,8 +21,11 @@ export default function Login() {
   };
 
   const handleSubmit = () => {
-    //TODO: submit data to server
-    // UserAccess.login;
+    if (!isLogin) {
+      UserAccess.signup(userData);
+    } else if (isLogin) {
+      UserAccess.login(userData);
+    }
   };
 
   return (
