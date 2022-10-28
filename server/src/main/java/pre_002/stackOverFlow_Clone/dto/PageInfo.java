@@ -18,18 +18,6 @@ public class PageInfo {
 
     public static PageInfo of(Page page) {
 
-//        this.page = page.getNumber();
-//        this.size = page.getSize();
-//        this.totalElements = page.getTotalElements();
-//        this.totalPages = page.getTotalPages();
-//
-//        if (totalElements == null) {
-//            this.totalElements = 0L;
-//            this.totalPages = 0;
-//        }
-//
-//        return PageInfo.builder().build();
-
         return PageInfo.builder()
                 .page(page.getNumber() + 1)
                 .size(page.getSize())
