@@ -1,10 +1,11 @@
 package pre_002.stackOverFlow_Clone.question.dto;
 
 import lombok.*;
+import org.springframework.data.domain.Page;
 import pre_002.stackOverFlow_Clone.answer.dto.AnswerDto;
+import pre_002.stackOverFlow_Clone.answer.entity.Answer;
 
 import java.time.LocalDateTime;
-import java.util.List;
 
 @Getter
 @Setter
@@ -16,6 +17,5 @@ public class DetailQuestionResponseDto {
     private String questionContents;
     private LocalDateTime createdAt;
     private LocalDateTime modifiedAt;
-    private LocalDateTime answeredAt;
-    private List<AnswerDto> answers;
+    private Page<AnswerDto> answers;
 }
