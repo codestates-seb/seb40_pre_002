@@ -37,7 +37,7 @@ dependencies {
 	implementation 'org.springframework.boot:spring-boot-starter-web'
 
 	// Spring Security 적용 위한 의존 라이브러리
-//	implementation 'org.springframework.boot:spring-boot-starter-security'
+	implementation 'org.springframework.boot:spring-boot-starter-security'
 
 	// JWT 적용 위한 의존 라이브러리
 	implementation 'io.jsonwebtoken:jjwt-api:0.11.5'

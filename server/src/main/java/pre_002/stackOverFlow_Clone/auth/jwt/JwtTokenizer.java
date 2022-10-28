@@ -19,18 +19,18 @@ import java.util.Map;
 @Component
 public class JwtTokenizer {
     @Getter
-//    @Value("${jwt.secret-key}")
+    @Value("${jwt.secret-key}")
     private String secretKey;       //JWT 생성 및 검증 시 사용되는 Secret Key 정보
 
     @Getter
-//    @Value("${jwt.access-token-expiration-minutes}")
+    @Value("${jwt.access-token-expiration-minutes}")
     private int accessTokenExpirationMinutes;       // Access Token 만료 시간 정보
 
     @Getter
-//    @Value("${jwt.refresh-token-expiration-minutes}")
+    @Value("${jwt.refresh-token-expiration-minutes}")
     private int refreshTokenExpirationMinutes;      // Refresh Token 만료 시간 정보입니다
 
-    // Plain Text 형태인 key의 byte[]를 Base64 형식 문자열로 인코딩
+//     Plain Text 형태인 key의 byte[]를 Base64 형식 문자열로 인코딩
     public String encodeBase64SecretKey(String secretKey) {
         return Encoders.BASE64.encode(secretKey.getBytes(StandardCharsets.UTF_8));
     }
@@ -65,6 +65,7 @@ public class JwtTokenizer {
                 .compact();
     }
 
+    // 검증 후, Claims을 반환 하는 용도
     public Jws<Claims> getClaims(String jws, String base64EncodedSecretKey) {
         Key key = getKeyFromBase64EncodedKey(base64EncodedSecretKey);
 
@@ -75,7 +76,24 @@ public class JwtTokenizer {
         return claims;
     }
 
+    // 단순히 검증만 하는 용도로 쓰일 경우
+    public void verifySignature(String jws, String base64EncodedSecretKey) {
+        Key key = getKeyFromBase64EncodedKey(base64EncodedSecretKey);
 
+        Jwts.parserBuilder()
+                .setSigningKey(key)
+                .build()
+                .parseClaimsJws(jws);
+    }
+
+    // 만료날증 구하기
+    public Date getTokenExpiration(int expirationMinutes) {
+        Calendar calendar = Calendar.getInstance();
+        calendar.add(Calendar.MINUTE, expirationMinutes);
+        Date expiration = calendar.getTime();
+
+        return expiration;
+    }
 
     // JWT 서명에 사용할 Secret Key 생성
     private Key getKeyFromBase64EncodedKey(String base64EncoderSecretKey) {
@@ -84,6 +102,4 @@ public class JwtTokenizer {
 
         return key;
     }
-
-
 }
