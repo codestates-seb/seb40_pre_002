@@ -13,7 +13,7 @@ import org.springframework.data.domain.Page;
 public class PageInfo {
     private int page;
     private int size;
-    private Long totalElements;
+    private long totalElements;
     private int totalPages;
 
     public static PageInfo of(Page page) {
