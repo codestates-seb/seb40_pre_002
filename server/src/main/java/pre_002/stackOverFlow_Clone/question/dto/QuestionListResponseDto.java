@@ -19,5 +19,4 @@ public class QuestionListResponseDto {
     private LocalDateTime createdAt;
     private LocalDateTime modifiedAt;
     private LocalDateTime answeredAt;
-
 }

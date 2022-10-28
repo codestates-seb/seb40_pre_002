@@ -17,6 +17,6 @@ public class AnswerDto {
     private Long answerId;
     private String answerContents;
 //    private QuestionDto question;
-    private Timestamp createdAt;
+//    private Timestamp createdAt;
     private Timestamp modifiedAt;
 }
