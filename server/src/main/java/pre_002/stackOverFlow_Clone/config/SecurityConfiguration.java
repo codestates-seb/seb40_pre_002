@@ -20,6 +20,7 @@ import pre_002.stackOverFlow_Clone.auth.jwt.JwtTokenizer;
 
 import java.util.Arrays;
 
+import static org.springframework.security.config.Customizer.withDefaults;
 import static org.springframework.security.crypto.factory.PasswordEncoderFactories.createDelegatingPasswordEncoder;
 
 @Configuration
@@ -65,7 +66,7 @@ public class SecurityConfiguration {
     }
 
     @Bean
-    CorsConfigurationSource corsConfigurationSource() {
+    public CorsConfigurationSource corsConfigurationSource() {
         CorsConfiguration configuration = new CorsConfiguration();
         // CORS 수정
         configuration.addAllowedOrigin("*");

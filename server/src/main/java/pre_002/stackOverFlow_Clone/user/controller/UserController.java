@@ -17,6 +17,7 @@ import pre_002.stackOverFlow_Clone.user.service.UserService;
 @Validated
 @Slf4j
 @RequiredArgsConstructor
+@CrossOrigin
 public class UserController {
     private final UserService userService;
     private final UserMapper userMapper;
