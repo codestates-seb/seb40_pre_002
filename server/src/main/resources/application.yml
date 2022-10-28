@@ -25,10 +25,10 @@ logging:
 
 server:
   port: 8080
-  ssl:
-    enabled: true
-    key-store: classpath:localhost.p12
-    key-store-type: PKCS12
+#  ssl:
+#    enabled: true
+#    key-store: classpath:localhost.p12
+#    key-store-type: PKCS12
 
 
 jwt:
