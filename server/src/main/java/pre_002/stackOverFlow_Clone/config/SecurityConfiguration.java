@@ -20,7 +20,6 @@ import pre_002.stackOverFlow_Clone.auth.jwt.JwtTokenizer;
 
 import java.util.Arrays;
 
-import static org.springframework.security.config.Customizer.withDefaults;
 import static org.springframework.security.crypto.factory.PasswordEncoderFactories.createDelegatingPasswordEncoder;
 
 @Configuration
