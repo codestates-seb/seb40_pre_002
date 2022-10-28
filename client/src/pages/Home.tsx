@@ -61,6 +61,7 @@ const HomeBody = styled.body`
 
 const Main = styled.main`
   position: fixed;
+  margin-top: 80px;
   margin-left: 245px;
   min-width: 800px;
 `
