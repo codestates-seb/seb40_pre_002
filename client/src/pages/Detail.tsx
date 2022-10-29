@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
+import styled from 'styled-components';
 import axios from '../api/axios';
 import QuestionAnswer from '../components/Question/QuestionAnswer';
 import QuestionAnswerForm from '../components/Question/QuestionAnswerForm';
@@ -24,13 +25,20 @@ export default function Detail() {
   // if (!post) return <div>...loading</div>;
 
   return (
-    <>
-      <div>
+    <DetailMain>
+      
         <QuestionHead />
         <QuestionBody />
         <QuestionAnswer />
         <QuestionAnswerForm />
-      </div>
-    </>
+      
+    </DetailMain>
   );
 }
+
+const DetailMain = styled.main`
+  position: fixed;
+  margin-top: 20px;
+  margin-left: 20vw;
+  width: 60vw;
+`

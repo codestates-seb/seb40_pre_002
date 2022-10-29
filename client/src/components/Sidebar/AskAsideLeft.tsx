@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 
-const AsideLeft = () => {
+const AskAsideLeft = () => {
 
   return (
     <>
@@ -11,10 +11,10 @@ const AsideLeft = () => {
 };
 
 const Left = styled.aside`
+  background-color: #F8F9F9;
   position: fixed;
   min-width: 20vw;
   height: 100vh;
-  border-right: solid 1px lightgray;
 `
 
-export default AsideLeft
+export default AskAsideLeft
