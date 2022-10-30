@@ -5,8 +5,13 @@ export const UserAccess = {
   signup: async (userData: LoginUserType) => {
     try {
       const res = await axios.post<ISingupUserResponse>(
-        'http://ec2-43-200-245-227.ap-northeast-2.compute.amazonaws.com:8080/users/signup',
-        userData
+        'http://ec2-52-79-49-56.ap-northeast-2.compute.amazonaws.com:8080/users/signup',
+        userData,
+        {
+          headers: {
+            'Access-Control-Allow-Origin': '*',
+          },
+        }
       );
       console.log('singup', res);
 
@@ -19,7 +24,7 @@ export const UserAccess = {
   login: async (userData: LoginUserType) => {
     try {
       const res = await axios.post(
-        'http://ec2-43-200-245-227.ap-northeast-2.compute.amazonaws.com:8080/users/signup',
+        'http://ec2-52-79-49-56.ap-northeast-2.compute.amazonaws.com:8080/users/signup',
         userData
       );
       console.log('login', res);

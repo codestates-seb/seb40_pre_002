@@ -24,6 +24,7 @@ export default function Login() {
     if (!isLogin) {
       UserAccess.signup(userData);
     } else if (isLogin) {
+      delete userData.userName;
       UserAccess.login(userData);
     }
   };
