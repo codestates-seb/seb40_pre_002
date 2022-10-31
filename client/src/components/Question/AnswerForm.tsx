@@ -35,16 +35,18 @@ const Form = styled.form`
 `;
 
 const Button = styled.button`
-  display: inline-block;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   white-space: nowrap !important;
-  padding: 0.8em;
+  padding: 0.9em;
   margin-top: 15px;
+  border-radius: 3px;
   border: 1px solid transparent;
-  border-radius: var(--br-sm);
   outline: none;
   color: hsl(0, 0%, 100%);
   font-family: inherit;
-  font-weight: normal;
+  font-weight: 600;
   font-size: 13px;
   text-align: center;
   text-decoration: none;

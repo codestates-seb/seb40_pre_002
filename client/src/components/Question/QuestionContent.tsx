@@ -1,38 +1,32 @@
 import React from 'react';
 import styled from 'styled-components';
 import { Link } from 'react-router-dom';
-const QuestionContent = () => {
+import { IQuestion } from '../../types/Detail/detailAnswerType';
+const QuestionContent = (props: IQuestion) => {
   return (
     <Question>
-      <Qbody>
-        I was searching a thing in command pallet such as CTRL+Sift+P in VSCode.
-        Next, I needed to write programs in editors in VSCode. While wirting
-        codes in a editor, I found a typo. So I wanted to delete a charactor by
-        using Back space. But, I could not delte the charactor in only the
-        VSCode Editers. I can remove any charactors or numbers, while using any
-        other editors such as pycharm, and, other editors. If I hit the Back
-        space, the cursor moves to command pallet. I checked short cut of the
-        preferece of VSCode. But, I could not find any short cut of the Back
-        space. I use Win10, and VSCode version is V1.70. I searched google. But,
-        I have not found any answers. Please help I googled in relation to
-        VSCode of the problems. But, I have not found any hint or any solution.
-        I would like to use Back space of my key board.
-      </Qbody>
+      <Qbody>{props.contents}</Qbody>
       <Userinfo>
-        <Link to="/edit">Edit</Link>
+        <StyleLink to="/edit">Edit</StyleLink>
         <User>
-          <Date>asked 2022.22.22</Date>
-          <Username>user</Username>
+          <Date>asked {props.createdAt}</Date>
+          <Username>
+            <p>user:</p> {props.user?.username}
+          </Username>
         </User>
       </Userinfo>
     </Question>
   );
 };
-
+const StyleLink = styled(Link)`
+  text-decoration: none;
+  font-size: 13px;
+  color: #6a737c;
+`;
 const Question = styled.div`
   display: flex;
   width: 80%;
-  padding: 5px 20px;
+  padding: 5px 20px 30px 20px;
   flex-direction: column;
 `;
 const Qbody = styled.div`
@@ -56,20 +50,29 @@ const User = styled.div`
   flex-direction: column;
   box-sizing: border-box;
   padding: 5px 6px 7px 7px;
-  width: 140px;
+  width: 180px;
+  height: 48px;
   margin-top: 15px;
   background-color: hsl(206, 93%, 83.5%);
   align-items: center;
+  line-height: 20px;
   p {
     margin: 0;
-    font-size: 12px;
   }
 `;
 const Date = styled.p`
   color: #6a737c;
+  font-size: 12px;
 `;
 
 const Username = styled.p`
+  display: flex;
+  flex-direction: row;
   color: #0074cc;
+  font-size: 15px;
+  p {
+    color: #232629;
+    font-size: 13px;
+  }
 `;
 export default QuestionContent;

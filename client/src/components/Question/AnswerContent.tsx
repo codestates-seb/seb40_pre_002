@@ -1,41 +1,34 @@
 import React from 'react';
 import styled from 'styled-components';
 import { Link } from 'react-router-dom';
-import QuestionBody from './QuestionContent';
+import { IAnswer } from '../../types/Detail/detailAnswerType';
 
-const AnswerContent = () => {
+const AnswerContent = (answers: IAnswer) => {
   return (
     <Answer>
-      <P>2 Answers</P>
-      <Content>
-        I was searching a thing in command pallet such as CTRL+Sift+P in VSCode.
-        Next, I needed to write programs in editors in VSCode. While wirting
-        codes in a editor, I found a typo. So I wanted to delete a charactor by
-        using Back space. But, I could not delte the charactor in only the
-        VSCode Editers. I can remove any charactors or numbers, while using any
-        other editors such as pycharm, and, other editors. If I hit the Back
-        space, the cursor moves to command pallet. I checked short cut of the
-        preferece of VSCode. But, I could not find any short cut of the Back
-        space. I use Win10, and VSCode version is V1.70. I searched google. But,
-        I have not found any answers. Please help I googled in relation to
-        VSCode of the problems. But, I have not found any hint or any solution.
-        I would like to use Back space of my key board.
-      </Content>
+      <Content>{answers.contents}</Content>
       <Userinfo>
-        <Link to="/edit">Edit</Link>
+        <StyleLink to="/edit">Edit</StyleLink>
         <User>
-          <Date>asked 2022.22.22</Date>
-          <Username>user</Username>
+          <Date>
+            asked :{' '}
+            {answers.modifiedAt ? answers.modifiedAt : answers.createdAt}
+          </Date>
+          <Username>
+            {' '}
+            <p>user:</p>
+            {answers.user?.username}
+          </Username>
         </User>
       </Userinfo>
     </Answer>
   );
 };
 
-const P = styled.p`
-  font-size: 19px;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI Adjusted',
-    'Segoe UI', 'Liberation Sans', sans-serif;
+const StyleLink = styled(Link)`
+  text-decoration: none;
+  font-size: 13px;
+  color: #6a737c;
 `;
 
 const Answer = styled.div`
@@ -54,7 +47,6 @@ const Userinfo = styled.div`
   display: flex;
   flex-direction: row;
   height: 30px;
-
   justify-content: space-between;
   padding: 5px 20px;
   align-items: center;
@@ -65,21 +57,30 @@ const User = styled.div`
   flex-direction: column;
   box-sizing: border-box;
   padding: 5px 6px 7px 7px;
-  width: 140px;
+  width: 180px;
+  height: 48px;
+  line-height: 20px;
   margin-top: 15px;
   background-color: hsl(206, 93%, 83.5%);
   align-items: center;
   p {
     margin: 0;
-    font-size: 12px;
   }
 `;
 const Date = styled.p`
   color: #6a737c;
+  font-size: 12px;
 `;
 
 const Username = styled.p`
   color: #0074cc;
+  font-size: 15px;
+  display: flex;
+  flex-direction: row;
+  p {
+    font-size: 13px;
+    color: #232629;
+  }
 `;
 
 export default AnswerContent;
