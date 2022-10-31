@@ -33,12 +33,6 @@ export default function Askpage() {
         <textarea></textarea>
       </ProblemInput>
 
-      <ExpectiongInput>
-        What did you try and what were you expecting?
-        <div>Describe what you tried, what you expected to happen, and what actually resulted. Minimum 20 characters.</div>
-        <textarea></textarea>
-      </ExpectiongInput>
-
       <SubmitButton>Post your question</SubmitButton>
 
     </AskMain>
@@ -152,32 +146,6 @@ const ProblemInput = styled.div`
     border: solid 1px #a7aaad;
     width: 50vw;
     height: 300px;
-    border-radius: 5px;
-  }
-`
-
-const ExpectiongInput = styled.div`
-  margin: 20px;
-  border: solid 1px #F1F2F3;
-  height: 350px;
-  background-color: white;
-  font-size: 15px;
-  font-weight: bold;
-  padding-left: 20px;
-  padding-top: 30px;
-
-  > div{
-    color: #3b3f42;;
-    font-weight: lighter;
-    font-size: 13px;
-    margin-top: 5px;
-    margin-bottom: 5px;
-  }
-  > textarea{
-    margin-top: 20px;
-    border: solid 1px #a7aaad;
-    width: 50vw;
-    height: 250px;
     border-radius: 5px;
   }
 `
