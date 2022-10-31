@@ -52,9 +52,10 @@ public class AnswerController {
      * */
     @PatchMapping("questionlist/{question-id}/edit")
     public ResponseEntity patchAnswer(@PathVariable("question-id") Long questionId,
-                                      @Valid @RequestBody AnswerDto.Patch patch) {
+                                      @Valid @RequestBody AnswerDto.Patch patch,
+                                      Principal principal) {
 
-        Answer answer = answerService.updateAnswer(answerMapper.patchToAnswer(patch));
+        Answer answer = answerService.updateAnswer(answerMapper.patchToAnswer(patch), questionId, principal);
         AnswerDto.Response response = answerMapper.answerToResponse(answer);
         return new ResponseEntity(response, HttpStatus.OK);
     }

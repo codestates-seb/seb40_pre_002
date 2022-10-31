@@ -37,8 +37,6 @@ public class AnswerService {
 
         User user = userService.findVerifiedUserByEmail(principal.getName());
         Question question = questionService.getQuestion(questionId);
-
-        System.out.println(question.getQuestionId());
         List<Answer> answerList = question.getAnswers();
 
         answerList.add(answer);
@@ -69,16 +67,19 @@ public class AnswerService {
     /*
      * 답변 수정
      * */
-    public Answer updateAnswer(Answer answer) {
+    public Answer updateAnswer(Answer answer, Long questionId, Principal principal) {
 
-        Question question = answer.getQuestion();
-
+        User user = userService.findVerifiedUserByEmail(principal.getName());
+        Question question = questionService.getQuestion(questionId);
         Answer findAnswer = answerRepository.findById(answer.getAnswerId()).get();
+
+        question.setUser(user);
         findAnswer.setAnswerContents(answer.getAnswerContents());
         findAnswer.setModifiedAt(new Timestamp(System.currentTimeMillis()));
+        question.setModifiedAnsweredAt(new Timestamp(System.currentTimeMillis()));
 
-        question.setModifiedAnsweredAt(answer.getModifiedAt());
-
+        answerRepository.save(findAnswer);
+        questionService.patchQuestion(question);
         return findAnswer;
     }
 
