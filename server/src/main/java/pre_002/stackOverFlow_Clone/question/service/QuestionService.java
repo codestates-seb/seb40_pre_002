@@ -49,6 +49,7 @@ public class QuestionService{
     }
 
     public Question patchQuestion(Question question) {
+    
         Question getQuestion = questionRepository.findByQuestionId(question.getQuestionId());
         getQuestion.setModifiedAt(LocalDateTime.now());
         getQuestion.setQuestionTitle(question.getQuestionTitle());
@@ -58,6 +59,7 @@ public class QuestionService{
     }
 
     public void delete(Long questionId) {
+    
         Question question = questionRepository.findByQuestionId(questionId);
         questionRepository.delete(question);
     }
