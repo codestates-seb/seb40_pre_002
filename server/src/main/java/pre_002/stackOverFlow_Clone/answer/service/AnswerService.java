@@ -35,7 +35,9 @@ public class AnswerService {
 //        findVerifiedUser(answer.getUser().getUserId());
 
         Question question = questionService.getQuestion(questionId);
+
         question.setCountAnswer(question.getCountAnswer() + 1);
+        question.setCreatedAnsweredAt(answer.getCreatedAt());
 
         List<Answer> answers = question.getAnswers();
         answers.add(answer);
@@ -68,9 +70,14 @@ public class AnswerService {
      * */
     public Answer updateAnswer(Answer answer) {
 
+        Question question = answer.getQuestion();
+
         Answer findAnswer = answerRepository.findById(answer.getAnswerId()).get();
         findAnswer.setAnswerContents(answer.getAnswerContents());
         findAnswer.setModifiedAt(new Timestamp(System.currentTimeMillis()));
+
+        question.setModifiedAnsweredAt(answer.getModifiedAt());
+
         return findAnswer;
     }
 
