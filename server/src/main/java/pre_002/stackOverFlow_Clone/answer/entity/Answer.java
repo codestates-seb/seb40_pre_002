@@ -5,6 +5,8 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.UpdateTimestamp;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedDate;
 import pre_002.stackOverFlow_Clone.question.entity.Question;
@@ -27,10 +29,11 @@ public class Answer {
     @Column
     private String answerContents;
 
-    @CreatedDate
+    @CreationTimestamp
     @Column(updatable = false)
     private Timestamp createdAt;
 
+    @UpdateTimestamp
     @Column(insertable = false)
     private Timestamp modifiedAt;
 

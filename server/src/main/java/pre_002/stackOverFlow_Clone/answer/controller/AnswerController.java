@@ -16,6 +16,7 @@ import pre_002.stackOverFlow_Clone.question.repository.QuestionRepository;
 
 import javax.validation.Valid;
 import javax.validation.constraints.Positive;
+import java.security.Principal;
 import java.util.List;
 
 @RestController
@@ -34,11 +35,13 @@ public class AnswerController {
      * */
     @PostMapping("/questionlist/{question-id}")
     public ResponseEntity postAnswer(@PathVariable("question-id") Long questionId,
-                                     @Valid @RequestBody AnswerDto.Post post) {
+                                     @Valid @RequestBody AnswerDto.Post post,
+                                     Principal principal) {
 
         Question question = questionRepository.findByQuestionId(questionId);
 
-        Answer answer = answerMapper.postToAnswer(post, question);
+        Answer answer = answerService.createAnswer(answerMapper.postToAnswer(post, question), questionId, principal);
+
         AnswerDto.Response response = answerMapper.answerToResponse(answer);
 
         return new ResponseEntity(response, HttpStatus.CREATED);
