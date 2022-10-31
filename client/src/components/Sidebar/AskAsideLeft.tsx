@@ -13,7 +13,7 @@ const AskAsideLeft = () => {
 const Left = styled.aside`
   background-color: #F8F9F9;
   position: fixed;
-  min-width: 20vw;
+  min-width: 10vw;
   height: 100vh;
 `
 
