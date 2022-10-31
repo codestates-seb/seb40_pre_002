@@ -25,6 +25,7 @@ export default function Detail() {
 
   return (
     <>
+    <DetailMain>
       <Q>
         <QuestionTitle {...question} />
         <QuestionContent {...question} />
@@ -38,6 +39,7 @@ export default function Detail() {
 
         <AnswerForm />
       </Q>
+    </DetailMain>
     </>
   );
 }
@@ -53,3 +55,10 @@ const Q = styled.div`
   flex-direction: column;
   width: 1072px;
 `;
+
+const DetailMain = styled.main`
+  position: fixed;
+  margin-top: 20px;
+  margin-left: 20vw;
+  width: 60vw;
+`
