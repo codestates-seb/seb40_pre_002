@@ -27,7 +27,6 @@ public class Answer {
     @Column
     private String contents;
 
-
     @CreatedDate
     @Column(updatable = false)
     private Timestamp createdAt;
