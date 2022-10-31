@@ -7,15 +7,13 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import pre_002.stackOverFlow_Clone.exception.BusinessLogicException;
-import pre_002.stackOverFlow_Clone.exception.ExceptionCode;
 import pre_002.stackOverFlow_Clone.question.entity.Question;
 import pre_002.stackOverFlow_Clone.question.repository.QuestionRepository;
 import pre_002.stackOverFlow_Clone.user.entity.User;
 import pre_002.stackOverFlow_Clone.user.service.UserService;
 
+import java.security.Principal;
 import java.time.LocalDateTime;
-import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
@@ -43,7 +41,11 @@ public class QuestionService{
         return questionRepository.findByQuestionId(questionId);
     }
 
-    public Question postQuestion(Question question) {
+    public Question postQuestion(Question question, Principal principal) {
+
+        User user = userService.findVerifiedUserByEmail(principal.getName());
+
+        question.setUser(user);
 
         return questionRepository.save(question);
     }
@@ -63,5 +65,4 @@ public class QuestionService{
         Question question = questionRepository.findByQuestionId(questionId);
         questionRepository.delete(question);
     }
-
 }
