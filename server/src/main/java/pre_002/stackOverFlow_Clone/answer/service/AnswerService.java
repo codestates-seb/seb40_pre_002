@@ -41,8 +41,12 @@ public class AnswerService {
         answers.add(answer);
         question.setAnswers(answers);
 
-        System.out.println(answer.getContents());
+
+        System.out.println(answer.getAnswerContents());
+
+        answer.setAnswerContents(answer.getAnswerContents());
         Answer saved = answerRepository.save(answer);
+        saved.setQuestion(question);
         return saved;
     }
 
@@ -65,7 +69,7 @@ public class AnswerService {
     public Answer updateAnswer(Answer answer) {
 
         Answer findAnswer = answerRepository.findById(answer.getAnswerId()).get();
-        findAnswer.setContents(answer.getContents());
+        findAnswer.setAnswerContents(answer.getAnswerContents());
         findAnswer.setModifiedAt(new Timestamp(System.currentTimeMillis()));
         return findAnswer;
     }

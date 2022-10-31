@@ -60,4 +60,14 @@ public class AnswerController {
 ////        List<Answer> answers = findQuestion.getAnswers();
 //        answerService.deleteAnswer(answers);
     }
+
+//    /*
+//     * 답변 조회 test
+//     * */
+//    @GetMapping("/questionlist/{question-id}/answer")
+//    public ResponseEntity getAnswer(@PathVariable("question-id") Long questionId) {
+//        Question question = questionService.getQuestion(questionId);
+//        List<Answer> answers = question.getAnswers();
+//        return new ResponseEntity(answers, HttpStatus.OK);
+//    }
 }

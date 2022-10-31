@@ -26,7 +26,7 @@ public class Answer {
     private Long answerId;
 
     @Column
-    private String contents;
+    private String answerContents;
 
     @CreatedDate
     @Column(updatable = false)

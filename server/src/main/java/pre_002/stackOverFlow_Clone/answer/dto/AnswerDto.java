@@ -17,7 +17,7 @@ public class AnswerDto {
     @NoArgsConstructor
     @AllArgsConstructor
     public static class Post{
-      private Long questionId;
+//      private Long questionId;
       private String answerContents;
     }
 
