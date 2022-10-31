@@ -33,11 +33,11 @@ public class UserDetailService implements UserDetailsService {
 
     private final class UsersDetails extends User implements UserDetails{
 
-        UsersDetails(User user) {
-            setUserId(user.getUserId());
-            setEmail(user.getEmail());
-            setPassword(user.getPassword());
-            setRoles(user.getRoles());
+        UsersDetails(User authUser) {
+            setUserId(authUser.getUserId());
+            setEmail(authUser.getEmail());
+            setPassword(authUser.getPassword());
+            setRoles(authUser.getRoles());
         }
 
         @Override

@@ -35,6 +35,11 @@ public class UserService {
         return userRepository.save(user);
     }
 
+    public User findVerifiedUserByEmail(String email){
+        Optional<User> user = userRepository.findByEmail(email);
+        User findUser = user.orElseThrow(() -> new BusinessLogicException(ExceptionCode.USER_NOT_FOUND));
+        return findUser;
+    }
 
     private void verifyExistsEmail(String email) {
         Optional<User> user = userRepository.findByEmail(email);
