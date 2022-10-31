@@ -15,7 +15,7 @@ public interface AnswerMapper {
     default Answer postToAnswer(AnswerDto.Post post, Question question) {
 
         Answer answer = new Answer();
-        answer.setContents(post.getAnswerContents());
+        answer.setAnswerContents(post.getAnswerContents());
         answer.setQuestion(question);
 
         return answer;
