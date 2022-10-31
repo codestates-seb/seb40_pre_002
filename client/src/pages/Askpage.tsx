@@ -39,6 +39,8 @@ export default function Askpage() {
         <textarea></textarea>
       </ExpectiongInput>
 
+      <SubmitButton>Post your question</SubmitButton>
+
     </AskMain>
 
   );
@@ -177,5 +179,36 @@ const ExpectiongInput = styled.div`
     width: 50vw;
     height: 250px;
     border-radius: 5px;
+  }
+`
+
+const SubmitButton = styled.button`
+  margin-left: 20px;
+  display: inline-block;
+  box-sizing: border-box;
+  position: relative;
+  padding: 0.8em;
+  align-self: center;
+  padding-top: 10px;
+  padding-bottom: 10px;
+
+  border: 1px solid transparent;
+  border-radius: 3px;
+
+  outline: none;
+
+  color: hsl(0, 0%, 100%);
+  font-family: inherit;
+  font-weight: normal;
+  font-size: 13px;
+  text-align: center;
+  text-decoration: none;
+  line-height: calc((15) / 13);
+  cursor: pointer;
+  background-color: hsl(206, 100%, 52%);
+  box-shadow: inset 0 1px 0 0 hsl(0deg 0% 100% / 40%);
+  &:hover {
+    color: white;
+    background-color: hsl(206, 100%, 40%);
   }
 `
