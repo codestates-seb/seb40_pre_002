@@ -13,7 +13,7 @@ import java.util.stream.Collectors;
 @Component
 public class CustomAuthorityUtils {
 
-//    @Value("${mail.address.admin}")     // .yml에 추가한 관리자(admin) 지정 이메일
+    @Value("${mail.address.admin}")     // .yml에 추가한 관리자(admin) 지정 이메일
     private String adminMailAddress;
 
 
