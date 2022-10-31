@@ -13,8 +13,6 @@ import java.time.LocalDateTime;
 public class AnswerDto {
 
     @Getter
-    @Setter
-    @NoArgsConstructor
     @AllArgsConstructor
     public static class Post{
       private Long questionId;
@@ -22,8 +20,6 @@ public class AnswerDto {
     }
 
     @Getter
-    @Setter
-    @NoArgsConstructor
     @AllArgsConstructor
     public static class Patch {
         private Long answerId;

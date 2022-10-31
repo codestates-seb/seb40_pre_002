@@ -13,12 +13,11 @@ import pre_002.stackOverFlow_Clone.user.entity.User;
 import javax.persistence.*;
 import java.sql.Timestamp;
 
-@Entity(name = "ANSWERS")
 @Getter
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-@Table(name = "ANSWERS")
+@Entity(name = "ANSWERS")
 public class Answer {
 
     @Id
@@ -32,7 +31,6 @@ public class Answer {
     @Column(updatable = false)
     private Timestamp createdAt;
 
-    @LastModifiedDate
     @Column(insertable = false)
     private Timestamp modifiedAt;
 
