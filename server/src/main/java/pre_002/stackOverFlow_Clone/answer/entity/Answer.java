@@ -25,6 +25,7 @@ public class Answer {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long answerId;
 
+    @Column
     private String contents;
 
     @CreatedDate
@@ -32,7 +33,7 @@ public class Answer {
     private Timestamp createdAt;
 
     @LastModifiedDate
-    @Column
+    @Column(insertable = false)
     private Timestamp modifiedAt;
 
     @ManyToOne

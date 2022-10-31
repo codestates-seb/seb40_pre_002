@@ -12,9 +12,6 @@ public enum ExceptionCode {
     QUESTION_NOT_FOUND(404,  "Question is not found.");
 
 
-
-
-
     @Getter
     private final int statusCode;
 

@@ -32,6 +32,7 @@ public class AnswerService {
         Question question = questionService.getQuestion(questionId);
         question.setCountAnswer(question.getCountAnswer() + 1);
 
+        System.out.println(answer.getContents());
         Answer saved = answerRepository.save(answer);
         return saved;
     }

@@ -22,7 +22,6 @@ public class AnswerController {
     private final AnswerMapper answerMapper;
 
 
-
     @PostMapping("/questionlist/{question-id}")
     public ResponseEntity postAnswer(@PathVariable("question-id") Long questionId,
                                      @Valid @RequestBody AnswerDto.Post post) {
