@@ -68,7 +68,8 @@ public interface QuestionMapper {
                         .views(question.getViews())
                         .createdAt(question.getCreatedAt())
                         .modifiedAt(question.getModifiedAt())
-                        .answeredAt(question.getAnsweredAt())
+                        .createdAnsweredAt(question.getCreatedAnsweredAt())
+                        .modifiedAnsweredAt(question.getModifiedAnsweredAt())
                         .build())
                 .collect(Collectors.toList());
     }

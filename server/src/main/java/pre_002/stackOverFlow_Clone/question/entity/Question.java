@@ -10,6 +10,7 @@ import pre_002.stackOverFlow_Clone.answer.entity.Answer;
 import pre_002.stackOverFlow_Clone.user.entity.User;
 
 import javax.persistence.*;
+import java.sql.Timestamp;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
@@ -43,9 +44,9 @@ public class Question {
     @Column(insertable = false)
     private LocalDateTime modifiedAt;
 
-    @CreatedDate
-    @Column(insertable = false, updatable = false)
-    private LocalDateTime answeredAt;
+    private Timestamp createdAnsweredAt;
+
+    private Timestamp modifiedAnsweredAt;
 
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "USER_ID")

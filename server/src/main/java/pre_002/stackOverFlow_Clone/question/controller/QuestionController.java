@@ -66,6 +66,7 @@ public class QuestionController {
     public Long postQuestion(@Valid @RequestBody QuestionDto.Post post) {
 
         Question question = questionService.postQuestion(questionMapper.postToQuestion(post));
+
 //        System.out.println(question.getQuestionContents());
 //        DetailQuestionResponseDto response = questionMapper.questionToResponse(question);
 
@@ -81,6 +82,7 @@ public class QuestionController {
         patch.setQuestionId(questionId);
 
         Question question = questionService.patchQuestion(questionMapper.patchToQuestion(patch));
+
 //        QuestionDto.Response response = questionMapper.questionToResponse(question);
 //
 //        return new ResponseEntity<>(new SingleResponseDto<>(response), HttpStatus.OK);
@@ -90,6 +92,7 @@ public class QuestionController {
 
     @DeleteMapping("/questionlist/{question-id}")
     public void deleteQuestion(@PathVariable("question-id") @Positive Long questionId) {
+        
         questionService.delete(questionId);
 
 //        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
