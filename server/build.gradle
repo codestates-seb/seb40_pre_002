@@ -2,7 +2,7 @@ plugins {
 	id 'org.springframework.boot' version '2.7.5'
 	id 'io.spring.dependency-management' version '1.0.15.RELEASE'
 	id "org.asciidoctor.jvm.convert" version "3.3.2" // asciidoc 플러그인
-	id 'war' // 통신테스트 위해 추가
+//	id 'war' // 통신테스트 위해 추가
 	id 'java'
 }
 
