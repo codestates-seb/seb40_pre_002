@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { useLocation } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 import { UserAccess } from '../api/signin';
 import SignInButton from '../components/button/SignInButton';
@@ -10,6 +10,7 @@ export default function Login() {
   const [isLogin, setIsLogin] = useState(false);
   const [userData, setUserData] = useState<LoginUserType>(initialUser);
   const { isValidPassword } = useIsValidPassword(userData.password);
+  const navigate = useNavigate();
 
   const handleDataInput = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
@@ -23,18 +24,19 @@ export default function Login() {
   const handleSubmit = () => {
     if (!isLogin) {
       UserAccess.signup(userData);
+      // move to home page
     } else if (isLogin) {
       delete userData.userName;
       UserAccess.login(userData);
     }
+    navigate(`/`);
   };
-
   return (
     <Background>
       <Container>
         <InputBox>
           <div className="top-section">
-            {!isLogin ? (
+            {!isLogin ? ( //회원가입인경우
               <div className="input-ctn">
                 <label htmlFor="userName">Display Name</label>
                 <input

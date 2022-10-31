@@ -1,5 +1,7 @@
 import axios from 'axios';
+import { useState } from 'react';
 import { ISingupUserResponse, LoginUserType } from '../types/loginUserType';
+import { getStorageToken, setStorageToken } from '../utils/token/token';
 
 async function signup(userData: LoginUserType) {
   try {
@@ -9,16 +11,16 @@ async function signup(userData: LoginUserType) {
     );
     if (res.status === 201) {
       try {
-        const loginRes = await login(userData);
-        console.log('loginRes: ', loginRes);
-        return loginRes;
+        return await login(userData);
       } catch (err) {
         console.error('login after signup', err);
       }
+    } else {
+      throw new Error('signup error, statuscode not 20');
     }
     return res;
   } catch (err) {
-    console.error('singup with statuscode not 201', err);
+    console.error(err);
   }
 }
 
@@ -29,7 +31,11 @@ async function login(userData: LoginUserType) {
       'https://pioneroroom.com/users/login',
       userData
     );
-    console.log('login', res);
+    console.log('ㄱㄷㄴ', res);
+    const token = res.headers.authorization;
+    setStorageToken(token);
+    //console.log('토큰', token);
+    //console.log('겟', getStorageToken());
     return res;
   } catch (err) {
     console.error('login', err);
