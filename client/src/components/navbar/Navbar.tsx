@@ -6,7 +6,9 @@ import logo from '../../images/stackoverlogo.png';
 export default function Navbar() {
   return (
     <Nav>
-      <img alt="logo" src={logo} />
+      <Link to="/">
+        <img alt="logo" src={logo} />
+      </Link>
       <Input placeholder="🔍 search..." />
       <Div>
         <StyledLink to="/login">Login</StyledLink>
