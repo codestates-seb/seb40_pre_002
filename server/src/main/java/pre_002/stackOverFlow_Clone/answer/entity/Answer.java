@@ -27,8 +27,6 @@ public class Answer {
     @Column
     private String contents;
 
-    @Column
-    private int views;
 
     @CreatedDate
     @Column(updatable = false)
