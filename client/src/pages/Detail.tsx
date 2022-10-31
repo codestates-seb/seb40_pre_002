@@ -1,40 +1,60 @@
 import React, { useEffect, useState } from 'react';
-import { useNavigate, useParams } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
+import { detailAPIs } from '../api/detail';
+import AnswerContent from '../components/Question/AnswerContent';
+import AnswerForm from '../components/Question/AnswerForm';
+import QuestionContent from '../components/Question/QuestionContent';
+import QuestionTitle from '../components/Question/QuestionTitle';
+import { IAnswer, IQuestion } from '../types/Detail/detailAnswerType';
 import styled from 'styled-components';
-import axios from '../api/axios';
-import QuestionAnswer from '../components/Question/QuestionAnswer';
-import QuestionAnswerForm from '../components/Question/QuestionAnswerForm';
-import QuestionBody from '../components/Question/QuestionBody';
-import QuestionHead from '../components/Question/QuestionHead';
 
 export default function Detail() {
-  // const { id } = useParams();
-  // //const navigate = useNavigate();
+  const { id } = useParams();
+  const [question, setQuestionList] = useState<IQuestion | undefined>({});
+  const [answerList, setAnswerList] = useState<IAnswer[] | undefined>([]);
 
-  // const [post, setPost] = useState({});
-
-  // useEffect(() => {
-  //   async function fetchData() {
-  //     const request = await axios.get(`/questionList/${id}`);
-  //     setPost(request.data);
-  //   }
-  //   fetchData();
-  // }, [id]);
-
-  // //데이터가 없다면
-  // if (!post) return <div>...loading</div>;
+  useEffect(() => {
+    detailAPIs.getDetail(id).then((res) => {
+      const quest = res.data.Question;
+      const ans = res.data.AnswerList;
+      setQuestionList(quest);
+      setAnswerList(ans);
+      console.log('ㅇㅁㄴㅇㅁㄴㅇ', res.data.AnswerList);
+    });
+  }, []);
 
   return (
+    <>
     <DetailMain>
-      
-        <QuestionHead />
-        <QuestionBody />
-        <QuestionAnswer />
-        <QuestionAnswerForm />
-      
+      <Q>
+        <QuestionTitle {...question} />
+        <QuestionContent {...question} />
+        <StyledP>{answerList?.length} Answers</StyledP>
+
+        <>
+          {answerList?.map((answer) => {
+            return <AnswerContent {...answer} />;
+          })}
+        </>
+
+        <AnswerForm />
+      </Q>
     </DetailMain>
+    </>
   );
 }
+
+const StyledP = styled.p`
+  margin-left: 30px;
+  font-size: 19px;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI Adjusted',
+    'Segoe UI', 'Liberation Sans', sans-serif;
+`;
+const Q = styled.div`
+  display: flex;
+  flex-direction: column;
+  width: 1072px;
+`;
 
 const DetailMain = styled.main`
   position: fixed;
