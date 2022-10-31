@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 import pre_002.stackOverFlow_Clone.exception.BusinessLogicException;
-import pre_002.stackOverFlow_Clone.response.ErrorResponse;
+import pre_002.stackOverFlow_Clone.dto.ErrorResponse;
 
 import javax.validation.ConstraintViolationException;
 
