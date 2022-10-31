@@ -6,6 +6,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.validation.Valid;
+import java.time.LocalDateTime;
 
 public class QuestionDto {
 
@@ -29,5 +30,18 @@ public class QuestionDto {
         private Long questionId;
         private String questionTitle;
         private String questionContents;
+    }
+
+    @Getter
+    @Setter
+    @NoArgsConstructor
+    @AllArgsConstructor
+    public static class Response {
+        private Long questionId;
+        private String questionTitle;
+        private String questionContents;
+        private int view;
+        private LocalDateTime createdAt;
+        private LocalDateTime modifiedAt;
     }
 }

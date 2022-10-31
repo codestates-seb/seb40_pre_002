@@ -65,7 +65,7 @@ public class JwtTokenizer {
                 .compact();
     }
 
-    // 검증 후, Claims을 반환 하는 용도
+    // 서명(Signature 검증 후, Claims을 반환 하는 용도
     public Jws<Claims> getClaims(String jws, String base64EncodedSecretKey) {
         Key key = getKeyFromBase64EncodedKey(base64EncodedSecretKey);
 

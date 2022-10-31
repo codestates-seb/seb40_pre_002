@@ -3,10 +3,12 @@ package pre_002.stackOverFlow_Clone.dto;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
+import lombok.Setter;
 import org.springframework.data.domain.Page;
 
 @AllArgsConstructor
 @Getter
+@Setter
 @Builder
 public class PageInfo {
     private int page;
@@ -15,6 +17,7 @@ public class PageInfo {
     private int totalPages;
 
     public static PageInfo of(Page page) {
+
         return PageInfo.builder()
                 .page(page.getNumber() + 1)
                 .size(page.getSize())

@@ -9,7 +9,7 @@ Spring:
     database: mysql
     show-sql: true
     hibernate:
-      ddl-auto: create-drop
+      ddl-auto: create
     properties:
       hibernate:
         show_sql: true
@@ -25,10 +25,19 @@ logging:
 
 server:
   port: 8080
-
+#  ssl:
+#    enabled: true
+#    key-store: classpath:localhost.p12
+#    key-store-type: PKCS12
+  servlet:
+    encoding:
+      force-response: true
 
 jwt:
   secret-key: dlatlqlalfqjsghdlatlqlalfqjsghdlatlqlalfqjsghdlatlqlalfqjsghdlatlqlalfqjsghdlatlqlalfqjsghdlatlqlalfqjsgh
   access-token-expiration-minutes: 30
   refresh-token-expiration-minutes: 420
 
+mail:
+  address:
+    admin: admin@gmail.com

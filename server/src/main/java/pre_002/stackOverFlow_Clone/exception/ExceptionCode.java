@@ -5,7 +5,11 @@ import lombok.RequiredArgsConstructor;
 
 public enum ExceptionCode {
     USER_NOT_FOUND(404, "User not found"),
-    USER_EXISTS(409, "User exists");
+    USER_EXISTS(409, "User exists"),
+
+    UNAUTHORIZED_NOT_USER(401, "You must be logged."),
+    FORBIDDEN_USER(403,  "You're not a writer."),
+    QUESTION_NOT_FOUND(404,  "Question is not found.");
 
 
     @Getter

@@ -7,6 +7,7 @@ import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 import pre_002.stackOverFlow_Clone.answer.entity.Answer;
+import pre_002.stackOverFlow_Clone.user.entity.User;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
@@ -38,7 +39,7 @@ public class Question {
     @Column(updatable = false)
     private LocalDateTime createdAt;
 
-    @LastModifiedDate
+//    @LastModifiedDate
     @Column(insertable = false)
     private LocalDateTime modifiedAt;
 
@@ -46,14 +47,14 @@ public class Question {
     @Column(insertable = false, updatable = false)
     private LocalDateTime answeredAt;
 
-//    @ManyToOne(fetch = FetchType.EAGER)
-//    @JoinColumn(name = "USER_ID")
-//    private Users user;
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "USER_ID")
+    private User user;
 
     @OneToMany(mappedBy = "question", cascade = CascadeType.ALL)
     private List<Answer> answers = new ArrayList<>();
 
-    public void addAnswer(Answer answer) {
-        answers.add(answer);
+    public void addUser(User user) {
+        this.user = user;
     }
 }
