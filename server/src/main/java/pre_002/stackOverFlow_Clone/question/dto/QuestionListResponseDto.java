@@ -5,6 +5,7 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
+import java.sql.Timestamp;
 import java.time.LocalDateTime;
 
 @Getter
@@ -18,5 +19,6 @@ public class QuestionListResponseDto {
     private Integer views;
     private LocalDateTime createdAt;
     private LocalDateTime modifiedAt;
-    private LocalDateTime answeredAt;
+    private Timestamp createdAnsweredAt;
+    private Timestamp modifiedAnsweredAt;
 }
