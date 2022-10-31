@@ -14,6 +14,7 @@ import pre_002.stackOverFlow_Clone.question.repository.QuestionRepository;
 import pre_002.stackOverFlow_Clone.user.entity.User;
 import pre_002.stackOverFlow_Clone.user.service.UserService;
 
+import java.security.Principal;
 import java.time.LocalDateTime;
 import java.util.Optional;
 
@@ -36,21 +37,25 @@ public class QuestionService{
 
     public Question getQuestion(Long questionId) {
 
-        Question question = questionRepository.findByQuestionId(questionId);
+        Question question = findVerifiedQuestion(questionId);
         question.setViews(question.getViews() + 1);
         questionRepository.save(question);
 
         return questionRepository.findByQuestionId(questionId);
     }
 
-    public Question postQuestion(Question question) {
+    public Question postQuestion(Question question, Principal principal) {
+
+        User user = userService.findVerifiedUserByEmail(principal.getName());
+
+        question.setUser(user);
 
         return questionRepository.save(question);
     }
 
     public Question patchQuestion(Question question) {
     
-        Question getQuestion = questionRepository.findByQuestionId(question.getQuestionId());
+        Question getQuestion = findVerifiedQuestion(question.getQuestionId());
         getQuestion.setModifiedAt(LocalDateTime.now());
         getQuestion.setQuestionTitle(question.getQuestionTitle());
         getQuestion.setQuestionContents(question.getQuestionContents());
@@ -60,8 +65,13 @@ public class QuestionService{
 
     public void delete(Long questionId) {
     
-        Question question = questionRepository.findByQuestionId(questionId);
+        Question question = findVerifiedQuestion(questionId);
         questionRepository.delete(question);
     }
 
+    public Question findVerifiedQuestion(long questionId) {
+        Optional<Question> optionalQuestion = questionRepository.findById(questionId);
+        return optionalQuestion.orElseThrow(() ->
+                new BusinessLogicException(ExceptionCode.QUESTION_NOT_FOUND));
+    }
 }

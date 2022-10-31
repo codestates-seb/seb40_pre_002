@@ -11,8 +11,6 @@ import java.time.LocalDateTime;
 public class QuestionDto {
 
     @Getter
-    @Setter
-    @NoArgsConstructor
     @AllArgsConstructor
     public static class Post {
         @Valid
@@ -24,7 +22,6 @@ public class QuestionDto {
 
     @Getter
     @Setter
-    @NoArgsConstructor
     @AllArgsConstructor
     public static class Patch {
         private Long questionId;
