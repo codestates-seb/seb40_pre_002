@@ -20,25 +20,28 @@ const Nav = styled.nav`
   z-index: 100;
   position: fixed;
   text-align: center;
-  margin: 0 auto;
+  border-top: 3px solid hsl(27, 90%, 55%);
   background-color: hsl(210, 8%, 95%);
-  height: 40px;
+  box-shadow: 0px 0px 3px 0px rgba(0, 0, 0, 0.4);
+  height: 47px;
   width: 100%;
   align-items: center;
+  justify-content: center;
   padding: 10px;
   display: flex;
   background-color: hsl(210, 8%, 97.5%);
   flex-direction: row;
   img {
-    width: 120px;
-    height: 30px;
+    padding-top: 9px;
+    width: 168px;
+    height: 70px;
   }
 `;
 const Input = styled.input`
   width: 60%;
-  height: 30px;
+  height: 28px;
   margin-top: 10px;
-  margin-left: 30px;
+  margin-left: 20px;
   margin-right: 30px;
 `;
 
@@ -58,7 +61,6 @@ const StyledLink = styled(Link)`
   margin-right: 10px;
   color: hsl(205, 47%, 42%);
   background-color: hsl(205, 46%, 92%);
-
   border-color: hsl(205, 41%, 63%);
   text-decoration: none;
   box-shadow: inset 0 1px 0 0 hsl(0deg 0% 100% / 70%);
