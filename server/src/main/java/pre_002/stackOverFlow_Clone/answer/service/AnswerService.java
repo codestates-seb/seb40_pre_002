@@ -12,7 +12,9 @@ import pre_002.stackOverFlow_Clone.question.entity.Question;
 import pre_002.stackOverFlow_Clone.question.service.QuestionService;
 import pre_002.stackOverFlow_Clone.user.entity.User;
 import pre_002.stackOverFlow_Clone.user.repository.UserRepository;
+import pre_002.stackOverFlow_Clone.user.service.UserService;
 
+import java.security.Principal;
 import java.sql.Timestamp;
 import java.util.List;
 import java.util.Optional;
@@ -25,30 +27,27 @@ public class AnswerService {
     private final AnswerRepository answerRepository;
     private final QuestionService questionService;
     private final UserRepository userRepository;
+    private final UserService userService;
 
 
     /*
      * 답변 등록
      * */
-    public Answer createAnswer(Answer answer, Long questionId) {
+    public Answer createAnswer(Answer answer, Long questionId, Principal principal) {
 
-//        findVerifiedUser(answer.getUser().getUserId());
-
+        User user = userService.findVerifiedUserByEmail(principal.getName());
         Question question = questionService.getQuestion(questionId);
+        List<Answer> answerList = question.getAnswers();
 
+        answerList.add(answer);
         question.setCountAnswer(question.getCountAnswer() + 1);
-        question.setCreatedAnsweredAt(answer.getCreatedAt());
+        question.setUser(user);
+        question.setAnswers(answerList);
+        answer.setUser(user);
 
-        List<Answer> answers = question.getAnswers();
-        answers.add(answer);
-        question.setAnswers(answers);
-
-
-        System.out.println(answer.getAnswerContents());
-
-        answer.setAnswerContents(answer.getAnswerContents());
+        questionService.postQuestion(question, principal);
         Answer saved = answerRepository.save(answer);
-        saved.setQuestion(question);
+        question.setCreatedAnsweredAt(saved.getCreatedAt());
         return saved;
     }
 
@@ -68,16 +67,19 @@ public class AnswerService {
     /*
      * 답변 수정
      * */
-    public Answer updateAnswer(Answer answer) {
+    public Answer updateAnswer(Answer answer, Long questionId, Principal principal) {
 
-        Question question = answer.getQuestion();
-
+        User user = userService.findVerifiedUserByEmail(principal.getName());
+        Question question = questionService.getQuestion(questionId);
         Answer findAnswer = answerRepository.findById(answer.getAnswerId()).get();
+
+        question.setUser(user);
         findAnswer.setAnswerContents(answer.getAnswerContents());
         findAnswer.setModifiedAt(new Timestamp(System.currentTimeMillis()));
+        question.setModifiedAnsweredAt(new Timestamp(System.currentTimeMillis()));
 
-        question.setModifiedAnsweredAt(answer.getModifiedAt());
-
+        answerRepository.save(findAnswer);
+        questionService.patchQuestion(question);
         return findAnswer;
     }
 
