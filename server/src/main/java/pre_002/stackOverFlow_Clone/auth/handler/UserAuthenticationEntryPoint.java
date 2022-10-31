@@ -20,7 +20,15 @@ public class UserAuthenticationEntryPoint implements AuthenticationEntryPoint {
         Exception exception = (Exception) request.getAttribute("exception");
         ErrorResponder.sendErrorResponse(response, HttpStatus.UNAUTHORIZED);
 
+        Exception signatureException = (Exception) request.getAttribute("signatureException");
+        ErrorResponder.sendErrorResponse(response, HttpStatus.UNAUTHORIZED);
+
+        Exception expiredJwtException = (Exception) request.getAttribute("expiredJwtException");
+        ErrorResponder.sendErrorResponse(response, HttpStatus.UNAUTHORIZED);
+
         logExceptionMessage(authException, exception);
+        logExceptionMessage(authException, signatureException);
+        logExceptionMessage(authException, expiredJwtException);
     }
 
     private void logExceptionMessage(AuthenticationException authException, Exception exception) {
