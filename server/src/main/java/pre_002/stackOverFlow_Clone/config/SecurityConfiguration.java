@@ -59,7 +59,10 @@ public class SecurityConfiguration {
 
                 .and()
                 .authorizeHttpRequests(authorize -> authorize
-                        .antMatchers(HttpMethod.GET, "/users/information").hasRole("USER")
+                        .antMatchers(HttpMethod.POST, "/users/**").permitAll()
+                        .antMatchers(HttpMethod.POST, "/auth/**").hasRole("USER")
+                        .antMatchers(HttpMethod.GET, "/users/userinfo").hasRole("USER")
+
                         .anyRequest().permitAll());
         return http.build();
     }
@@ -95,6 +98,7 @@ public class SecurityConfiguration {
 //        configuration.addAllowedHeader("*");
 //        configuration.addAllowedMethod("*");
 //        configuration.setAllowCredentials(true);
+//        configuration.set
 //
 //        UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
 //        source.registerCorsConfiguration("/**", configuration);

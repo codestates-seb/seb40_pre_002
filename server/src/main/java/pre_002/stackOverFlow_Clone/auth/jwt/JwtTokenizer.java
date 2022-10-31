@@ -28,7 +28,7 @@ public class JwtTokenizer {
 
     @Getter
     @Value("${jwt.refresh-token-expiration-minutes}")
-    private int refreshTokenExpirationMinutes;      // Refresh Token 만료 시간 정보입니다
+    private int refreshTokenExpirationMinutes;      // Refresh Token 만료 시간 정보
 
 //     Plain Text 형태인 key의 byte[]를 Base64 형식 문자열로 인코딩
     public String encodeBase64SecretKey(String secretKey) {
@@ -53,19 +53,19 @@ public class JwtTokenizer {
     }
 
     // Access 토큰이 만료되었을 경우, 새로 생성할 수 있게 해주는 메서드(Refresh Token)
-    public String generateRefreshToken(String subject, Date expiration, String base64EncodedSecretKey) {
-        Key key = getKeyFromBase64EncodedKey(base64EncodedSecretKey);
+//    public String generateRefreshToken(String subject, Date expiration, String base64EncodedSecretKey) {
+//        Key key = getKeyFromBase64EncodedKey(base64EncodedSecretKey);
+//
+//        // 최초 토큰 생성과 같고, 새로 발급해주는 역할이기 때문에 Claims는 제외
+//        return Jwts.builder()
+//                .setSubject(subject)
+//                .setIssuedAt(Calendar.getInstance().getTime())
+//                .setExpiration(expiration)
+//                .signWith(key)
+//                .compact();
+//    }
 
-        // 최초 토큰 생성과 같고, 새로 발급해주는 역할이기 때문에 Claims는 제외
-        return Jwts.builder()
-                .setSubject(subject)
-                .setIssuedAt(Calendar.getInstance().getTime())
-                .setExpiration(expiration)
-                .signWith(key)
-                .compact();
-    }
-
-    // 서명(Signature 검증 후, Claims을 반환 하는 용도
+    // 서명(Signature 검증 후, Claims을 반환 하는 용도)
     public Jws<Claims> getClaims(String jws, String base64EncodedSecretKey) {
         Key key = getKeyFromBase64EncodedKey(base64EncodedSecretKey);
 
