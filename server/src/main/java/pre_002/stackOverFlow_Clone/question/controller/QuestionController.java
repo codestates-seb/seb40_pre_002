@@ -19,7 +19,6 @@ import pre_002.stackOverFlow_Clone.question.entity.Question;
 import pre_002.stackOverFlow_Clone.question.mapper.QuestionMapper;
 import pre_002.stackOverFlow_Clone.question.service.QuestionService;
 import pre_002.stackOverFlow_Clone.user.mapper.UserMapper;
-import pre_002.stackOverFlow_Clone.user.service.UserService;
 
 import javax.validation.Valid;
 import javax.validation.constraints.Positive;
@@ -36,7 +35,6 @@ public class QuestionController {
     private final QuestionMapper questionMapper;
     private final AnswerService answerService;
     private final AnswerMapper answerMapper;
-    private final UserService userService;
     private final UserMapper userMapper;
 
     // 전체 질문 조회
@@ -92,7 +90,6 @@ public class QuestionController {
         Question question = questionService.patchQuestion(questionMapper.patchToQuestion(patch));
 
         if (!Objects.equals(principal.getName(), question.getUser().getEmail())) {
-
             throw new BusinessLogicException(ExceptionCode.FORBIDDEN_USER);
         }
 
@@ -110,7 +107,6 @@ public class QuestionController {
         Question question = questionService.getQuestion(questionId);
 
         if (!Objects.equals(principal.getName(), question.getUser().getEmail())) {
-
             throw new BusinessLogicException(ExceptionCode.FORBIDDEN_USER);
         }
 
