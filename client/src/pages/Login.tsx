@@ -9,7 +9,7 @@ import { initialUser, LoginUserType } from '../types/loginUserType';
 export default function Login() {
   const [isLogin, setIsLogin] = useState(false);
   const [userData, setUserData] = useState<LoginUserType>(initialUser);
-  const { isValidPassword } = useIsValidPassword(userData.userPassword);
+  const { isValidPassword } = useIsValidPassword(userData.password);
 
   const handleDataInput = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
@@ -21,8 +21,12 @@ export default function Login() {
   };
 
   const handleSubmit = () => {
-    //TODO: submit data to server
-    // UserAccess.login;
+    if (!isLogin) {
+      UserAccess.signup(userData);
+    } else if (isLogin) {
+      delete userData.userName;
+      UserAccess.login(userData);
+    }
   };
 
   return (
@@ -33,24 +37,29 @@ export default function Login() {
             {!isLogin ? (
               <div className="input-ctn">
                 <label htmlFor="userName">Display Name</label>
-                <input onChange={handleDataInput} type="text" id="userName" />
+                <input
+                  onChange={handleDataInput}
+                  type="text"
+                  id="userName"
+                  name="userName"
+                />
               </div>
             ) : null}
             <div className="input-ctn">
-              <label htmlFor="userEmail">Email</label>
+              <label htmlFor="email">Email</label>
               <input
                 onChange={handleDataInput}
                 type="email"
-                name="userEmail"
+                name="email"
                 id=""
               />
             </div>
             <div className="input-ctn">
-              <label htmlFor="userPassword">Password</label>
+              <label htmlFor="password">Password</label>
               <input
                 onChange={handleDataInput}
                 type="password"
-                name="userPassword"
+                name="password"
                 id=""
               />
             </div>

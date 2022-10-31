@@ -1,11 +1,16 @@
 export interface LoginUserType {
-  userEmail: string;
-  userPassword: string;
+  email: string;
+  password: string;
   userName?: string;
 }
 
 export const initialUser = {
-  userEmail: '',
-  userPassword: '',
+  email: '',
+  password: '',
   userName: '',
 };
+
+export interface ISingupUserResponse {
+  email: string;
+  name: string;
+}
