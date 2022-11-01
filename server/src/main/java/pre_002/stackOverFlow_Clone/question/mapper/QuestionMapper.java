@@ -55,6 +55,7 @@ public interface QuestionMapper {
                         .questionTitle(question.getQuestionTitle())
                         .questionContents(question.getQuestionContents())
                         .views(question.getViews())
+                        .countAnswer(question.getCountAnswer())
                         .createdAt(question.getCreatedAt())
                         .modifiedAt(question.getModifiedAt())
                         .createdAnsweredAt(question.getCreatedAnsweredAt())
