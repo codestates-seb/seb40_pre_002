@@ -27,9 +27,7 @@ export default function Login({ setGlobalLogin }: LoginProps) {
 
   const handleSubmit = () => {
     if (!isLogin) {
-
       UserAccess.signup(userData).then(() => setGlobalLogin(true));
-
       // move to home page
     } else if (isLogin) {
       delete userData.userName;

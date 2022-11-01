@@ -7,8 +7,7 @@ import {
   LoginUserType,
 } from '../types/loginUserType';
 import { setStorageToken, getStorageToken } from '../utils/token/token';
-import { setUserStorage } from '../utils/user/user';
-
+import { getUserStorage, setUserStorage } from '../utils/user/user';
 
 async function signup(userData: LoginUserType) {
   try {
@@ -43,12 +42,11 @@ async function login(userData: LoginUserType) {
 
     if (res.status === 200) {
       const token = res.headers.authorization;
-      //window.localStorage.setItem('userInfo', JSON.stringify(user));
       setStorageToken(token);
       setUserStorage(user);
       console.log('토큰', getStorageToken());
+      console.log('유저', getUserStorage());
     }
-
     return res;
   } catch (err) {
     console.error('login', err);

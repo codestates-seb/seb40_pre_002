@@ -6,7 +6,7 @@ export function setUserStorage(user: IUser | UserInfo) {
 }
 
 export function getUserStorage() {
-  window.localStorage.getItem('userInfo');
+  return window.localStorage.getItem('userInfo');
 }
 
 export function deleteStorgeUser() {
