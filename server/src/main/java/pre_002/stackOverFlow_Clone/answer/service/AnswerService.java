@@ -79,7 +79,6 @@ public class AnswerService {
         question.setModifiedAnsweredAt(new Timestamp(System.currentTimeMillis()));
 
         answerRepository.save(findAnswer);
-        questionService.patchQuestion(question);
         return findAnswer;
     }
 
@@ -87,15 +86,20 @@ public class AnswerService {
     /*
      * 답변 삭제
      * */
-    public void deleteAnswer(Long answerId) {
-        Answer byAnswerId = answerRepository.findByAnswerId(answerId);
-        answerRepository.delete(byAnswerId);
+    public void deleteAnswer(Long answerId, Long questionId, Principal principal) {
+
+        User user = userService.findVerifiedUserByEmail(principal.getName());
+        Question question = questionService.getQuestion(questionId);
+        Answer findAnswer = answerRepository.findById(answerId).get();
+
+        question.setUser(user);
+        List<Answer> answers = question.getAnswers();
+        System.out.println(answers);
+        answers.remove(findAnswer);
+        System.out.println(answers);
+        question.setAnswers(answers);
+
+        answerRepository.delete(findAnswer);
     }
 
-    private void findVerifiedUser(Long userId) {
-
-        Optional<User> user = userRepository.findById(userId);
-        if (user.isPresent())
-            throw new BusinessLogicException(ExceptionCode.UNAUTHORIZED_NOT_USER);
-    }
 }
