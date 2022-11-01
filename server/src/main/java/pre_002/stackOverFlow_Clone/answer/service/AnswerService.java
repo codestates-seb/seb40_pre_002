@@ -95,4 +95,19 @@ public class AnswerService {
         answerRepository.delete(findAnswer);
     }
 
+    /*
+     * 유저 답변 조회
+     * */
+    public Answer readAnswer(Long answerId) {
+
+        Answer answer = findVerifiedAnswer(answerId);
+        return answer;
+    }
+
+    public Answer findVerifiedAnswer(long answerId) {
+        Optional<Answer> optionalQuestion = answerRepository.findById(answerId);
+        return optionalQuestion.orElseThrow(() ->
+                new BusinessLogicException(ExceptionCode.ANSWER_NOT_FOUND));
+    }
+
 }

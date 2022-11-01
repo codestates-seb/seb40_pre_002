@@ -11,6 +11,8 @@ import pre_002.stackOverFlow_Clone.answer.mapper.AnswerMapper;
 import pre_002.stackOverFlow_Clone.answer.service.AnswerService;
 import pre_002.stackOverFlow_Clone.dto.DeleteAnswerResponseDto;
 import pre_002.stackOverFlow_Clone.dto.SingleResponseDto;
+import pre_002.stackOverFlow_Clone.exception.BusinessLogicException;
+import pre_002.stackOverFlow_Clone.exception.ExceptionCode;
 import pre_002.stackOverFlow_Clone.question.entity.Question;
 import pre_002.stackOverFlow_Clone.question.service.QuestionService;
 import pre_002.stackOverFlow_Clone.question.repository.QuestionRepository;
@@ -20,6 +22,7 @@ import javax.validation.Valid;
 import javax.validation.constraints.Positive;
 import java.security.Principal;
 import java.util.List;
+import java.util.Objects;
 
 @RestController
 @RequestMapping
@@ -56,6 +59,11 @@ public class AnswerController {
                                       @Valid @RequestBody AnswerDto.Patch patch,
                                       Principal principal) {
 
+        Answer getAnswer = answerService.readAnswer(answerMapper.patchToAnswer(patch).getAnswerId());
+        if(!Objects.equals(principal.getName(), getAnswer.getUser().getEmail())){
+            throw new BusinessLogicException(ExceptionCode.FORBIDDEN_USER);
+        }
+
         Answer answer = answerService.updateAnswer(answerMapper.patchToAnswer(patch), questionId, principal);
         AnswerDto.Response response = answerMapper.answerToResponse(answer);
         return new ResponseEntity(response, HttpStatus.OK);
@@ -68,7 +76,10 @@ public class AnswerController {
     public ResponseEntity deleteAnswer(@PathVariable("question-id") @Positive Long questionId,
                                        @PathVariable("answer-id") @Positive Long answerId,
                                        Principal principal) {
-
+        Answer answer = answerService.readAnswer(answerId);
+        if(!Objects.equals(principal.getName(), answer.getUser().getEmail())){
+            throw new BusinessLogicException(ExceptionCode.FORBIDDEN_USER);
+        }
         answerService.deleteAnswer(answerId, questionId, principal);
         return new ResponseEntity(new DeleteAnswerResponseDto<>("답변 삭제 완료"), HttpStatus.OK);
     }
