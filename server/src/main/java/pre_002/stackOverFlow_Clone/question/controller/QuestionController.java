@@ -47,7 +47,8 @@ public class QuestionController {
         Page<Question> questionPage = questionService.getQuestionList(page, size);
         PageInfo pageInfo = PageInfo.of(questionPage);
 
-        List<QuestionListResponseDto> list = questionMapper.questionsToResponses(questionPage.getContent());
+        List<QuestionListResponseDto> list =
+                questionMapper.questionsToResponses(questionPage.getContent());
 
         return new ResponseEntity<>(new MultiResponseDto<>(list, pageInfo), HttpStatus.OK);
     }
@@ -65,7 +66,9 @@ public class QuestionController {
         return new ResponseEntity<>(
                 new SingleResponseDto<>(
                         questionMapper.questionToResponse(
-                                answerService, answerMapper, question, page - 1, size, userMapper)), HttpStatus.OK);
+                                answerService, answerMapper,
+                                question, page - 1,
+                                size, userMapper)), HttpStatus.OK);
     }
 
     /**
@@ -74,7 +77,9 @@ public class QuestionController {
     @PostMapping("/auth/questionlist")
     public Long postQuestion(@Valid @RequestBody QuestionDto.Post post, Principal principal) {
 
-        Question question = questionService.postQuestion(questionMapper.postToQuestion(post), principal);
+        Question question =
+                questionService.postQuestion(
+                        questionMapper.postToQuestion(post), principal);
 
         return question.getQuestionId();
     }

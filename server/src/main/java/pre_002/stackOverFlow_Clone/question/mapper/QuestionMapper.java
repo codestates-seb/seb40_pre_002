@@ -17,14 +17,7 @@ import java.util.stream.Collectors;
 
 @Mapper(componentModel = "spring")
 public interface QuestionMapper {
-    default Question postToQuestion(QuestionDto.Post requestBody) {
-
-        Question question = new Question();
-        question.setQuestionTitle(requestBody.getQuestionTitle());
-        question.setQuestionContents(requestBody.getQuestionContents());
-
-        return question;
-    }
+    Question postToQuestion(QuestionDto.Post requestBody);
     Question patchToQuestion(QuestionDto.Patch requestBody);
 
     default DetailQuestionResponseDto questionToResponse(AnswerService answerService, AnswerMapper answerMapper,

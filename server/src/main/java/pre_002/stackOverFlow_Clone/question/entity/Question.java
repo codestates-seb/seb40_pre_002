@@ -19,7 +19,6 @@ import java.util.List;
 @Setter
 @NoArgsConstructor
 @EntityListeners(AuditingEntityListener.class)
-@Table(name = "QUESTIONS")
 public class Question {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -31,8 +30,10 @@ public class Question {
     @Column
     private String questionContents;
 
+    @Column
     private int views;
 
+    @Column
     private int countAnswer;
 
     @CreatedDate
@@ -42,8 +43,10 @@ public class Question {
     @Column(insertable = false)
     private LocalDateTime modifiedAt;
 
+    @Column
     private Timestamp createdAnsweredAt;
 
+    @Column
     private Timestamp modifiedAnsweredAt;
 
     @ManyToOne(fetch = FetchType.EAGER)
