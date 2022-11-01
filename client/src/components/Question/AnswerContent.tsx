@@ -30,7 +30,6 @@ const StyleLink = styled(Link)`
   font-size: 13px;
   color: #6a737c;
 `;
-
 const Answer = styled.div`
   display: flex;
   width: 80%;
@@ -51,7 +50,6 @@ const Userinfo = styled.div`
   padding: 5px 20px;
   align-items: center;
 `;
-
 const User = styled.div`
   display: block;
   flex-direction: column;
@@ -71,7 +69,6 @@ const Date = styled.p`
   color: #6a737c;
   font-size: 12px;
 `;
-
 const Username = styled.p`
   color: #0074cc;
   font-size: 15px;

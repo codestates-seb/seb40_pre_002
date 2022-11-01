@@ -42,7 +42,6 @@ const Title = styled.div`
     font-weight: normal;
   }
 `;
-
 const Tbody = styled.div`
   display: flex;
   height: 30px;
@@ -78,5 +77,4 @@ const Button = styled.button`
     background-color: hsl(206, 100%, 40%);
   }
 `;
-
 export default QuestionTitle;

@@ -7,26 +7,20 @@ const QuestionContent = (props: IQuestion) => {
   // useCallback or useMemo --> 최근 시간 추출하는 함수 작성
   // IQuestion createdAt, modifiedAt 에서 최신 날짜 추출
   // IAnswer createdAt, modifiedAt 에서 최신 날짜 추출
-  // 
 
-  // function getLatestTime(){
-  //   const QcreatedAt = props.createdAt;
-  //   const QmodifiedAt = props.modifiedAt;
-  //   const AcreatedAt = props.createdAt;
-  //   const AmodifiedAt = props.modifiedAt;
+  const QcreatedAt = props.createdAt;
+  const QmodifiedAt = props.modifiedAt;
+  const AcreatedAt = props.createdAt;
+  const AmodifiedAt = props.modifiedAt;
+  
+  const dates = [QcreatedAt, QmodifiedAt, AcreatedAt, AmodifiedAt];
 
-  //   const Daylist = new Array();
-
-  //   Daylist.push(QcreatedAt);
-  //   Daylist.push(QmodifiedAt);
-  //   Daylist.push(AcreatedAt);
-  //   Daylist.push(AmodifiedAt);
-
-  //   console.log(Daylist.reduce((prev,curr) => {
-  //       return new Date(prev).getTime() <= new Date(curr).getTime() ? curr : prev;
-  //   }));
-    
+  // const getLatestTime = (...dates: string[] | undefined[]) => {
+  //   const newDates: string[] = dates.filter((e : string | undefined) => e !== undefined)
+  //   return dates.sort((a, b) => new Date(b).getTime() - new Date(a).getTime())[0]
   // }
+
+  // const latestTime = getLatestTime(...dates);
 
   return (
     <Question>
@@ -34,7 +28,7 @@ const QuestionContent = (props: IQuestion) => {
       <Userinfo>
         <StyleLink to="/edit">Edit</StyleLink>
         <User>
-          <Date>asked {props.createdAt}</Date>
+          <StyledDate>asked {props.createdAt}</StyledDate>
           <Username>
             <p>user:</p> {props.user?.username}
           </Username>
@@ -85,7 +79,7 @@ const User = styled.div`
     margin: 0;
   }
 `;
-const Date = styled.p`
+const StyledDate = styled.p`
   color: #6a737c;
   font-size: 12px;
 `;

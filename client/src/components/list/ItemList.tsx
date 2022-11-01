@@ -7,6 +7,8 @@ const ItemList = (question:QuestionElement) => {
     // console.log(question.id);
 
     // questionElement에서 가장 최신 순 시간 가져와서 뿌리기 -> 함수
+    
+    // console.log(question);
 
     return(
         <QuestionLi> 
@@ -16,8 +18,8 @@ const ItemList = (question:QuestionElement) => {
             </QuestionInfo1>
 
             <QuestionInfo2>
-              <Link to={`/detail/${question.id}`}><TitleInfo>{question.title}</TitleInfo></Link>
-              <TimelineInfo><AuthorInfo>{question.username}</AuthorInfo><NumInfo>{question.id}</NumInfo>{question.createdAt}</TimelineInfo>
+              <Link to={`/detail/${question.questionId}`}><TitleInfo>{question.questionTitle}</TitleInfo></Link>
+              <TimelineInfo><AuthorInfo>{question.username}</AuthorInfo><NumInfo>{question.questionId}</NumInfo>{question.createdAt}</TimelineInfo>
             </QuestionInfo2>
         </QuestionLi>
     )

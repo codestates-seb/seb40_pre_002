@@ -1,12 +1,12 @@
 import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { detailAPIs } from '../api/detail';
-import AnswerContent from '../components/Question/AnswerContent';
-import AnswerForm from '../components/Question/AnswerForm';
-import QuestionContent from '../components/Question/QuestionContent';
-import QuestionTitle from '../components/Question/QuestionTitle';
 import { IAnswer, IQuestion } from '../types/Detail/detailAnswerType';
 import styled from 'styled-components';
+import AnswerContent from '../components/Question/AnswerContent';
+import QuestionContent from '../components/Question/QuestionContent';
+import QuestionTitle from '../components/Question/QuestionTitle';
+import AnswerForm from '../components/Question/AnswerForm';
 
 export default function Detail() {
   const { id } = useParams();
@@ -25,7 +25,6 @@ export default function Detail() {
 
   return (
     <>
-    <DetailMain>
       <Q>
         <QuestionTitle {...question} />
         <QuestionContent {...question} />
@@ -39,7 +38,6 @@ export default function Detail() {
 
         <AnswerForm />
       </Q>
-    </DetailMain>
     </>
   );
 }
@@ -54,11 +52,5 @@ const Q = styled.div`
   display: flex;
   flex-direction: column;
   width: 1072px;
-`;
-
-const DetailMain = styled.main`
-  position: fixed;
-  margin-top: 20px;
   margin-left: 20vw;
-  width: 60vw;
-`
+`;
