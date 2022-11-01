@@ -53,6 +53,7 @@ public interface QuestionMapper {
                         .modifiedAt(question.getModifiedAt())
                         .createdAnsweredAt(question.getCreatedAnsweredAt())
                         .modifiedAnsweredAt(question.getModifiedAnsweredAt())
+                        .username(question.getUser().getUserName())
                         .build())
                 .collect(Collectors.toList());
     }
