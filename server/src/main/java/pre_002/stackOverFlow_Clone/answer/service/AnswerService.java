@@ -90,9 +90,7 @@ public class AnswerService {
         Answer findAnswer = answerRepository.findById(answerId).get();
 
         List<Answer> answers = question.getAnswers();
-        System.out.println(answers);
         answers.remove(findAnswer);
-        System.out.println(answers);
         question.setAnswers(answers);
 
         answerRepository.delete(findAnswer);
