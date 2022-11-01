@@ -1,6 +1,49 @@
+import axios from 'axios';
+import { useState } from 'react';
 import styled from 'styled-components';
+import { NewQuestion } from '../types/mainQuestions/questionTypes';
+import { useNavigate } from "react-router-dom";
+import { getStorageToken } from '../utils/token/token';
 
 export default function Askpage() {
+
+  const [title, setTitle] = useState("");
+  const [content, setContent] = useState("");
+  const navigate = useNavigate();
+
+  function getTitle(e : React.ChangeEvent<HTMLInputElement>){
+    setTitle(e.target.value);
+    // console.log('title :', title);
+  }
+  
+  function getContent(e : React.ChangeEvent<HTMLInputElement>){
+    setContent(e.target.value);
+    // console.log('contnent :', content);
+  }
+  
+  async function handleSubmit(){
+    try {
+      const { data } = await axios.post<NewQuestion>(
+        'https://pioneroroom.com/questionlist',
+        {
+          title: title,
+          contents: content
+        },
+       { 
+         headers: {
+         'Content-Type': 'application/json',
+          Accept: 'application/json',
+          Authorizaion: getStorageToken()
+        }
+      });
+      console.log(data);
+      navigate('/');
+    } catch(err) {
+      console.log(err);
+    }
+
+  }
+
   return (
 
     <AskMain>
@@ -21,19 +64,19 @@ export default function Askpage() {
         </Step>
       </Guide>
 
-      <TitleInput>
+      <TitleInput onChange={getTitle}>
         Title
         <div>Be specific and imagine you’re asking a question to another person.</div>
         <input placeholder='e.g is there an R function for finding the index of an element in a vector'></input>
       </TitleInput>
 
-      <ProblemInput>
+      <ProblemInput onChange={getContent}>
         What are the details of your problem?
         <div>Introduce the problem and expand on what you put in the title. Minimum 20 characters.</div>
         <textarea></textarea>
       </ProblemInput>
 
-      <SubmitButton>Post your question</SubmitButton>
+      <SubmitButton onClick={() => handleSubmit}>Post your question</SubmitButton>
 
     </AskMain>
 

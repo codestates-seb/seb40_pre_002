@@ -20,3 +20,8 @@ export interface Question {
     totalElements: number;
     totalPages: number;
   }
+
+  export interface NewQuestion {
+    title: string;
+    contents: string;
+  }

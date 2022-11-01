@@ -1,8 +1,33 @@
-import React from 'react';
+import React, { useMemo } from 'react';
 import styled from 'styled-components';
 import { Link } from 'react-router-dom';
 import { IQuestion } from '../../types/Detail/detailAnswerType';
 const QuestionContent = (props: IQuestion) => {
+
+  // useCallback or useMemo --> 최근 시간 추출하는 함수 작성
+  // IQuestion createdAt, modifiedAt 에서 최신 날짜 추출
+  // IAnswer createdAt, modifiedAt 에서 최신 날짜 추출
+  // 
+
+  // function getLatestTime(){
+  //   const QcreatedAt = props.createdAt;
+  //   const QmodifiedAt = props.modifiedAt;
+  //   const AcreatedAt = props.createdAt;
+  //   const AmodifiedAt = props.modifiedAt;
+
+  //   const Daylist = new Array();
+
+  //   Daylist.push(QcreatedAt);
+  //   Daylist.push(QmodifiedAt);
+  //   Daylist.push(AcreatedAt);
+  //   Daylist.push(AmodifiedAt);
+
+  //   console.log(Daylist.reduce((prev,curr) => {
+  //       return new Date(prev).getTime() <= new Date(curr).getTime() ? curr : prev;
+  //   }));
+    
+  // }
+
   return (
     <Question>
       <Qbody>{props.contents}</Qbody>
