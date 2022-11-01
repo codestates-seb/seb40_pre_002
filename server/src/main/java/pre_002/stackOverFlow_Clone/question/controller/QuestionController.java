@@ -10,9 +10,7 @@ import pre_002.stackOverFlow_Clone.answer.mapper.AnswerMapper;
 import pre_002.stackOverFlow_Clone.answer.service.AnswerService;
 import pre_002.stackOverFlow_Clone.dto.MultiResponseDto;
 import pre_002.stackOverFlow_Clone.dto.PageInfo;
-import pre_002.stackOverFlow_Clone.dto.SingleResponseDto;
-import pre_002.stackOverFlow_Clone.exception.BusinessLogicException;
-import pre_002.stackOverFlow_Clone.exception.ExceptionCode;
+import pre_002.stackOverFlow_Clone.question.dto.DetailQuestionResponseDto;
 import pre_002.stackOverFlow_Clone.question.dto.QuestionDto;
 import pre_002.stackOverFlow_Clone.question.dto.QuestionListResponseDto;
 import pre_002.stackOverFlow_Clone.question.entity.Question;
@@ -24,7 +22,6 @@ import javax.validation.Valid;
 import javax.validation.constraints.Positive;
 import java.security.Principal;
 import java.util.List;
-import java.util.Objects;
 
 @RequiredArgsConstructor // DI 생성자
 @RequestMapping("/") // request 를 특정 메서드와 매핑
@@ -63,12 +60,19 @@ public class QuestionController {
 
         Question question = questionService.getQuestion(questionId);
 
+        DetailQuestionResponseDto detailQuestionResponseDto = questionMapper.questionToResponse(question, userMapper);
+
+//        return new ResponseEntity<>(
+//                new SingleResponseDto<>(
+//                        questionMapper.questionToResponse(
+//                                answerService, answerMapper,
+//                                question, page - 1,
+//                                size, userMapper)), HttpStatus.OK);
+
         return new ResponseEntity<>(
-                new SingleResponseDto<>(
-                        questionMapper.questionToResponse(
-                                answerService, answerMapper,
-                                question, page - 1,
-                                size, userMapper)), HttpStatus.OK);
+                questionMapper.DetailToQuestionAnswerPageInfo(
+                        detailQuestionResponseDto, answerService, answerMapper, page - 1, size, question)
+                , HttpStatus.OK);
     }
 
     /**
