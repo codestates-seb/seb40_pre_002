@@ -40,7 +40,6 @@ export default function Askpage() {
     }
 
   }
-
   return (
     <AskMain>
       <Qstitle>Ask a public question</Qstitle>
