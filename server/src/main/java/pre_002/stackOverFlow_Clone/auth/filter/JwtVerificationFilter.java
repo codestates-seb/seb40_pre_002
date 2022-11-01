@@ -32,9 +32,9 @@ public class JwtVerificationFilter extends OncePerRequestFilter {   // OncePerRe
             Map<String, Object> claims = verifyJws(request);
             setAuthenticationToContext(claims);     // Security Context에 Authentication을 저장
         } catch (SignatureException signatureException) {
-            request.setAttribute("exception", signatureException);
+            request.setAttribute("signatureException", signatureException);
         } catch (ExpiredJwtException expiredJwtException) {
-            request.setAttribute("exception", expiredJwtException);
+            request.setAttribute("expiredJwtException", expiredJwtException);
         } catch (Exception exception) {
             request.setAttribute("exception", exception);
         }
@@ -59,9 +59,9 @@ public class JwtVerificationFilter extends OncePerRequestFilter {   // OncePerRe
     }
 
     private void setAuthenticationToContext(Map<String, Object> claims){
-        String username = (String)claims.get("username");
+        String email = (String)claims.get("email");
         List<GrantedAuthority> authorities = authorityUtils.createAuthorities((List)claims.get("roles"));
-        Authentication authentication = new UsernamePasswordAuthenticationToken(username, null, authorities);
+        Authentication authentication = new UsernamePasswordAuthenticationToken(email, null, authorities);
         SecurityContextHolder.getContext().setAuthentication(authentication);
     }
 }

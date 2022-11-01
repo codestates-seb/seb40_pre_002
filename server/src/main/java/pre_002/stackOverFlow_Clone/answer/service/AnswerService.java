@@ -26,7 +26,6 @@ public class AnswerService {
 
     private final AnswerRepository answerRepository;
     private final QuestionService questionService;
-    private final UserRepository userRepository;
     private final UserService userService;
 
 
@@ -41,11 +40,17 @@ public class AnswerService {
 
         answerList.add(answer);
         question.setCountAnswer(question.getCountAnswer() + 1);
+<<<<<<< HEAD
         question.setUser(user);
         question.setAnswers(answerList);
         answer.setUser(user);
 
         questionService.postQuestion(question, principal);
+=======
+        question.setAnswers(answerList);
+        answer.setUser(user);
+
+>>>>>>> dev-be
         Answer saved = answerRepository.save(answer);
         question.setCreatedAnsweredAt(saved.getCreatedAt());
         return saved;
@@ -73,13 +78,19 @@ public class AnswerService {
         Question question = questionService.getQuestion(questionId);
         Answer findAnswer = answerRepository.findById(answer.getAnswerId()).get();
 
+<<<<<<< HEAD
         question.setUser(user);
+=======
+>>>>>>> dev-be
         findAnswer.setAnswerContents(answer.getAnswerContents());
         findAnswer.setModifiedAt(new Timestamp(System.currentTimeMillis()));
         question.setModifiedAnsweredAt(new Timestamp(System.currentTimeMillis()));
 
         answerRepository.save(findAnswer);
+<<<<<<< HEAD
         questionService.patchQuestion(question);
+=======
+>>>>>>> dev-be
         return findAnswer;
     }
 
@@ -87,15 +98,32 @@ public class AnswerService {
     /*
      * 답변 삭제
      * */
-    public void deleteAnswer(Long answerId) {
-        Answer byAnswerId = answerRepository.findByAnswerId(answerId);
-        answerRepository.delete(byAnswerId);
+    public void deleteAnswer(Long answerId, Long questionId, Principal principal) {
+
+        User user = userService.findVerifiedUserByEmail(principal.getName());
+        Question question = questionService.getQuestion(questionId);
+        Answer findAnswer = answerRepository.findById(answerId).get();
+
+        List<Answer> answers = question.getAnswers();
+        answers.remove(findAnswer);
+        question.setAnswers(answers);
+
+        answerRepository.delete(findAnswer);
     }
 
-    private void findVerifiedUser(Long userId) {
+    /*
+     * 유저 답변 조회
+     * */
+    public Answer readAnswer(Long answerId) {
 
-        Optional<User> user = userRepository.findById(userId);
-        if (user.isPresent())
-            throw new BusinessLogicException(ExceptionCode.UNAUTHORIZED_NOT_USER);
+        Answer answer = findVerifiedAnswer(answerId);
+        return answer;
     }
+
+    public Answer findVerifiedAnswer(long answerId) {
+        Optional<Answer> optionalQuestion = answerRepository.findById(answerId);
+        return optionalQuestion.orElseThrow(() ->
+                new BusinessLogicException(ExceptionCode.ANSWER_NOT_FOUND));
+    }
+
 }

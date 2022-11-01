@@ -7,6 +7,8 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import pre_002.stackOverFlow_Clone.exception.BusinessLogicException;
+import pre_002.stackOverFlow_Clone.exception.ExceptionCode;
 import pre_002.stackOverFlow_Clone.question.entity.Question;
 import pre_002.stackOverFlow_Clone.question.repository.QuestionRepository;
 import pre_002.stackOverFlow_Clone.user.entity.User;
@@ -14,6 +16,8 @@ import pre_002.stackOverFlow_Clone.user.service.UserService;
 
 import java.security.Principal;
 import java.time.LocalDateTime;
+import java.util.Objects;
+import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
@@ -34,7 +38,7 @@ public class QuestionService{
 
     public Question getQuestion(Long questionId) {
 
-        Question question = questionRepository.findByQuestionId(questionId);
+        Question question = findVerifiedQuestion(questionId);
         question.setViews(question.getViews() + 1);
         questionRepository.save(question);
 
@@ -44,25 +48,44 @@ public class QuestionService{
     public Question postQuestion(Question question, Principal principal) {
 
         User user = userService.findVerifiedUserByEmail(principal.getName());
-
         question.setUser(user);
 
         return questionRepository.save(question);
     }
 
-    public Question patchQuestion(Question question) {
-    
-        Question getQuestion = questionRepository.findByQuestionId(question.getQuestionId());
+    public Question patchQuestion(Question question, Principal principal) {
+
+        Question getQuestion = findVerifiedQuestion(question.getQuestionId());
         getQuestion.setModifiedAt(LocalDateTime.now());
         getQuestion.setQuestionTitle(question.getQuestionTitle());
         getQuestion.setQuestionContents(question.getQuestionContents());
 
+        verifyUserConfirm(getQuestion, principal);
+
         return questionRepository.save(getQuestion);
     }
 
-    public void delete(Long questionId) {
+    public void delete(Long questionId, Principal principal) {
     
-        Question question = questionRepository.findByQuestionId(questionId);
+        Question question = findVerifiedQuestion(questionId);
+
+        verifyUserConfirm(question, principal);
+
         questionRepository.delete(question);
+    }
+
+    public Question findVerifiedQuestion(long questionId) {
+
+        Optional<Question> optionalQuestion = questionRepository.findById(questionId);
+
+        return optionalQuestion.orElseThrow(() ->
+                new BusinessLogicException(ExceptionCode.QUESTION_NOT_FOUND));
+    }
+
+    public void verifyUserConfirm(Question question, Principal principal) {
+
+        if (!Objects.equals(principal.getName(), question.getUser().getEmail())) {
+            throw new BusinessLogicException(ExceptionCode.FORBIDDEN_USER);
+        }
     }
 }
