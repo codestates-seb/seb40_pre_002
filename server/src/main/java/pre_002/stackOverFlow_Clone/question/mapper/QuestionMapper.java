@@ -6,6 +6,7 @@ import pre_002.stackOverFlow_Clone.answer.entity.Answer;
 import pre_002.stackOverFlow_Clone.answer.mapper.AnswerMapper;
 import pre_002.stackOverFlow_Clone.answer.service.AnswerService;
 import pre_002.stackOverFlow_Clone.dto.MultiResponseDto;
+import pre_002.stackOverFlow_Clone.dto.PageInfo;
 import pre_002.stackOverFlow_Clone.question.dto.DetailQuestionResponseDto;
 import pre_002.stackOverFlow_Clone.question.dto.QuestionDto;
 import pre_002.stackOverFlow_Clone.question.dto.QuestionListResponseDto;
@@ -35,7 +36,8 @@ public interface QuestionMapper {
                 .modifiedAt(question.getModifiedAt())
                 .view(question.getViews())
                 .user(userMapper.userToUserResponseDto(question.getUser()))
-                .answers(new MultiResponseDto<>(answerMapper.answersToResponses(answerList), answers))
+                .answers(answerMapper.answersToResponses(answerList))
+                .pageInfo(new PageInfo(answers.getNumber() + 1, answers.getSize(), answers.getTotalElements(), answers.getTotalPages()))
                 .build();
     }
 
@@ -57,6 +59,4 @@ public interface QuestionMapper {
                         .build())
                 .collect(Collectors.toList());
     }
-
-
 }
