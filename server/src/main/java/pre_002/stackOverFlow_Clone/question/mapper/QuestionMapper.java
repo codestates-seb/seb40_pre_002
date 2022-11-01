@@ -5,13 +5,12 @@ import org.springframework.data.domain.Page;
 import pre_002.stackOverFlow_Clone.answer.entity.Answer;
 import pre_002.stackOverFlow_Clone.answer.mapper.AnswerMapper;
 import pre_002.stackOverFlow_Clone.answer.service.AnswerService;
-import pre_002.stackOverFlow_Clone.dto.MultiResponseDto;
-import pre_002.stackOverFlow_Clone.exception.BusinessLogicException;
+import pre_002.stackOverFlow_Clone.dto.PageInfo;
+import pre_002.stackOverFlow_Clone.question.dto.QuestionAnswerPageInfoResponseDto;
 import pre_002.stackOverFlow_Clone.question.dto.DetailQuestionResponseDto;
 import pre_002.stackOverFlow_Clone.question.dto.QuestionDto;
 import pre_002.stackOverFlow_Clone.question.dto.QuestionListResponseDto;
 import pre_002.stackOverFlow_Clone.question.entity.Question;
-import pre_002.stackOverFlow_Clone.user.entity.User;
 import pre_002.stackOverFlow_Clone.user.mapper.UserMapper;
 
 import java.util.List;
@@ -19,42 +18,37 @@ import java.util.stream.Collectors;
 
 @Mapper(componentModel = "spring")
 public interface QuestionMapper {
-    default Question postToQuestion(QuestionDto.Post requestBody) {
-
-        Question question = new Question();
-        question.setQuestionTitle(requestBody.getQuestionTitle());
-        question.setQuestionContents(requestBody.getQuestionContents());
-
-        return question;
-    }
+    Question postToQuestion(QuestionDto.Post requestBody);
     Question patchToQuestion(QuestionDto.Patch requestBody);
 
-//    QuestionDto.Response questionToResponse(Question question);
+    default DetailQuestionResponseDto questionToResponse(Question question, UserMapper userMapper) {
 
-    default DetailQuestionResponseDto questionToResponse(AnswerService answerService, AnswerMapper answerMapper,
-                                                         Question question, Integer answerPage,
-                                                         Integer answerSize, UserMapper userMapper) {
+        return DetailQuestionResponseDto.builder()
+                .questionId(question.getQuestionId())
+                .questionTitle(question.getQuestionTitle())
+                .questionContents(question.getQuestionContents())
+                .createdAt(question.getCreatedAt())
+                .modifiedAt(question.getModifiedAt())
+                .view(question.getViews())
+                .user(userMapper.userToUserResponseDto(question.getUser()))
+                .build();
+    }
 
-        DetailQuestionResponseDto detailQuestionResponseDto = new DetailQuestionResponseDto();
-        detailQuestionResponseDto.setQuestionId(question.getQuestionId());
-        detailQuestionResponseDto.setQuestionTitle(question.getQuestionTitle());
-        detailQuestionResponseDto.setQuestionContents(question.getQuestionContents());
-        detailQuestionResponseDto.setCreatedAt(question.getCreatedAt());
-        detailQuestionResponseDto.setModifiedAt(question.getModifiedAt());
-        detailQuestionResponseDto.setView(question.getViews());
+    default QuestionAnswerPageInfoResponseDto DetailToQuestionAnswerPageInfo(DetailQuestionResponseDto detailQuestionResponseDto,
+                                                                             AnswerService answerService, AnswerMapper answerMapper,
+                                                                             Integer answerPage, Integer answerSize,
+                                                                             Question question) {
 
-        // 질문자 확인
-        User user = question.getUser();
-        detailQuestionResponseDto.setUser(userMapper.userToUserResponseDto(user));
+        Page<Answer> answers = answerService.readAnswers(question, answerPage, answerSize);
+        List<Answer> answerList = answers.getContent();
 
-        try {
-            Page<Answer> answers = answerService.readAnswers(question, answerPage, answerSize);
-            List<Answer> answerList = answers.getContent();
-            detailQuestionResponseDto.setAnswers(new MultiResponseDto<>(
-                    answerMapper.answersToResponses(answerList), answers));
-        } catch (BusinessLogicException e){}
+        System.out.println(answers.getTotalPages());
 
-        return detailQuestionResponseDto;
+        return QuestionAnswerPageInfoResponseDto.builder()
+                .data(detailQuestionResponseDto)
+                .answers(answerMapper.answersToResponses(answerList))
+                .pageInfo(new PageInfo(answers.getNumber() + 1, answers.getSize(), answers.getTotalElements(), answers.getTotalPages()))
+                .build();
     }
 
     default List<QuestionListResponseDto> questionsToResponses(List<Question> questionList) {
@@ -66,13 +60,13 @@ public interface QuestionMapper {
                         .questionTitle(question.getQuestionTitle())
                         .questionContents(question.getQuestionContents())
                         .views(question.getViews())
+                        .countAnswer(question.getCountAnswer())
                         .createdAt(question.getCreatedAt())
                         .modifiedAt(question.getModifiedAt())
                         .createdAnsweredAt(question.getCreatedAnsweredAt())
                         .modifiedAnsweredAt(question.getModifiedAnsweredAt())
+                        .username(question.getUser().getUserName())
                         .build())
                 .collect(Collectors.toList());
     }
-
-
 }

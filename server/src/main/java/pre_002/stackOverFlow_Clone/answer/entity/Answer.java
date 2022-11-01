@@ -45,10 +45,6 @@ public class Answer {
     @JoinColumn(name="QUESTION_ID")
     private Question question;
 
-    public void addUser(User user) {
-        this.user = user;
-    }
-
     public void setQuestion(Question question) {
         this.question = question;
     }

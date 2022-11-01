@@ -3,13 +3,11 @@ package pre_002.stackOverFlow_Clone.question.dto;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
-import lombok.NoArgsConstructor;
 
 import java.sql.Timestamp;
 import java.time.LocalDateTime;
 
 @Getter
-@NoArgsConstructor
 @AllArgsConstructor
 @Builder
 public class QuestionListResponseDto {
@@ -17,8 +15,10 @@ public class QuestionListResponseDto {
     private String questionTitle;
     private String questionContents;
     private Integer views;
+    private Integer countAnswer;
     private LocalDateTime createdAt;
     private LocalDateTime modifiedAt;
     private Timestamp createdAnsweredAt;
     private Timestamp modifiedAnsweredAt;
+    private String username;
 }
