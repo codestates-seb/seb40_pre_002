@@ -6,7 +6,11 @@ import SignInButton from '../components/button/SignInButton';
 import { useIsValidPassword } from '../hooks/Login/LoginHooks';
 import { initialUser, LoginUserType } from '../types/loginUserType';
 
-export default function Login() {
+interface LoginProps {
+  setGlobalLogin: React.Dispatch<React.SetStateAction<boolean>>;
+}
+
+export default function Login({ setGlobalLogin }: LoginProps) {
   const [isLogin, setIsLogin] = useState(false);
   const [userData, setUserData] = useState<LoginUserType>(initialUser);
   const { isValidPassword } = useIsValidPassword(userData.password);
@@ -23,11 +27,11 @@ export default function Login() {
 
   const handleSubmit = () => {
     if (!isLogin) {
-      UserAccess.signup(userData);
+      UserAccess.signup(userData).then(() => setGlobalLogin(true));
       // move to home page
     } else if (isLogin) {
       delete userData.userName;
-      UserAccess.login(userData);
+      UserAccess.login(userData).then(() => setGlobalLogin(true));
     }
     navigate(`/`);
   };

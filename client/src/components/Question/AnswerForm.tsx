@@ -1,13 +1,37 @@
-import React from 'react';
+import React, { useState } from 'react';
 import styled from 'styled-components';
+import axios from 'axios';
 
 const AnswerForm = () => {
+  const [answerPost, setAnswerPost] = useState({ body: '' });
+
+  // const bodyChange = (el) => {
+  //   setAnswerPost({body: el});
+  // };
+  // const postAnserClick = () => {
+  //   if(anserPost.body !==""){
+  //     const headers ={
+  //       "Content-Type": "application/json"
+  //     }
+  //     const
+  //   }
+  // }
+
   return (
     <Answerform>
       <p>Your Answer</p>
       <Form>
-        <input></input>
-        <Button>post Your Answer</Button>
+        <input
+          id="body"
+          defaultValue={answerPost.body}
+          //onChange={(el) => bodyChange(el.target.value)}
+        />
+        <Button
+          type="button"
+          //onClick ={postAnswerClick}
+        >
+          post Your Answer
+        </Button>
       </Form>
     </Answerform>
   );
@@ -24,7 +48,6 @@ const Answerform = styled.div`
       'Segoe UI', 'Liberation Sans', sans-serif;
   }
 `;
-
 const Form = styled.form`
   display: flex;
   flex-direction: column;
@@ -33,7 +56,6 @@ const Form = styled.form`
     height: 250px;
   }
 `;
-
 const Button = styled.button`
   display: flex;
   align-items: center;
