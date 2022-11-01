@@ -26,7 +26,6 @@ public class AnswerService {
 
     private final AnswerRepository answerRepository;
     private final QuestionService questionService;
-    private final UserRepository userRepository;
     private final UserService userService;
 
 
