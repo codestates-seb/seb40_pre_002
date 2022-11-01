@@ -21,6 +21,7 @@ public interface AnswerMapper {
         return answer;
     }
     Answer patchToAnswer(AnswerDto.Patch patch);
+
     AnswerDto.Response answerToResponse(Answer answer);
     List<AnswerDto.Response> answersToResponses(List<Answer> answers);
 }

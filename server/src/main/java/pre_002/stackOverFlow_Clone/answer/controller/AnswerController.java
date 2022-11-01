@@ -9,6 +9,8 @@ import pre_002.stackOverFlow_Clone.answer.dto.AnswerDto;
 import pre_002.stackOverFlow_Clone.answer.entity.Answer;
 import pre_002.stackOverFlow_Clone.answer.mapper.AnswerMapper;
 import pre_002.stackOverFlow_Clone.answer.service.AnswerService;
+import pre_002.stackOverFlow_Clone.dto.DeleteAnswerResponseDto;
+import pre_002.stackOverFlow_Clone.dto.SingleResponseDto;
 import pre_002.stackOverFlow_Clone.question.entity.Question;
 import pre_002.stackOverFlow_Clone.question.service.QuestionService;
 import pre_002.stackOverFlow_Clone.question.repository.QuestionRepository;
@@ -33,7 +35,7 @@ public class AnswerController {
     /*
      * 답변 등록
      * */
-    @PostMapping("/questionlist/{question-id}")
+    @PostMapping("/auth/questionlist/{question-id}")
     public ResponseEntity postAnswer(@PathVariable("question-id") Long questionId,
                                      @Valid @RequestBody AnswerDto.Post post,
                                      Principal principal) {
@@ -50,7 +52,7 @@ public class AnswerController {
     /*
      * 답변 수정
      * */
-    @PatchMapping("questionlist/{question-id}/edit")
+    @PatchMapping("/auth/questionlist/{question-id}/edit")
     public ResponseEntity patchAnswer(@PathVariable("question-id") Long questionId,
                                       @Valid @RequestBody AnswerDto.Patch patch,
                                       Principal principal) {
@@ -63,11 +65,13 @@ public class AnswerController {
     /*
      * 답변 삭제
      * */
-    @DeleteMapping("/quesiontlist/{question-id}")
-    public void deleteAnswer(@PathVariable("question-id") @Positive Long questionId) {
-//        Question findQuestion = questionService.getQuestion(questionId);
-////        List<Answer> answers = findQuestion.getAnswers();
-//        answerService.deleteAnswer(answers);
+    @DeleteMapping("/auth/questionlist/{question-id}/del/{answer-id}")
+    public ResponseEntity deleteAnswer(@PathVariable("question-id") @Positive Long questionId,
+                                       @PathVariable("answer-id") @Positive Long answerId,
+                                       Principal principal) {
+
+        answerService.deleteAnswer(answerId, questionId, principal);
+        return new ResponseEntity(new DeleteAnswerResponseDto<>("답변 삭제 완료"), HttpStatus.OK);
     }
 
 }
