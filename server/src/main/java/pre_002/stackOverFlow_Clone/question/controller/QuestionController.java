@@ -26,10 +26,10 @@ import java.security.Principal;
 import java.util.List;
 import java.util.Objects;
 
-@RequiredArgsConstructor
-@RequestMapping("/")
-@RestController
-@Validated
+@RequiredArgsConstructor // DI 생성자
+@RequestMapping("/") // request 를 특정 메서드와 매핑
+@RestController //Json 형태로 객체 데이터를 반환. @Controller 는 view 를 반환
+@Validated // AOP 기반 유효성 검증 진행
 public class QuestionController {
     private final QuestionService questionService;
     private final QuestionMapper questionMapper;
@@ -37,7 +37,9 @@ public class QuestionController {
     private final AnswerMapper answerMapper;
     private final UserMapper userMapper;
 
-    // 전체 질문 조회
+    /**
+    * 전체 질문 조회
+    */
     @GetMapping("/questionlist")
     public ResponseEntity getQuestionList(@RequestParam(name = "page", required = false, defaultValue = "1") int page,
                                           @RequestParam(name = "size", required = false, defaultValue = "15") int size) {
@@ -45,12 +47,15 @@ public class QuestionController {
         Page<Question> questionPage = questionService.getQuestionList(page, size);
         PageInfo pageInfo = PageInfo.of(questionPage);
 
-        List<QuestionListResponseDto> list = questionMapper.questionsToResponses(questionPage.getContent());
+        List<QuestionListResponseDto> list =
+                questionMapper.questionsToResponses(questionPage.getContent());
 
         return new ResponseEntity<>(new MultiResponseDto<>(list, pageInfo), HttpStatus.OK);
     }
 
-    // 상세 질문 조회
+    /**
+    * 상세 질문 조회
+    */
     @GetMapping("/questionlist/{question-id}")
     public ResponseEntity getDetailQuestion(@PathVariable("question-id") @Positive Long questionId,
                                             @RequestParam(name = "page", required = false, defaultValue = "1") int page,
@@ -58,60 +63,51 @@ public class QuestionController {
 
         Question question = questionService.getQuestion(questionId);
 
-        return new ResponseEntity<>(new SingleResponseDto<>(
-                questionMapper.questionToResponse(
-                        answerService, answerMapper, question, page - 1, size, userMapper)), HttpStatus.OK);
+        return new ResponseEntity<>(
+                new SingleResponseDto<>(
+                        questionMapper.questionToResponse(
+                                answerService, answerMapper,
+                                question, page - 1,
+                                size, userMapper)), HttpStatus.OK);
     }
 
-    // 질문 등록
+    /**
+    * 질문 등록
+    */
     @PostMapping("/auth/questionlist")
-    public Long postQuestion(@Valid @RequestBody QuestionDto.Post post,
-                             Principal principal) {
+    public Long postQuestion(@Valid @RequestBody QuestionDto.Post post, Principal principal) {
 
-//        User user = userService.findVerifiedUserByEmail(principal.getName());
-
-        Question question = questionService.postQuestion(questionMapper.postToQuestion(post), principal);
-
-//        System.out.println(question.getQuestionContents());
-//        DetailQuestionResponseDto response = questionMapper.questionToResponse(question);
-
-//        return new ResponseEntity<>(new SingleResponseDto<>(response), HttpStatus.CREATED);
+        Question question =
+                questionService.postQuestion(
+                        questionMapper.postToQuestion(post), principal);
 
         return question.getQuestionId();
     }
 
-    // 질문 수정
+    /**
+    * 질문 수정
+    */
     @PatchMapping("/auth/questionlist/{question-id}")
     public Long patchQuestion(@PathVariable("question-id") @Positive Long questionId,
-                                        @Valid @RequestBody QuestionDto.Patch patch,
-                                        Principal principal) {
+                              @Valid @RequestBody QuestionDto.Patch patch,
+                              Principal principal) {
 
         patch.setQuestionId(questionId);
-        Question question = questionService.patchQuestion(questionMapper.patchToQuestion(patch));
 
-        if (!Objects.equals(principal.getName(), question.getUser().getEmail())) {
-            throw new BusinessLogicException(ExceptionCode.FORBIDDEN_USER);
-        }
-
-//        QuestionDto.Response response = questionMapper.questionToResponse(question);
-//
-//        return new ResponseEntity<>(new SingleResponseDto<>(response), HttpStatus.OK);
+        Question question =
+                questionService.patchQuestion(
+                        questionMapper.patchToQuestion(patch), principal);
 
         return question.getQuestionId();
     }
 
+    /**
+    * 질문 삭제
+    */
     @DeleteMapping("/auth/questionlist/{question-id}")
     public void deleteQuestion(@PathVariable("question-id") @Positive Long questionId,
                                Principal principal) {
 
-        Question question = questionService.getQuestion(questionId);
-
-        if (!Objects.equals(principal.getName(), question.getUser().getEmail())) {
-            throw new BusinessLogicException(ExceptionCode.FORBIDDEN_USER);
-        }
-
-        questionService.delete(questionId);
-
-//        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+        questionService.delete(questionId, principal);
     }
 }

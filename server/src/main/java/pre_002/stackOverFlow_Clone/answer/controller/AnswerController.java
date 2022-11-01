@@ -30,7 +30,6 @@ import java.util.Objects;
 public class AnswerController {
 
     private final AnswerService answerService;
-    private final QuestionService questionService;
     private final AnswerMapper answerMapper;
     private final QuestionRepository questionRepository;
 
