@@ -9,8 +9,9 @@ public enum ExceptionCode {
 
     UNAUTHORIZED_NOT_USER(401, "You must be logged."),
     FORBIDDEN_USER(403,  "You're not a writer."),
-    QUESTION_NOT_FOUND(404,  "Question is not found.");
+    QUESTION_NOT_FOUND(404,  "Question is not found."),
 
+    ANSWER_NOT_FOUND(404, "Answer is not found.");
 
     @Getter
     private final int statusCode;
