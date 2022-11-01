@@ -39,7 +39,6 @@ public class Question {
     @Column(updatable = false)
     private LocalDateTime createdAt;
 
-//    @LastModifiedDate
     @Column(insertable = false)
     private LocalDateTime modifiedAt;
 
@@ -53,8 +52,4 @@ public class Question {
 
     @OneToMany(mappedBy = "question", cascade = CascadeType.ALL)
     private List<Answer> answers = new ArrayList<>();
-
-    public void addUser(User user) {
-        this.user = user;
-    }
 }

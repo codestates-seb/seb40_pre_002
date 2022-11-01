@@ -6,12 +6,10 @@ import pre_002.stackOverFlow_Clone.answer.entity.Answer;
 import pre_002.stackOverFlow_Clone.answer.mapper.AnswerMapper;
 import pre_002.stackOverFlow_Clone.answer.service.AnswerService;
 import pre_002.stackOverFlow_Clone.dto.MultiResponseDto;
-import pre_002.stackOverFlow_Clone.exception.BusinessLogicException;
 import pre_002.stackOverFlow_Clone.question.dto.DetailQuestionResponseDto;
 import pre_002.stackOverFlow_Clone.question.dto.QuestionDto;
 import pre_002.stackOverFlow_Clone.question.dto.QuestionListResponseDto;
 import pre_002.stackOverFlow_Clone.question.entity.Question;
-import pre_002.stackOverFlow_Clone.user.entity.User;
 import pre_002.stackOverFlow_Clone.user.mapper.UserMapper;
 
 import java.util.List;
@@ -29,32 +27,23 @@ public interface QuestionMapper {
     }
     Question patchToQuestion(QuestionDto.Patch requestBody);
 
-//    QuestionDto.Response questionToResponse(Question question);
-
     default DetailQuestionResponseDto questionToResponse(AnswerService answerService, AnswerMapper answerMapper,
                                                          Question question, Integer answerPage,
                                                          Integer answerSize, UserMapper userMapper) {
 
-        DetailQuestionResponseDto detailQuestionResponseDto = new DetailQuestionResponseDto();
-        detailQuestionResponseDto.setQuestionId(question.getQuestionId());
-        detailQuestionResponseDto.setQuestionTitle(question.getQuestionTitle());
-        detailQuestionResponseDto.setQuestionContents(question.getQuestionContents());
-        detailQuestionResponseDto.setCreatedAt(question.getCreatedAt());
-        detailQuestionResponseDto.setModifiedAt(question.getModifiedAt());
-        detailQuestionResponseDto.setView(question.getViews());
+        Page<Answer> answers = answerService.readAnswers(question, answerPage, answerSize);
+        List<Answer> answerList = answers.getContent();
 
-        // 질문자 확인
-        User user = question.getUser();
-        detailQuestionResponseDto.setUser(userMapper.userToUserResponseDto(user));
-
-        try {
-            Page<Answer> answers = answerService.readAnswers(question, answerPage, answerSize);
-            List<Answer> answerList = answers.getContent();
-            detailQuestionResponseDto.setAnswers(new MultiResponseDto<>(
-                    answerMapper.answersToResponses(answerList), answers));
-        } catch (BusinessLogicException e){}
-
-        return detailQuestionResponseDto;
+        return DetailQuestionResponseDto.builder()
+                .questionId(question.getQuestionId())
+                .questionTitle(question.getQuestionTitle())
+                .questionContents(question.getQuestionContents())
+                .createdAt(question.getCreatedAt())
+                .modifiedAt(question.getModifiedAt())
+                .view(question.getViews())
+                .user(userMapper.userToUserResponseDto(question.getUser()))
+                .answers(new MultiResponseDto<>(answerMapper.answersToResponses(answerList), answers))
+                .build();
     }
 
     default List<QuestionListResponseDto> questionsToResponses(List<Question> questionList) {

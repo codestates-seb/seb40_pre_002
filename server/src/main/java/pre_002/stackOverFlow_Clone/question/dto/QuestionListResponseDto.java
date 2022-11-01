@@ -3,13 +3,11 @@ package pre_002.stackOverFlow_Clone.question.dto;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
-import lombok.NoArgsConstructor;
 
 import java.sql.Timestamp;
 import java.time.LocalDateTime;
 
 @Getter
-@NoArgsConstructor
 @AllArgsConstructor
 @Builder
 public class QuestionListResponseDto {
