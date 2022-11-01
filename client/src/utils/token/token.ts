@@ -9,4 +9,5 @@ export function getStorageToken() {
 
 export function deleteStorageToken() {
   window.localStorage.removeItem('token');
+
 }

@@ -1,5 +1,6 @@
 import axios from 'axios';
 import { useState } from 'react';
+
 import {
   ISingupUserResponse,
   IUser,
@@ -7,6 +8,7 @@ import {
 } from '../types/loginUserType';
 import { setStorageToken, getStorageToken } from '../utils/token/token';
 import { setUserStorage } from '../utils/user/user';
+
 
 async function signup(userData: LoginUserType) {
   try {
@@ -38,6 +40,7 @@ async function login(userData: LoginUserType) {
       userData
     );
     console.log('ㄱㄷㄴ', res);
+
     if (res.status === 200) {
       const token = res.headers.authorization;
       //window.localStorage.setItem('userInfo', JSON.stringify(user));
@@ -45,6 +48,7 @@ async function login(userData: LoginUserType) {
       setUserStorage(user);
       console.log('토큰', getStorageToken());
     }
+
     return res;
   } catch (err) {
     console.error('login', err);
