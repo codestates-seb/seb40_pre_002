@@ -20,6 +20,4 @@ public class DetailQuestionResponseDto {
     private LocalDateTime createdAt;
     private LocalDateTime modifiedAt;
     private UserDto.Response user;
-    private List<AnswerDto.Response> answers;
-    private PageInfo pageInfo;
 }
