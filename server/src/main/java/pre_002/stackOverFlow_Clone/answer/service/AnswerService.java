@@ -44,7 +44,6 @@ public class AnswerService {
         question.setAnswers(answerList);
         answer.setUser(user);
 
-        questionService.postQuestion(question, principal);
         Answer saved = answerRepository.save(answer);
         question.setCreatedAnsweredAt(saved.getCreatedAt());
         return saved;
