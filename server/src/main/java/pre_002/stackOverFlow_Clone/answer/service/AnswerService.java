@@ -40,17 +40,9 @@ public class AnswerService {
 
         answerList.add(answer);
         question.setCountAnswer(question.getCountAnswer() + 1);
-<<<<<<< HEAD
-        question.setUser(user);
         question.setAnswers(answerList);
         answer.setUser(user);
 
-        questionService.postQuestion(question, principal);
-=======
-        question.setAnswers(answerList);
-        answer.setUser(user);
-
->>>>>>> dev-be
         Answer saved = answerRepository.save(answer);
         question.setCreatedAnsweredAt(saved.getCreatedAt());
         return saved;
@@ -78,19 +70,12 @@ public class AnswerService {
         Question question = questionService.getQuestion(questionId);
         Answer findAnswer = answerRepository.findById(answer.getAnswerId()).get();
 
-<<<<<<< HEAD
-        question.setUser(user);
-=======
->>>>>>> dev-be
         findAnswer.setAnswerContents(answer.getAnswerContents());
         findAnswer.setModifiedAt(new Timestamp(System.currentTimeMillis()));
         question.setModifiedAnsweredAt(new Timestamp(System.currentTimeMillis()));
 
         answerRepository.save(findAnswer);
-<<<<<<< HEAD
-        questionService.patchQuestion(question);
-=======
->>>>>>> dev-be
+
         return findAnswer;
     }
 
