@@ -2,8 +2,24 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 import logo from '../../images/stackoverlogo.png';
+import { useNavigate } from 'react-router-dom';
+import { deleteStorageToken } from '../../utils/token/token';
+import { deleteStorgeUser } from '../../utils/user/user';
 
-export default function Navbar() {
+interface NavbarProps {
+  isLogin: boolean;
+  setIsLogin: React.Dispatch<React.SetStateAction<boolean>>;
+}
+
+export default function Navbar({ isLogin, setIsLogin }: NavbarProps) {
+  const navigate = useNavigate();
+  const handleLogout = () => {
+    deleteStorageToken();
+    deleteStorgeUser();
+    setIsLogin(false);
+    navigate(`/`);
+  };
+
   return (
     <Nav>
       <Link to="/">
@@ -11,8 +27,24 @@ export default function Navbar() {
       </Link>
       <Input placeholder="🔍 search..." />
       <Div>
-        <StyledLink to="/login">Login</StyledLink>
-        <StyledLink2 to="/login">Signup</StyledLink2>
+        {isLogin ? (
+          <button
+            style={{
+              width: '30px',
+              height: '30px',
+              color: 'red',
+              backgroundColor: 'grey',
+            }}
+            onClick={handleLogout}
+          >
+            Logout
+          </button>
+        ) : (
+          <>
+            <StyledLink to="/login">Login</StyledLink>
+            <StyledLink2 to="/login">Signup</StyledLink2>
+          </>
+        )}
       </Div>
     </Nav>
   );
