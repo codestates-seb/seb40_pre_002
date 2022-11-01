@@ -18,5 +18,4 @@ artifacts:
     - server/build/libs/*.jar
     - server/scripts/**
     - server/appspec.yml
-
   discard-paths: yes
