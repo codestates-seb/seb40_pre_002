@@ -8,8 +8,7 @@ import pre_002.stackOverFlow_Clone.user.dto.UserDto;
 import java.time.LocalDateTime;
 
 @Getter
-@Setter
-@NoArgsConstructor
+@Builder
 @AllArgsConstructor
 public class DetailQuestionResponseDto {
     private Long questionId;
