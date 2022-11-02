@@ -15,6 +15,7 @@ public class QuestionListResponseDto {
     private String questionTitle;
     private String questionContents;
     private Integer views;
+    private int vote;
     private Integer countAnswer;
     private LocalDateTime createdAt;
     private LocalDateTime modifiedAt;

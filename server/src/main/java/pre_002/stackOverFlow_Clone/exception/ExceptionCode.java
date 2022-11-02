@@ -11,7 +11,8 @@ public enum ExceptionCode {
     FORBIDDEN_USER(403,  "You're not a writer."),
     QUESTION_NOT_FOUND(404,  "Question is not found."),
 
-    ANSWER_NOT_FOUND(404, "Answer is not found.");
+    ANSWER_NOT_FOUND(404, "Answer is not found."),
+    VOTE_EXIST(409, "You already vote.");
 
     @Getter
     private final int statusCode;
