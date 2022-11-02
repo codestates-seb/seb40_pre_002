@@ -1,6 +1,34 @@
+import { useState } from 'react';
 import styled from 'styled-components';
+import { useNavigate } from "react-router-dom";
+import { postquestions } from '../api/askpage/ask';
 
 export default function Askpage() {
+
+  const [title, setTitle] = useState("");
+  const [content, setContent] = useState("");
+  const navigate = useNavigate();
+
+  function getTitle(e : React.ChangeEvent<HTMLInputElement>){
+    setTitle(e.target.value);
+  }
+  
+  function getContent(e : React.ChangeEvent<HTMLInputElement>){
+    setContent(e.target.value);
+  }
+
+  const handleSubmit = async() => {
+    
+    try{
+      const response = await postquestions(title, content)
+      if(Number.isNaN(response)) throw new Error('response is NaN');
+      navigate(`/detail/${response}`);
+    }
+    catch(err){
+      console.error(err);
+    }
+  }
+  
   return (
     <AskMain>
       <Qstitle>Ask a public question</Qstitle>
@@ -29,7 +57,7 @@ export default function Askpage() {
         </Step>
       </Guide>
 
-      <TitleInput>
+      <TitleInput onChange={getTitle}>
         Title
         <div>
           Be specific and imagine you’re asking a question to another person.
@@ -37,7 +65,7 @@ export default function Askpage() {
         <input placeholder="e.g is there an R function for finding the index of an element in a vector"></input>
       </TitleInput>
 
-      <ProblemInput>
+      <ProblemInput onChange={getContent}>
         What are the details of your problem?
         <div>
           Introduce the problem and expand on what you put in the title. Minimum
@@ -46,7 +74,8 @@ export default function Askpage() {
         <textarea></textarea>
       </ProblemInput>
 
-      <SubmitButton>Post your question</SubmitButton>
+      <SubmitButton onClick={handleSubmit}>Post your question</SubmitButton>
+
     </AskMain>
   );
 }
