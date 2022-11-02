@@ -16,10 +16,10 @@ const AnswerContent = (answers: IAnswer) => {
       <Userinfo>
         <StyleLink to="/edit">Edit</StyleLink>
         <User>
-          <Date>
+          <StyledDate>
             {latestUtc === answers.createdAt ? 'asked : ' : 'modified : '} :
             {latestDate}
-          </Date>
+          </StyledDate>
           <Username>
             <p>user:</p>
             {answers.user?.userName}
@@ -70,7 +70,7 @@ const User = styled.div`
     margin: 0;
   }
 `;
-const Date = styled.p`
+const StyledDate = styled.p`
   color: #6a737c;
   font-size: 12px;
 `;

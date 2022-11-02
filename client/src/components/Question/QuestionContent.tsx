@@ -21,8 +21,6 @@ const QuestionContent = (props: IQuestion) => {
 
   const [latestDate] = useMemo(() => getLatestTime(dates), [dates]);
 
-  // TODO: getLastestTime을 모듈화 시켜주고,
-  // 함수를 이용할때마다, useMemo or useCallback을 사용해주자.
   return (
     <Question>
       <Qbody>{props.questionContents}</Qbody>
