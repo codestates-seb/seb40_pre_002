@@ -13,7 +13,7 @@ const ItemList = (question:QuestionElement) => {
     return(
         <QuestionLi> 
             <QuestionInfo1>
-              <AnswerInfo>{question.answers} answers</AnswerInfo>
+              <AnswerInfo>{question.countAnswers} answers</AnswerInfo>
               <ViewInfo>{question.views} views</ViewInfo>
             </QuestionInfo1>
 

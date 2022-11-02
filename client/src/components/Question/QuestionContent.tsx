@@ -13,14 +13,14 @@ const QuestionContent = (props: IQuestion) => {
   const AcreatedAt = props.createdAt;
   const AmodifiedAt = props.modifiedAt;
   
-  const dates = [QcreatedAt, QmodifiedAt, AcreatedAt, AmodifiedAt];
+  const dates: any[] = [QcreatedAt, QmodifiedAt, AcreatedAt, AmodifiedAt];
+  
+  const getLatestTime = (...dates: string[] | undefined[]) => {
+    const newDates : any[] = (dates as any[]).filter(e => e !== undefined);
+    return newDates.sort((a, b) => new Date(b).getTime() - new Date(a).getTime())[0]
+  }
 
-  // const getLatestTime = (...dates: string[] | undefined[]) => {
-  //   const newDates: string[] = dates.filter((e : string | undefined) => e !== undefined)
-  //   return dates.sort((a, b) => new Date(b).getTime() - new Date(a).getTime())[0]
-  // }
-
-  // const latestTime = getLatestTime(...dates);
+  const latestTime = getLatestTime(...dates);
 
   return (
     <Question>
