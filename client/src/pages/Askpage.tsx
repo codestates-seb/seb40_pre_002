@@ -1,9 +1,7 @@
-import axios from 'axios';
 import { useState } from 'react';
 import styled from 'styled-components';
-import { NewQuestion } from '../types/mainQuestions/questionTypes';
 import { useNavigate } from "react-router-dom";
-import { getStorageToken } from '../utils/token/token';
+import { postquestions } from '../api/askpage/ask';
 
 export default function Askpage() {
 
@@ -18,28 +16,19 @@ export default function Askpage() {
   function getContent(e : React.ChangeEvent<HTMLInputElement>){
     setContent(e.target.value);
   }
-  
-  async function handleSubmit(){
-    try {
-      const { data } = await axios.post<NewQuestion>(
-        'https://pioneroroom.com/auth/questionlist',
-        {
-          questionTitle: title,
-          questionContents: content
-        },
-       { 
-         headers: {
-          Authorization: getStorageToken()
-        }
-      });
-      console.log(data);
-      navigate(`/detail/${data}`);
-    } catch(err) {
-      alert(err);
-      navigate(`/`);
-    }
 
+  const handleSubmit = async() => {
+    
+    try{
+      const response = await postquestions(title, content)
+      if(Number.isNaN(response)) throw new Error('response is NaN');
+      navigate(`/detail/${response}`);
+    }
+    catch(err){
+      console.error(err);
+    }
   }
+  
   return (
     <AskMain>
       <Qstitle>Ask a public question</Qstitle>

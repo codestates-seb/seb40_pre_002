@@ -15,8 +15,8 @@ const QuestionContent = (props: IQuestion) => {
   
   const dates: any[] = [QcreatedAt, QmodifiedAt, AcreatedAt, AmodifiedAt];
   
-  const getLatestTime = (...dates: string[] | undefined[]) => {
-    const newDates : any[] = (dates as any[]).filter(e => e !== undefined);
+  const getLatestTime = (...dates : Array<string|undefined>) => {
+    const newDates :string[] = (dates).filter(e => typeof e !== 'undefined') as string[];
     return newDates.sort((a, b) => new Date(b).getTime() - new Date(a).getTime())[0]
   }
 
