@@ -6,6 +6,8 @@ export const detailAPIs = {
     const response = await axios.get<IDetailedQnA>(
       `https://pioneroroom.com/questionlist/${id}`
     );
+    console.log(response);
     return response;
+    
   },
 };

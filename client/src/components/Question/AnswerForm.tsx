@@ -17,14 +17,14 @@ const AnswerForm = ({ id }: AnswerProps) => {
     setAnswer({ ...answer, [name]: value });
   };
 
-  const handleSubmit = () => {
-    postAns(id, answer).then(res => {
-      res?.
-      if(typeof(res) !== undefined){
-        <nav></nav>
-      }
-    });
-    navigate(`https://pioneroroom.com/auth/questionlist/${id}`);
+  const handleSubmit = async () => {
+    try {
+      const response = await postAns(id, answer);
+      if (Number.isNaN(response)) throw new Error('response is nan');
+      //navigate(`/detail/${response.questionId}`);
+    } catch (err) {
+      console.error(err);
+    }
   };
 
   return (

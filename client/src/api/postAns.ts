@@ -2,12 +2,16 @@ import axios from 'axios';
 import { NewAnswer } from '../types/Detail/detailAnswerType';
 import { getStorageToken } from '../utils/token/token';
 
+interface ansRes {
+  data: number;
+}
+
 export async function postAns(
   id: string | undefined,
   answerContents: NewAnswer
 ) {
   try {
-    const res = await axios.post(
+    const response = await axios.post<ansRes>(
       `https://pioneroroom.com/auth/questionlist/${id}`,
       answerContents,
       {
@@ -16,7 +20,8 @@ export async function postAns(
         },
       }
     );
-    return res;
+    console.log('post ans data', response);
+    return response.data;
   } catch (err) {
     console.error(err);
   }

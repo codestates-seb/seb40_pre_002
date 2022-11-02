@@ -13,11 +13,9 @@ import Login from './pages/Login';
 
 function App() {
   const [isLogin, setIsLogin] = useLogin();
-  console.log('isLogin?', isLogin);
 
   return (
     <BrowserRouter>
-      {/* <h2>login:{isLogin ? 'true' : 'false'}</h2> */}
       <Routes>
         <Route
           element={[

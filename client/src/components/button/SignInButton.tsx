@@ -1,15 +1,12 @@
-import React from 'react';
+import React, { FormEvent } from 'react';
 
 interface ISignInButton {
   isLogin: boolean;
-  handleClick?: () => void;
 }
 
 const SignInButton = (props: ISignInButton) => {
-  const { isLogin, handleClick } = props;
-  return (
-    <button onClick={handleClick}>{isLogin ? 'Sign in' : 'Sign up'}</button>
-  );
+  const { isLogin } = props;
+  return <button type="submit">{isLogin ? 'Sign in' : 'Sign up'}</button>;
 };
 
 export default SignInButton;

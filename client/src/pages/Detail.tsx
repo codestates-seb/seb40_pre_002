@@ -14,7 +14,7 @@ interface DetailProps {
 
 export default function Detail({ isLogin }: DetailProps) {
   const { id } = useParams();
-  const [question, setQuestionList] = useState<IQuestion | undefined>();
+  const [question, setQuestionList] = useState<IQuestion | undefined>({});
   const [answerList, setAnswerList] = useState<IAnswer[] | undefined>([]);
 
   useEffect(() => {
@@ -33,7 +33,6 @@ export default function Detail({ isLogin }: DetailProps) {
         <QuestionTitle {...question} />
         <QuestionContent {...question} />
         <StyledP>{answerList?.length} Answers</StyledP>
-
         <>
           {answerList?.map((answer) => {
             return <AnswerContent {...answer} />;

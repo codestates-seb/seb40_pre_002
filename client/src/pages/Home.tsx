@@ -18,9 +18,12 @@ export default function Home({ isLogin }: HomeProps) {
 
   useEffect(() => {
     mainQuestionsAPIs.getMainQuestions().then((res) => {
-      setQuestions(res.data.Questions);
+
+      setQuestions(res.data.data);
     });
   }, []);
+
+  console.log(questions);
 
   return (
     <Main>
