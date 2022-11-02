@@ -34,8 +34,8 @@ server:
       force-response: true
 
 jwt:
-  secret-key: ${AWS_jwt_secret-key}
-  access-token-expiration-minutes: 30
+  secret-key: ${AWS_jwt_secret_key}
+  access-token-expiration-minutes: 180
   refresh-token-expiration-minutes: 420
 
 mail:
