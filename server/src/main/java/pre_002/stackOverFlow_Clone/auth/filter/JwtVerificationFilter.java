@@ -2,6 +2,7 @@ package pre_002.stackOverFlow_Clone.auth.filter;
 
 
 import io.jsonwebtoken.ExpiredJwtException;
+import io.jsonwebtoken.JwtException;
 import io.jsonwebtoken.security.SignatureException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -11,6 +12,8 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.filter.OncePerRequestFilter;
 import pre_002.stackOverFlow_Clone.auth.jwt.JwtTokenizer;
 import pre_002.stackOverFlow_Clone.auth.utils.CustomAuthorityUtils;
+import pre_002.stackOverFlow_Clone.exception.BusinessLogicException;
+import pre_002.stackOverFlow_Clone.exception.ExceptionCode;
 
 
 import javax.servlet.FilterChain;
@@ -32,11 +35,11 @@ public class JwtVerificationFilter extends OncePerRequestFilter {   // OncePerRe
             Map<String, Object> claims = verifyJws(request);
             setAuthenticationToContext(claims);     // Security Context에 Authentication을 저장
         } catch (SignatureException signatureException) {
-            request.setAttribute("signatureException", signatureException);
+            request.setAttribute("exception", ExceptionCode.INVALID_TOKEN);
         } catch (ExpiredJwtException expiredJwtException) {
-            request.setAttribute("expiredJwtException", expiredJwtException);
-        } catch (Exception exception) {
-            request.setAttribute("exception", exception);
+            request.setAttribute("exception", ExceptionCode.EXPIRED_TOKEN);
+        } catch (JwtException jwtException) {
+            request.setAttribute("exception", ExceptionCode.UNAUTHORIZED);
         }
         filterChain.doFilter(request, response);    // 다음 Filter 호출
     }
