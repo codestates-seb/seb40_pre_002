@@ -5,7 +5,8 @@ import org.springframework.data.domain.Page;
 import pre_002.stackOverFlow_Clone.answer.entity.Answer;
 import pre_002.stackOverFlow_Clone.answer.mapper.AnswerMapper;
 import pre_002.stackOverFlow_Clone.answer.service.AnswerService;
-import pre_002.stackOverFlow_Clone.dto.MultiResponseDto;
+import pre_002.stackOverFlow_Clone.dto.PageInfo;
+import pre_002.stackOverFlow_Clone.question.dto.QuestionAnswerPageInfoResponseDto;
 import pre_002.stackOverFlow_Clone.question.dto.DetailQuestionResponseDto;
 import pre_002.stackOverFlow_Clone.question.dto.QuestionDto;
 import pre_002.stackOverFlow_Clone.question.dto.QuestionListResponseDto;
@@ -20,12 +21,7 @@ public interface QuestionMapper {
     Question postToQuestion(QuestionDto.Post requestBody);
     Question patchToQuestion(QuestionDto.Patch requestBody);
 
-    default DetailQuestionResponseDto questionToResponse(AnswerService answerService, AnswerMapper answerMapper,
-                                                         Question question, Integer answerPage,
-                                                         Integer answerSize, UserMapper userMapper) {
-
-        Page<Answer> answers = answerService.readAnswers(question, answerPage, answerSize);
-        List<Answer> answerList = answers.getContent();
+    default DetailQuestionResponseDto questionToResponse(Question question, UserMapper userMapper) {
 
         return DetailQuestionResponseDto.builder()
                 .questionId(question.getQuestionId())
@@ -35,7 +31,23 @@ public interface QuestionMapper {
                 .modifiedAt(question.getModifiedAt())
                 .view(question.getViews())
                 .user(userMapper.userToUserResponseDto(question.getUser()))
-                .answers(new MultiResponseDto<>(answerMapper.answersToResponses(answerList), answers))
+                .build();
+    }
+
+    default QuestionAnswerPageInfoResponseDto DetailToQuestionAnswerPageInfo(DetailQuestionResponseDto detailQuestionResponseDto,
+                                                                             AnswerService answerService, AnswerMapper answerMapper,
+                                                                             Integer answerPage, Integer answerSize,
+                                                                             Question question) {
+
+        Page<Answer> answers = answerService.readAnswers(question, answerPage, answerSize);
+        List<Answer> answerList = answers.getContent();
+
+        System.out.println(answers.getTotalPages());
+
+        return QuestionAnswerPageInfoResponseDto.builder()
+                .data(detailQuestionResponseDto)
+                .answers(answerMapper.answersToResponses(answerList))
+                .pageInfo(new PageInfo(answers.getNumber() + 1, answers.getSize(), answers.getTotalElements(), answers.getTotalPages()))
                 .build();
     }
 
@@ -53,9 +65,8 @@ public interface QuestionMapper {
                         .modifiedAt(question.getModifiedAt())
                         .createdAnsweredAt(question.getCreatedAnsweredAt())
                         .modifiedAnsweredAt(question.getModifiedAnsweredAt())
+                        .username(question.getUser().getUserName())
                         .build())
                 .collect(Collectors.toList());
     }
-
-
 }

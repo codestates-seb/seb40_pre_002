@@ -32,6 +32,7 @@ dependencies {
 	testImplementation 'org.springframework.restdocs:spring-restdocs-mockmvc'
 	asciidoctorExtensions 'org.springframework.restdocs:spring-restdocs-asciidoctor'
 
+
 	implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
 	implementation 'org.springframework.boot:spring-boot-starter-validation'
 	implementation 'org.springframework.boot:spring-boot-starter-web'
@@ -44,7 +45,7 @@ dependencies {
 	runtimeOnly 'io.jsonwebtoken:jjwt-impl:0.11.5'
 	runtimeOnly	'io.jsonwebtoken:jjwt-jackson:0.11.5'
 
-	runtimeOnly 'com.h2database:h2' // InMemory DB
+//	runtimeOnly 'com.h2database:h2' // InMemory DB
 	compileOnly 'org.projectlombok:lombok'
 	annotationProcessor 'org.projectlombok:lombok'
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
@@ -54,15 +55,31 @@ dependencies {
 	implementation 'com.google.code.gson:gson'
 	runtimeOnly 'mysql:mysql-connector-java' // mysql
 
-	testImplementation 'org.springframework.security:spring-security-test' // Spring Security Test
+
+
+	// 서버 환경 변수 설정 라이브러리
+	dependencies {
+		implementation group: 'io.awspring.cloud', name: 'spring-cloud-starter-aws-parameter-store-config'
+	}
 }
 
 
 
-tasks.named('test') {
-	outputs.dir snippetsDir
-	useJUnitPlatform()
+
+///*
+//* 서버 환경 변수 설정
+//* */
+dependencyManagement {
+	imports {
+		mavenBom "io.awspring.cloud:spring-cloud-aws-dependencies:2.3.3"
+	}
 }
+
+
+//tasks.named('test') {
+//	outputs.dir snippetsDir
+//	useJUnitPlatform()
+//}
 
 
 

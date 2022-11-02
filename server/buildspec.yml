@@ -1,0 +1,28 @@
+version: 0.2
+
+env:
+  parameter-store:
+    AWS_RDS_Endpoint: "/spring-boot-aws/cloud-parameter-store/spring.datasource.url"
+    RDS_Mysql_Admin_id: "/spring-boot-aws/cloud-parameter-store/spring.datasource.username"
+    RDS_Mysql_Admin_password: "/spring-boot-aws/cloud-parameter-store/spring.datasource.password"
+    AWS_jwt_secret_key: "/spring-boot-aws/cloud-parameter-store/jwt.secret-key"
+
+phases:
+  install:
+    runtime-versions:
+      java: corretto11
+  build:
+    commands:
+      - echo Build Starting on `date`
+      - cd server
+      - chmod +x ./gradlew
+      - ./gradlew build
+  post_build:
+    commands:
+      - echo $(basename ./server/build/libs/*.jar)
+artifacts:
+  files:
+    - server/build/libs/*.jar
+    - server/scripts/**
+    - server/appspec.yml
+  discard-paths: yes

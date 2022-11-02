@@ -1,9 +1,9 @@
 Spring:
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
-    url: jdbc:mysql://localhost:3306/pre_project_db?createDatabaseIfNotExist=true&useUnicode=true&characterEncoding=UTF-8
-    username: root
-    password:
+    url: jdbc:mysql://${AWS_RDS_Endpoint}:3306/pre_project_db?createDatabaseIfNotExist=true&useUnicode=true&characterEncoding=UTF-8
+    username: ${RDS_Mysql_Admin_id}
+    password: ${RDS_Mysql_Admin_password}
 
   jpa:
     database: mysql
@@ -34,9 +34,9 @@ server:
       force-response: true
 
 jwt:
-  secret-key: dlatlqlalfqjsghdlatlqlalfqjsghdlatlqlalfqjsghdlatlqlalfqjsghdlatlqlalfqjsghdlatlqlalfqjsghdlatlqlalfqjsgh
+  secret-key: ${AWS_jwt_secret_key}
   access-token-expiration-minutes: 180
-#  refresh-token-expiration-minutes: 420
+  refresh-token-expiration-minutes: 420
 
 mail:
   address:

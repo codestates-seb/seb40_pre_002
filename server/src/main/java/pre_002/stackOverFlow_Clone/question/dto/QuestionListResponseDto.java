@@ -20,4 +20,5 @@ public class QuestionListResponseDto {
     private LocalDateTime modifiedAt;
     private Timestamp createdAnsweredAt;
     private Timestamp modifiedAnsweredAt;
+    private String username;
 }
