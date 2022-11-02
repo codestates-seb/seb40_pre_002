@@ -17,20 +17,18 @@ import pre_002.stackOverFlow_Clone.dto.ErrorResponse;
 @Slf4j
 @RestControllerAdvice
 public class GlobalExceptionAdvice {
-    @ExceptionHandler
-    @ResponseStatus(HttpStatus.BAD_REQUEST)
-    public ErrorResponse handleMethodArgumentNotValidException(
-            MethodArgumentNotValidException e) {
-        final ErrorResponse response = ErrorResponse.of(e.getBindingResult());
-
-        return response;
-    }
+//    @ExceptionHandler
+//    @ResponseStatus(HttpStatus.BAD_REQUEST)
+//    public ErrorResponse handleMethodArgumentNotValidException(
+//            MethodArgumentNotValidException e) {
+//        final ErrorResponse response = ErrorResponse.of(e.getBindingResult());
+//
+//        return response;
+//    }
 
     @ExceptionHandler
     public ResponseEntity handleBusinessLogicException(BusinessLogicException e) {
-        final ErrorResponse response = ErrorResponse.of(e.getExceptionCode());
-
-        return new ResponseEntity<>(response, HttpStatus.valueOf(e.getExceptionCode()
+        return new ResponseEntity<>(ErrorResponse.of(e.getExceptionCode()), HttpStatus.valueOf(e.getExceptionCode()
                 .getStatusCode()));
     }
 }

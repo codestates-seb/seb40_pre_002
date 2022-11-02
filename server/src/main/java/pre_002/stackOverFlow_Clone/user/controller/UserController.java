@@ -14,14 +14,14 @@ import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import pre_002.stackOverFlow_Clone.dto.SignUpResponseDto;
 import pre_002.stackOverFlow_Clone.dto.SingleResponseDto;
+import pre_002.stackOverFlow_Clone.question.entity.Question;
 import pre_002.stackOverFlow_Clone.user.dto.UserDto;
 import pre_002.stackOverFlow_Clone.user.entity.User;
 import pre_002.stackOverFlow_Clone.user.mapper.UserMapper;
 import pre_002.stackOverFlow_Clone.user.service.UserService;
 
-import javax.validation.constraints.Positive;
 import java.security.Principal;
-import java.util.Map;
+import java.util.concurrent.locks.ReentrantLock;
 
 @RestController
 @Validated
@@ -42,5 +42,19 @@ public class UserController {
     public ResponseEntity getUser(Principal principal){
         User user = userService.findVerifiedUserByEmail(principal.getName());
         return new ResponseEntity<>(new SingleResponseDto<>(userMapper.userToUserResponseDto(user)), HttpStatus.OK);
+    }
+
+    @PatchMapping("/users/userinfo")
+    public ResponseEntity patchUser(@RequestBody UserDto.Patch userPatchDto, Principal principal){
+
+        userPatchDto.setUserId(userService.findVerifiedUserByEmail(principal.getName()).getUserId());
+        User user = userService.patchUser(userMapper.userPatchDtoToUser(userPatchDto));
+        return new ResponseEntity<>(new SingleResponseDto<>(userMapper.userToUserResponseDto(user)), HttpStatus.OK);
+    }
+
+    @DeleteMapping("/users/userinfo")
+    public void deleteUser(Principal principal){
+        User user = userService.findVerifiedUserByEmail(principal.getName());
+        userService.deleteUser(user);
     }
 }
