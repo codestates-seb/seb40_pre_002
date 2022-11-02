@@ -37,10 +37,6 @@ dependencies {
 	implementation 'org.springframework.boot:spring-boot-starter-validation'
 	implementation 'org.springframework.boot:spring-boot-starter-web'
 
-
-	// 서버 환경 변수 설정 라이브러리
-	implementation 'org.springframework.cloud:spring-cloud-starter-aws-parameter-store-config'
-
 	// Spring Security 적용 위한 의존 라이브러리
 	implementation 'org.springframework.boot:spring-boot-starter-security'
 
