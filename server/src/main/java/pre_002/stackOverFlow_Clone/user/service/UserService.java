@@ -6,6 +6,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import pre_002.stackOverFlow_Clone.auth.utils.CustomAuthorityUtils;
+import pre_002.stackOverFlow_Clone.auth.utils.ErrorResponder;
 import pre_002.stackOverFlow_Clone.exception.BusinessLogicException;
 import pre_002.stackOverFlow_Clone.exception.ExceptionCode;
 import pre_002.stackOverFlow_Clone.user.entity.User;
@@ -33,6 +34,17 @@ public class UserService {
         user.setRoles(roles);
 
         return userRepository.save(user);
+    }
+
+    public User patchUser(User user) {
+        User patchUser = userRepository.findByUserId(user.getUserId());
+        if(user.getUserName() != null) patchUser.setUserName(user.getUserName());
+        if(user.getPassword() != null) patchUser.setPassword(passwordEncoder.encode(user.getPassword()));
+        return patchUser;
+    }
+
+    public void deleteUser(User user) {
+        userRepository.delete(user);
     }
 
     public User findVerifiedUserByEmail(String email){
