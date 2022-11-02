@@ -94,7 +94,7 @@ public class SecurityConfiguration {
 //    CorsConfigurationSource corsConfigurationSource() {
 //        CorsConfiguration configuration = new CorsConfiguration();
 //        // CORS 수정
-//        configuration.addAllowedOrigin("*");
+//        configuration.addAllowedOriginPattern("*");
 //        configuration.addAllowedHeader("*");
 //        configuration.addAllowedMethod("*");
 //        configuration.setAllowCredentials(true);
