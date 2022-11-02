@@ -33,9 +33,9 @@ export default function Detail({ isLogin }: DetailProps) {
         <QuestionContent {...question} />
         <StyledP>{answerList?.length} Answers</StyledP>
         <>
-          {answerList?.map((answer) => {
-            return <AnswerContent {...answer} />;
-          })}
+          {answerList?.map((answer) => (
+            <AnswerContent {...answer} />
+          ))}
         </>
         {isLogin ? <AnswerForm setAnswerList={setAnswerList} id={id} /> : <></>}
       </Q>

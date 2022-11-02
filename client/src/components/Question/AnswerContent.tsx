@@ -1,9 +1,15 @@
-import React from 'react';
+import React, { useMemo } from 'react';
 import styled from 'styled-components';
 import { Link } from 'react-router-dom';
 import { IAnswer } from '../../types/Detail/detailAnswerType';
+import { getLatestTime } from '../../utils/helper/date/getLastestTime';
 
 const AnswerContent = (answers: IAnswer) => {
+  const [latestDate, latestUtc] = useMemo(
+    () => getLatestTime([answers.createdAt, answers.modifiedAt]),
+    [answers.createdAt, answers.modifiedAt]
+  );
+
   return (
     <Answer>
       <Content>{answers.answerContents}</Content>
@@ -11,11 +17,10 @@ const AnswerContent = (answers: IAnswer) => {
         <StyleLink to="/edit">Edit</StyleLink>
         <User>
           <Date>
-            asked :{' '}
-            {answers.modifiedAt ? answers.modifiedAt : answers.createdAt}
+            {latestUtc === answers.createdAt ? 'asked : ' : 'modified : '} :
+            {latestDate}
           </Date>
           <Username>
-            {' '}
             <p>user:</p>
             {answers.user?.userName}
           </Username>

@@ -2,8 +2,9 @@ import React, { useMemo } from 'react';
 import styled from 'styled-components';
 import { Link } from 'react-router-dom';
 import { IQuestion } from '../../types/Detail/detailAnswerType';
-const QuestionContent = (props: IQuestion) => {
+import { getLatestTime } from '../../utils/helper/date/getLastestTime';
 
+const QuestionContent = (props: IQuestion) => {
   // useCallback or useMemo --> 최근 시간 추출하는 함수 작성
   // IQuestion createdAt, modifiedAt 에서 최신 날짜 추출
   // IAnswer createdAt, modifiedAt 에서 최신 날짜 추출
@@ -12,23 +13,23 @@ const QuestionContent = (props: IQuestion) => {
   const QmodifiedAt = props.modifiedAt;
   const AcreatedAt = props.createdAt;
   const AmodifiedAt = props.modifiedAt;
-  
-  const dates: any[] = [QcreatedAt, QmodifiedAt, AcreatedAt, AmodifiedAt];
-  
-  const getLatestTime = (...dates : Array<string|undefined>) => {
-    const newDates :string[] = (dates).filter(e => typeof e !== 'undefined') as string[];
-    return newDates.sort((a, b) => new Date(b).getTime() - new Date(a).getTime())[0]
-  }
 
-  const latestTime = getLatestTime(...dates);
+  const dates = useMemo(
+    () => [QcreatedAt, QmodifiedAt, AcreatedAt, AmodifiedAt],
+    [QcreatedAt, QmodifiedAt, AcreatedAt, AmodifiedAt]
+  );
 
+  const [latestDate] = useMemo(() => getLatestTime(dates), [dates]);
+
+  // TODO: getLastestTime을 모듈화 시켜주고,
+  // 함수를 이용할때마다, useMemo or useCallback을 사용해주자.
   return (
     <Question>
       <Qbody>{props.questionContents}</Qbody>
       <Userinfo>
         <StyleLink to="/edit">Edit</StyleLink>
         <User>
-          <StyledDate>asked {props.createdAt}</StyledDate>
+          <StyledDate>asked {latestDate}</StyledDate>
           <Username>
             <p>user:</p> {props.user?.userName}
           </Username>

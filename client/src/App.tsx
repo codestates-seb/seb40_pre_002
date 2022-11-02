@@ -26,7 +26,6 @@ function App() {
         >
           <Route path="/" element={<Home isLogin={isLogin} />} />
         </Route>
-
         <Route
           element={[
             <AsideLeft />,
@@ -36,7 +35,6 @@ function App() {
         >
           <Route path="detail/:id" element={<Detail isLogin={isLogin} />} />
         </Route>
-
         <Route
           element={[
             <AskAsideLeft />,
@@ -46,7 +44,6 @@ function App() {
         >
           <Route path="askpage" element={<Askpage />} />
         </Route>
-
         <Route>
           <Route path="login" element={<Login setGlobalLogin={setIsLogin} />} />
         </Route>
