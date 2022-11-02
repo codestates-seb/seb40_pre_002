@@ -1,6 +1,8 @@
 Spring:
-  config:
-    import: 'aws-parameterstore:'
+#  config:
+#    activate:
+#      on-profile: production
+#    import: 'aws-parameterstore:'
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
     url: ${spring.datasource.url}
@@ -50,7 +52,7 @@ server:
       force-response: true
 
 jwt:
-  secret-key: ${jwt.secret-key}
+  secret-key: ${jwy.secret-key}
   access-token-expiration-minutes: 180
 #  refresh-token-expiration-minutes: 420
 
