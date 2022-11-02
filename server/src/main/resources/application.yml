@@ -9,7 +9,7 @@ Spring:
     database: mysql
     show-sql: true
     hibernate:
-      ddl-auto: create
+      ddl-auto: update
     properties:
       hibernate:
         show_sql: true
@@ -35,7 +35,7 @@ server:
 
 jwt:
   secret-key: dlatlqlalfqjsghdlatlqlalfqjsghdlatlqlalfqjsghdlatlqlalfqjsghdlatlqlalfqjsghdlatlqlalfqjsghdlatlqlalfqjsgh
-  access-token-expiration-minutes: 30
+  access-token-expiration-minutes: 180
 #  refresh-token-expiration-minutes: 420
 
 mail:
