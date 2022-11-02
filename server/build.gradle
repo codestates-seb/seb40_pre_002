@@ -58,9 +58,7 @@ dependencies {
 
 
 	// 서버 환경 변수 설정 라이브러리
-	dependencies {
-		implementation group: 'io.awspring.cloud', name: 'spring-cloud-starter-aws-parameter-store-config'
-	}
+	implementation group: 'io.awspring.cloud', name: 'spring-cloud-starter-aws-parameter-store-config'
 }
 
 

@@ -1,9 +1,16 @@
 Spring:
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
-#    url: jdbc:mysql://${AWS_RDS_Endpoint}:3306/pre_project_db?createDatabaseIfNotExist=true&useUnicode=true&characterEncoding=UTF-8
-#    username: ${RDS_Mysql_Admin_id}
-#    password: ${RDS_Mysql_Admin_password}
+    url: jdbc:mysql://${AWS_RDS_Endpoint}:3306/pre_project_db?createDatabaseIfNotExist=true&useUnicode=true&characterEncoding=UTF-8
+    username: ${RDS_Mysql_Admin_id}
+    password: ${RDS_Mysql_Admin_password}
+
+aws:
+  parameterStore:
+    AWS_RDS_Endpoint: ${/spring-boot-aws/cloud-parameter-store/spring.datasource.url}
+    RDS_Mysql_Admin_id: ${/spring-boot-aws/cloud-parameter-store/spring.datasource.username}
+    RDS_Mysql_Admin_password: ${/spring-boot-aws/cloud-parameter-store/spring.datasource.password}
+    AWS_jwt_secret_key: ${/spring-boot-aws/cloud-parameter-store/jwt.secret-key}
 
   jpa:
     database: mysql
