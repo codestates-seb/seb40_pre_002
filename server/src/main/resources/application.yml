@@ -1,8 +1,8 @@
 Spring:
   config:
-    activate:
-      on-profile: production
-    import: 'aws-parameterstore:'
+#    activate:
+#      on-profile: production
+    import: aws-parameterstore:
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
     url: ${spring.datasource.url}
@@ -23,8 +23,8 @@ Spring:
 
 aws:
   paramstore:
-    prefix: /spring-boot-aws
-    name: cloud-parameter-store
+    prefix: /config
+    name: application
     enabled: true
     profile-separator: _
 #    AWS_RDS_Endpoint: ${/spring-boot-aws/cloud-parameter-store/spring.datasource.url}
@@ -38,6 +38,11 @@ logging:
       springframework:
         orm:
           jpa: DEBUG
+    io:
+      awspring:
+        clout:
+          paramstore:
+            AwsParamStorePropertySource=debug
 
 
 
