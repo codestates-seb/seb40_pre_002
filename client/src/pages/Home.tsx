@@ -20,6 +20,7 @@ export default function Home({ isLogin }: HomeProps) {
 
   useEffect(() => {
     mainQuestionsAPIs.getMainQuestions().then((res) => {
+
       setQuestions(res.data.data);
     });
   }, []);
