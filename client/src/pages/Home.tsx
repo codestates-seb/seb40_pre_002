@@ -18,13 +18,9 @@ export default function Home({ isLogin }: HomeProps) {
 
   useEffect(() => {
     mainQuestionsAPIs.getMainQuestions().then((res) => {
-
       setQuestions(res.data.data);
     });
   }, []);
-
-  console.log(questions);
-
   return (
     <Main>
       <MainHead>
@@ -40,16 +36,19 @@ export default function Home({ isLogin }: HomeProps) {
           <button>Interesting</button>
         </FilterBtnList>
       </MainHead>
-
-      {questions.map((question) => {
-        return <ItemList {...question} />;
-      })}
+      <div>
+        <ul>
+          {questions.map((question) => {
+            return <ItemList {...question} />;
+          })}
+        </ul>
+      </div>
     </Main>
   );
 }
 
 const Main = styled.main`
-  position: fixed;
+  position: relative;
   margin-top: 80px;
   margin-left: 20vw;
   min-width: 50vw;
