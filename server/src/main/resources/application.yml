@@ -39,11 +39,11 @@ logging:
       springframework:
         orm:
           jpa: DEBUG
-    io:
-      awspring:
-        clout:
-          paramstore:
-            AwsParamStorePropertySource=debug
+#    io:
+#      awspring:
+#        clout:
+#          paramstore:
+#            AwsParamStorePropertySource=debug
 
 
 
