@@ -24,13 +24,13 @@ const QuestionContent = (props: IQuestion) => {
 
   return (
     <Question>
-      <Qbody>{props.contents}</Qbody>
+      <Qbody>{props.questionContents}</Qbody>
       <Userinfo>
         <StyleLink to="/edit">Edit</StyleLink>
         <User>
           <StyledDate>asked {props.createdAt}</StyledDate>
           <Username>
-            <p>user:</p> {props.user?.username}
+            <p>user:</p> {props.user?.userName}
           </Username>
         </User>
       </Userinfo>

@@ -1,7 +1,4 @@
-import React, { useEffect, useState } from 'react';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
-import { detailAPIs } from './api/detail';
-import { userinfoAPIs } from './api/userinfo';
 import Navbar from './components/navbar/Navbar';
 import AsideLeft from './components/Sidebar/AsideLeft';
 import AsideRight from './components/Sidebar/AsideRight';
@@ -13,7 +10,6 @@ import Askpage from './pages/Askpage';
 import Detail from './pages/Detail';
 import Home from './pages/Home';
 import Login from './pages/Login';
-import { deleteStorageToken, getStorageToken } from './utils/token/token';
 
 function App() {
   const [isLogin, setIsLogin] = useLogin();
@@ -38,7 +34,7 @@ function App() {
             <AsideRight />,
           ]}
         >
-          <Route path="detail/:id" element={<Detail />} />
+          <Route path="detail/:id" element={<Detail isLogin={isLogin} />} />
         </Route>
 
         <Route

@@ -29,7 +29,6 @@ export default function Login({ setGlobalLogin }: LoginProps) {
     e.preventDefault();
     if (!isLogin) {
       UserAccess.signup(userData).then(() => setGlobalLogin(true));
-
       // move to home page
     } else if (isLogin) {
       delete userData.userName;

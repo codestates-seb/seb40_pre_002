@@ -8,18 +8,22 @@ import QuestionContent from '../components/Question/QuestionContent';
 import QuestionTitle from '../components/Question/QuestionTitle';
 import AnswerForm from '../components/Question/AnswerForm';
 
-export default function Detail() {
+interface DetailProps {
+  isLogin: boolean;
+}
+
+export default function Detail({ isLogin }: DetailProps) {
   const { id } = useParams();
   const [question, setQuestionList] = useState<IQuestion | undefined>({});
   const [answerList, setAnswerList] = useState<IAnswer[] | undefined>([]);
 
   useEffect(() => {
     detailAPIs.getDetail(id).then((res) => {
-      const quest = res.data.Question;
-      const ans = res.data.AnswerList;
+      const quest = res.data.data;
+      const ans = res.data.answers;
       setQuestionList(quest);
       setAnswerList(ans);
-      // console.log('ㅇㅁㄴㅇㅁㄴㅇ', res);
+      console.log('ㅇㅁㄴㅇㅁㄴㅇ', res.data.answers);
     });
   }, []);
 
@@ -29,14 +33,12 @@ export default function Detail() {
         <QuestionTitle {...question} />
         <QuestionContent {...question} />
         <StyledP>{answerList?.length} Answers</StyledP>
-
         <>
           {answerList?.map((answer) => {
             return <AnswerContent {...answer} />;
           })}
         </>
-
-        <AnswerForm />
+        {isLogin ? <AnswerForm id={id} /> : <></>}
       </Q>
     </>
   );

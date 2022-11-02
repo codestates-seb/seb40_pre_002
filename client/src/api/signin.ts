@@ -44,7 +44,6 @@ async function login(userData: LoginUserType) {
       setUserStorage(user);
       console.log('토큰', getStorageToken());
     }
-
     return res;
   } catch (err) {
     console.error('login', err);

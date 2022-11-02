@@ -4,8 +4,6 @@ import { Link } from 'react-router-dom';
 import ItemList from '../components/list/ItemList';
 import { mainQuestionsAPIs } from '../api/mainQuestions';
 import { QuestionElement } from '../types/mainQuestions/questionTypes';
-import { getStorageToken } from '../utils/token/token';
-import { IsLogin } from '../types/loginUserType';
 
 // Aside -> Component -> 외부로 빼기
 // 로그인 창에 nav바, aside가 안보여야 됨
@@ -32,7 +30,7 @@ export default function Home({ isLogin }: HomeProps) {
       <MainHead>
         <Question>
           <Title>Top Questions</Title>
-          <AskLink to="askpage">Ask Question</AskLink>
+          {isLogin ? <AskLink to="askpage">Ask Question</AskLink> : <></>}
         </Question>
 
         <FilterBtnList>
