@@ -1,6 +1,6 @@
 export interface IDetailedQnA {
   data?: IQuestion;
-  answers?: IAnswer[];
+  answers?: (IAnswer | undefined)[];
   pageInfo?: {
     page?: number;
     size?: number;

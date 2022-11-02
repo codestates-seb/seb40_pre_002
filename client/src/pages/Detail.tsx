@@ -15,15 +15,14 @@ interface DetailProps {
 export default function Detail({ isLogin }: DetailProps) {
   const { id } = useParams();
   const [question, setQuestionList] = useState<IQuestion | undefined>({});
-  const [answerList, setAnswerList] = useState<IAnswer[] | undefined>([]);
+  const [answerList, setAnswerList] = useState<(IAnswer | undefined)[]>([]);
 
   useEffect(() => {
     detailAPIs.getDetail(id).then((res) => {
-      const quest = res.data.data;
-      const ans = res.data.answers;
+      const quest = res?.data.data;
+      const ans = res?.data.answers || [];
       setQuestionList(quest);
       setAnswerList(ans);
-      console.log('ㅇㅁㄴㅇㅁㄴㅇ', res.data.answers);
     });
   }, []);
 
@@ -38,7 +37,7 @@ export default function Detail({ isLogin }: DetailProps) {
             return <AnswerContent {...answer} />;
           })}
         </>
-        {isLogin ? <AnswerForm id={id} /> : <></>}
+        {isLogin ? <AnswerForm setAnswerList={setAnswerList} id={id} /> : <></>}
       </Q>
     </>
   );

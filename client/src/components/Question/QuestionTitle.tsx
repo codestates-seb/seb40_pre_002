@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 import { IQuestion } from '../../types/Detail/detailAnswerType';
 
@@ -7,7 +8,8 @@ function QuestionTitle(question: IQuestion) {
     <Head>
       <Title>
         <p>{question.questionTitle}</p>
-        <Button>Ask question</Button>
+        {/* TODO: Button to askQuestion styling needs to be refacotred */}
+        <Button to="/askpage"> Ask question</Button>
       </Title>
       <Tbody>
         Asked: {question.createdAt} Modified: {question.modifiedAt} viewed:{' '}
@@ -53,7 +55,7 @@ const Tbody = styled.div`
   border-bottom-width: 1px !important;
   border-color: hsl(210, 8%, 90%) !important;
 `;
-const Button = styled.button`
+const Button = styled(Link)`
   display: flex;
   white-space: nowrap !important;
   padding: 1em;
