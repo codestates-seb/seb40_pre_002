@@ -1,6 +1,6 @@
 Spring:
-  datasource:
-    driver-class-name: com.mysql.cj.jdbc.Driver
+#  datasource:
+#    driver-class-name: com.mysql.cj.jdbc.Driver
 #    url: jdbc:mysql://{AWS RDS EndPoint}:3306/pre_project_db?createDatabaseIfNotExist=true&useUnicode=true&characterEncoding=UTF-8
 #    username: {RDS Mysql Admin id}
 #    password: {RDS Mysql Admin password}
