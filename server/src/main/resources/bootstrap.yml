@@ -2,5 +2,5 @@ aws:
   paramstore:
     enabled: true
     prefix: /spring-boot-aws
-    name: https-pioneroroom-com
+    name: cloud-parameter-store
     profileSeparator: _
