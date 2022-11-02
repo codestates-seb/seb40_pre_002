@@ -1,35 +1,38 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
-import axios from 'axios';
+import { initialAnswer, NewAnswer } from '../../types/Detail/detailAnswerType';
+import { useNavigate } from 'react-router-dom';
+import { postAns } from '../../api/postAns';
 
-const AnswerForm = () => {
-  const [answerPost, setAnswerPost] = useState({ body: '' });
+export interface AnswerProps {
+  id: string | undefined;
+}
 
-  // const bodyChange = (el) => {
-  //   setAnswerPost({body: el});
-  // };
-  // const postAnserClick = () => {
-  //   if(anserPost.body !==""){
-  //     const headers ={
-  //       "Content-Type": "application/json"
-  //     }
-  //     const
-  //   }
-  // }
+const AnswerForm = ({ id }: AnswerProps) => {
+  const navigate = useNavigate();
+  const [answer, setAnswer] = useState<NewAnswer>(initialAnswer);
+
+  const getContent = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const { name, value } = e.target;
+    setAnswer({ ...answer, [name]: value });
+  };
+
+  const handleSubmit = () => {
+    postAns(id, answer).then(res => {
+      res?.
+      if(typeof(res) !== undefined){
+        <nav></nav>
+      }
+    });
+    navigate(`https://pioneroroom.com/auth/questionlist/${id}`);
+  };
 
   return (
     <Answerform>
       <p>Your Answer</p>
       <Form>
-        <input
-          id="body"
-          defaultValue={answerPost.body}
-          //onChange={(el) => bodyChange(el.target.value)}
-        />
-        <Button
-          type="button"
-          //onClick ={postAnswerClick}
-        >
+        <input onChange={getContent} type="text" name="answerContents" />
+        <Button type="button" onClick={handleSubmit}>
           post Your Answer
         </Button>
       </Form>

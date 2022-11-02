@@ -6,12 +6,12 @@ function QuestionTitle(question: IQuestion) {
   return (
     <Head>
       <Title>
-        <p>{question.title}</p>
+        <p>{question.questionTitle}</p>
         <Button>Ask question</Button>
       </Title>
       <Tbody>
         Asked: {question.createdAt} Modified: {question.modifiedAt} viewed:{' '}
-        {question.views}
+        {question.view}
       </Tbody>
     </Head>
   );
@@ -19,7 +19,7 @@ function QuestionTitle(question: IQuestion) {
 
 const Head = styled.div`
   display: flex;
-  width: 80%;
+  width: 111%;
   height: 100%;
   padding: 5px 20px;
   flex-direction: column;
@@ -54,22 +54,23 @@ const Tbody = styled.div`
   border-color: hsl(210, 8%, 90%) !important;
 `;
 const Button = styled.button`
-  display: inline-block;
+  display: flex;
   white-space: nowrap !important;
-  padding: 0.8em;
-  margin-left: 5px;
+  padding: 1em;
   border: 1px solid transparent;
   border-radius: 3px;
+  align-items: center;
+  justify-content: center;
   outline: none;
   color: hsl(0, 0%, 100%);
   font-family: inherit;
-  font-weight: normal;
+  font-weight: bold;
   font-size: 13px;
   text-align: center;
   text-decoration: none;
   cursor: pointer;
   width: 100px;
-  height: 35px;
+  height: 40px;
   background-color: hsl(206, 100%, 52%);
   box-shadow: inset 0 1px 0 0 hsl(0deg 0% 100% / 40%);
   &:hover {

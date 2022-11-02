@@ -6,7 +6,7 @@ import { IAnswer } from '../../types/Detail/detailAnswerType';
 const AnswerContent = (answers: IAnswer) => {
   return (
     <Answer>
-      <Content>{answers.contents}</Content>
+      <Content>{answers.answerContents}</Content>
       <Userinfo>
         <StyleLink to="/edit">Edit</StyleLink>
         <User>
@@ -17,7 +17,7 @@ const AnswerContent = (answers: IAnswer) => {
           <Username>
             {' '}
             <p>user:</p>
-            {answers.user?.username}
+            {answers.user?.userName}
           </Username>
         </User>
       </Userinfo>
