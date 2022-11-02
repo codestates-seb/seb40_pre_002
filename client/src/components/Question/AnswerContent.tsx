@@ -1,21 +1,26 @@
-import React from 'react';
+import React, { useMemo } from 'react';
 import styled from 'styled-components';
 import { Link } from 'react-router-dom';
 import { IAnswer } from '../../types/Detail/detailAnswerType';
+import { getLatestTime } from '../../utils/helper/date/getLastestTime';
 
 const AnswerContent = (answers: IAnswer) => {
+  const [latestDate, latestUtc] = useMemo(
+    () => getLatestTime([answers.createdAt, answers.modifiedAt]),
+    [answers.createdAt, answers.modifiedAt]
+  );
+
   return (
     <Answer>
       <Content>{answers.answerContents}</Content>
       <Userinfo>
         <StyleLink to="/edit">Edit</StyleLink>
         <User>
-          <Date>
-            asked :{' '}
-            {answers.modifiedAt ? answers.modifiedAt : answers.createdAt}
-          </Date>
+          <StyledDate>
+            {latestUtc === answers.createdAt ? 'asked : ' : 'modified : '} :
+            {latestDate}
+          </StyledDate>
           <Username>
-            {' '}
             <p>user:</p>
             {answers.user?.userName}
           </Username>
@@ -65,7 +70,7 @@ const User = styled.div`
     margin: 0;
   }
 `;
-const Date = styled.p`
+const StyledDate = styled.p`
   color: #6a737c;
   font-size: 12px;
 `;

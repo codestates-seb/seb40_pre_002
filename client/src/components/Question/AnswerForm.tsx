@@ -1,27 +1,30 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
-import { initialAnswer, NewAnswer } from '../../types/Detail/detailAnswerType';
 import { useNavigate } from 'react-router-dom';
 import { postAns } from '../../api/postAns';
+import { IAnswer } from '../../types/Detail/detailAnswerType';
 
 export interface AnswerProps {
   id: string | undefined;
+  setAnswerList: React.Dispatch<React.SetStateAction<(IAnswer | undefined)[]>>;
 }
 
-const AnswerForm = ({ id }: AnswerProps) => {
+const AnswerForm = ({ id, setAnswerList }: AnswerProps) => {
+  const [answer, setAnswer] = useState<string>('');
   const navigate = useNavigate();
-  const [answer, setAnswer] = useState<NewAnswer>(initialAnswer);
-
   const getContent = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const { name, value } = e.target;
-    setAnswer({ ...answer, [name]: value });
+    const { value } = e.target;
+    setAnswer(value);
   };
 
   const handleSubmit = async () => {
     try {
       const response = await postAns(id, answer);
       if (Number.isNaN(response)) throw new Error('response is nan');
-      //navigate(`/detail/${response.questionId}`);
+      navigate(`/detail/${id}`);
+      setAnswerList((prev) => {
+        return [...prev, response];
+      });
     } catch (err) {
       console.error(err);
     }
@@ -31,7 +34,12 @@ const AnswerForm = ({ id }: AnswerProps) => {
     <Answerform>
       <p>Your Answer</p>
       <Form>
-        <input onChange={getContent} type="text" name="answerContents" />
+        <input
+          onChange={getContent}
+          type="text"
+          name="answerContents"
+          value={answer}
+        />
         <Button type="button" onClick={handleSubmit}>
           post Your Answer
         </Button>
