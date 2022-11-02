@@ -36,7 +36,7 @@ server:
 jwt:
   secret-key: ${AWS_jwt_secret_key}
   access-token-expiration-minutes: 180
-  refresh-token-expiration-minutes: 420
+#  refresh-token-expiration-minutes: 420
 
 mail:
   address:
