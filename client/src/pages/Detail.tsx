@@ -19,7 +19,7 @@ export default function Detail() {
       const ans = res.data.AnswerList;
       setQuestionList(quest);
       setAnswerList(ans);
-      console.log('ㅇㅁㄴㅇㅁㄴㅇ', res.data.AnswerList);
+      // console.log('ㅇㅁㄴㅇㅁㄴㅇ', res);
     });
   }, []);
 
