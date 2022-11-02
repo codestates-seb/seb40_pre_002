@@ -1,9 +1,12 @@
 Spring:
+  config:
+    import: 'aws-parameterstore:'
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
-    url: jdbc:mysql://${AWS_RDS_Endpoint}:3306/pre_project_db?createDatabaseIfNotExist=true&useUnicode=true&characterEncoding=UTF-8
-    username: ${RDS_Mysql_Admin_id}
-    password: ${RDS_Mysql_Admin_password}
+    url: jdbc:mysql://${spring.datasource.url}:3306/pre_project_db?createDatabaseIfNotExist=true&useUnicode=true&characterEncoding=UTF-8
+    username: ${spring.datasource.username}
+    password: ${spring.datasource.password}
+
 
   jpa:
     database: mysql
@@ -16,6 +19,17 @@ Spring:
         show_sql: true
         format_sql: true
 
+aws:
+  paramstore:
+    prefix: /spring-boot-aws
+    name: cloud-parameter-store
+    enabled: true
+    profile-separator: _
+#    AWS_RDS_Endpoint: ${/spring-boot-aws/cloud-parameter-store/spring.datasource.url}
+#    RDS_Mysql_Admin_id: ${/spring-boot-aws/cloud-parameter-store/spring.datasource.username}
+#    RDS_Mysql_Admin_password: ${/spring-boot-aws/cloud-parameter-store/spring.datasource.password}
+#    AWS_jwt_secret_key: ${/spring-boot-aws/cloud-parameter-store/jwt.secret-key}
+
 logging:
   level:
     org:
@@ -24,15 +38,6 @@ logging:
           jpa: DEBUG
 
 
-aws:
-  paramstore:
-    prefix: /spring-boot-aws
-    name: cloud-parameter-store
-    enabled: true
-    AWS_RDS_Endpoint: ${/spring-boot-aws/cloud-parameter-store/spring.datasource.url}
-    RDS_Mysql_Admin_id: ${/spring-boot-aws/cloud-parameter-store/spring.datasource.username}
-    RDS_Mysql_Admin_password: ${/spring-boot-aws/cloud-parameter-store/spring.datasource.password}
-    AWS_jwt_secret_key: ${/spring-boot-aws/cloud-parameter-store/jwt.secret-key}
 
 server:
   port: 8080
@@ -45,7 +50,7 @@ server:
       force-response: true
 
 jwt:
-  secret-key: ${AWS_jwt_secret_key}
+  secret-key: ${jwt.secret-key}
   access-token-expiration-minutes: 180
 #  refresh-token-expiration-minutes: 420
 
