@@ -5,13 +5,13 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
 
 
 public class UserDto {
 
     @Getter
+    @Setter
     @NoArgsConstructor
     public static class Post {
         @NotBlank

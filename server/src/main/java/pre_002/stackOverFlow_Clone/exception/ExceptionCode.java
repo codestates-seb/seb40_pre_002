@@ -22,8 +22,9 @@ public enum ExceptionCode {
 
     NOT_LOGIN(401, "Not Log-in"),
 
-    ANSWER_NOT_FOUND(404, "Answer is not found.");
+    ANSWER_NOT_FOUND(404, "Answer is not found."),
 
+    DUPLICATE_VOTE(406, "Duplicate vote");
 
     @Getter
     private final int statusCode;

@@ -36,6 +36,7 @@ public class AnswerDto {
         private String answerContents;
         private LocalDateTime createdAt;
         private LocalDateTime modifiedAt;
+        private int votes;
         private UserDto.Response user;
     }
 }
