@@ -1,23 +1,28 @@
-import React from 'react';
+import React, { useMemo } from 'react';
 import styled from 'styled-components';
 import { Link } from 'react-router-dom';
 import { IAnswer } from '../../types/Detail/detailAnswerType';
+import { getLatestTime } from '../../utils/helper/date/getLastestTime';
 
 const AnswerContent = (answers: IAnswer) => {
+  const [latestDate, latestUtc] = useMemo(
+    () => getLatestTime([answers.createdAt, answers.modifiedAt]),
+    [answers.createdAt, answers.modifiedAt]
+  );
+
   return (
     <Answer>
-      <Content>{answers.contents}</Content>
+      <Content>{answers.answerContents}</Content>
       <Userinfo>
         <StyleLink to="/edit">Edit</StyleLink>
         <User>
-          <Date>
-            asked :{' '}
-            {answers.modifiedAt ? answers.modifiedAt : answers.createdAt}
-          </Date>
+          <StyledDate>
+            {latestUtc === answers.createdAt ? 'asked : ' : 'modified : '} :
+            {latestDate}
+          </StyledDate>
           <Username>
-            {' '}
             <p>user:</p>
-            {answers.user?.username}
+            {answers.user?.userName}
           </Username>
         </User>
       </Userinfo>
@@ -30,7 +35,6 @@ const StyleLink = styled(Link)`
   font-size: 13px;
   color: #6a737c;
 `;
-
 const Answer = styled.div`
   display: flex;
   width: 80%;
@@ -51,7 +55,6 @@ const Userinfo = styled.div`
   padding: 5px 20px;
   align-items: center;
 `;
-
 const User = styled.div`
   display: block;
   flex-direction: column;
@@ -67,11 +70,10 @@ const User = styled.div`
     margin: 0;
   }
 `;
-const Date = styled.p`
+const StyledDate = styled.p`
   color: #6a737c;
   font-size: 12px;
 `;
-
 const Username = styled.p`
   color: #0074cc;
   font-size: 15px;

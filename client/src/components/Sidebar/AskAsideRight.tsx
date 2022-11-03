@@ -1,4 +1,3 @@
-import { Outlet } from 'react-router-dom';
 import styled from 'styled-components';
 
 const AskAsideRight = () => {
@@ -6,7 +5,6 @@ const AskAsideRight = () => {
   return (
     <>
       <Right></Right>
-      <Outlet />
     </>
   )
 

@@ -1,18 +1,19 @@
-import { Outlet } from 'react-router-dom';
 import styled from 'styled-components';
 
-const HomeAsideLeft = () => {
+const HomeAsideLeft = ({location} : any) => {
 
   return (
     <>
       <Left>
-        <HomeBar>Home<Index></Index></HomeBar>
+        <HomeBar>
+          Home<Index></Index>
+        </HomeBar>
       </Left>
-      <Outlet/>
+      {/* BUG: Outlet component both in HomeAsideLeft.tsx
+      and AsideRight renders <Home /> twice,  */}
+      {/* <Outlet/> */}
     </>
-
-  )
-
+  );
 };
 
 const Left = styled.aside`
@@ -22,19 +23,19 @@ const Left = styled.aside`
   border-right: solid 1px lightgray;
   display: flex;
   justify-content: right;
-`
+`;
 
 const HomeBar = styled.div`
   width: 143px;
   height: 34px;
   padding-left: 15px;
   margin-top: 100px;
-  background-color: #F1F2F3;
+  background-color: #f1f2f3;
   font-size: 15px;
   font-weight: bold;
   display: flex;
   align-items: center;
-`
+`;
 
 const Index = styled.span`
   position: relative;
@@ -42,6 +43,6 @@ const Index = styled.span`
   width: 5px;
   height: 34px;
   background-color: orange;
-`
+`;
 
-export default HomeAsideLeft
+export default HomeAsideLeft;

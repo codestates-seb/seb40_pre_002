@@ -1,46 +1,45 @@
 import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { detailAPIs } from '../api/detail';
-import AnswerContent from '../components/Question/AnswerContent';
-import AnswerForm from '../components/Question/AnswerForm';
-import QuestionContent from '../components/Question/QuestionContent';
-import QuestionTitle from '../components/Question/QuestionTitle';
 import { IAnswer, IQuestion } from '../types/Detail/detailAnswerType';
 import styled from 'styled-components';
+import AnswerContent from '../components/Question/AnswerContent';
+import QuestionContent from '../components/Question/QuestionContent';
+import QuestionTitle from '../components/Question/QuestionTitle';
+import AnswerForm from '../components/Question/AnswerForm';
+import AsideLeft from '../components/Sidebar/AsideLeft';
+import AsideRight from '../components/Sidebar/AsideRight';
 
-export default function Detail() {
+interface DetailProps {
+  isLogin: boolean;
+}
+
+export default function Detail({ isLogin }: DetailProps) {
   const { id } = useParams();
   const [question, setQuestionList] = useState<IQuestion | undefined>({});
-  const [answerList, setAnswerList] = useState<IAnswer[] | undefined>([]);
+  const [answerList, setAnswerList] = useState<(IAnswer | undefined)[]>([]);
 
   useEffect(() => {
     detailAPIs.getDetail(id).then((res) => {
-      const quest = res.data.Question;
-      const ans = res.data.AnswerList;
+      const quest = res?.data.data;
+      const ans = res?.data.answers || [];
       setQuestionList(quest);
       setAnswerList(ans);
-      console.log('ㅇㅁㄴㅇㅁㄴㅇ', res.data.AnswerList);
     });
   }, []);
 
   return (
-    <>
-    <DetailMain>
       <Q>
         <QuestionTitle {...question} />
         <QuestionContent {...question} />
         <StyledP>{answerList?.length} Answers</StyledP>
-
         <>
-          {answerList?.map((answer) => {
-            return <AnswerContent {...answer} />;
-          })}
+          {answerList?.map((answer) => (
+            <AnswerContent {...answer} />
+          ))}
         </>
-
-        <AnswerForm />
+        {isLogin ? <AnswerForm setAnswerList={setAnswerList} id={id} /> : <></>}
       </Q>
-    </DetailMain>
-    </>
   );
 }
 
@@ -54,11 +53,5 @@ const Q = styled.div`
   display: flex;
   flex-direction: column;
   width: 1072px;
-`;
-
-const DetailMain = styled.main`
-  position: fixed;
-  margin-top: 20px;
   margin-left: 20vw;
-  width: 60vw;
-`
+`;

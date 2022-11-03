@@ -1,13 +1,48 @@
-import React from 'react';
+import React, { useState } from 'react';
 import styled from 'styled-components';
+import { useNavigate } from 'react-router-dom';
+import { postAns } from '../../api/postAns';
+import { IAnswer } from '../../types/Detail/detailAnswerType';
 
-const AnswerForm = () => {
+export interface AnswerProps {
+  id: string | undefined;
+  setAnswerList: React.Dispatch<React.SetStateAction<(IAnswer | undefined)[]>>;
+}
+
+const AnswerForm = ({ id, setAnswerList }: AnswerProps) => {
+  const [answer, setAnswer] = useState<string>('');
+  const navigate = useNavigate();
+  const getContent = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const { value } = e.target;
+    setAnswer(value);
+  };
+
+  const handleSubmit = async () => {
+    try {
+      const response = await postAns(id, answer);
+      if (Number.isNaN(response)) throw new Error('response is nan');
+      navigate(`/detail/${id}`);
+      setAnswerList((prev) => {
+        return [...prev, response];
+      });
+    } catch (err) {
+      console.error(err);
+    }
+  };
+
   return (
     <Answerform>
       <p>Your Answer</p>
       <Form>
-        <input></input>
-        <Button>post Your Answer</Button>
+        <input
+          onChange={getContent}
+          type="text"
+          name="answerContents"
+          value={answer}
+        />
+        <Button type="button" onClick={handleSubmit}>
+          post Your Answer
+        </Button>
       </Form>
     </Answerform>
   );
@@ -24,7 +59,6 @@ const Answerform = styled.div`
       'Segoe UI', 'Liberation Sans', sans-serif;
   }
 `;
-
 const Form = styled.form`
   display: flex;
   flex-direction: column;
@@ -33,7 +67,6 @@ const Form = styled.form`
     height: 250px;
   }
 `;
-
 const Button = styled.button`
   display: flex;
   align-items: center;

@@ -2,41 +2,34 @@ import React, { useMemo } from 'react';
 import styled from 'styled-components';
 import { Link } from 'react-router-dom';
 import { IQuestion } from '../../types/Detail/detailAnswerType';
-const QuestionContent = (props: IQuestion) => {
+import { getLatestTime } from '../../utils/helper/date/getLastestTime';
 
+const QuestionContent = (props: IQuestion) => {
   // useCallback or useMemo --> 최근 시간 추출하는 함수 작성
   // IQuestion createdAt, modifiedAt 에서 최신 날짜 추출
   // IAnswer createdAt, modifiedAt 에서 최신 날짜 추출
-  // 
 
-  // function getLatestTime(){
-  //   const QcreatedAt = props.createdAt;
-  //   const QmodifiedAt = props.modifiedAt;
-  //   const AcreatedAt = props.createdAt;
-  //   const AmodifiedAt = props.modifiedAt;
+  const QcreatedAt = props.createdAt;
+  const QmodifiedAt = props.modifiedAt;
+  const AcreatedAt = props.createdAt;
+  const AmodifiedAt = props.modifiedAt;
 
-  //   const Daylist = new Array();
+  const dates = useMemo(
+    () => [QcreatedAt, QmodifiedAt, AcreatedAt, AmodifiedAt],
+    [QcreatedAt, QmodifiedAt, AcreatedAt, AmodifiedAt]
+  );
 
-  //   Daylist.push(QcreatedAt);
-  //   Daylist.push(QmodifiedAt);
-  //   Daylist.push(AcreatedAt);
-  //   Daylist.push(AmodifiedAt);
-
-  //   console.log(Daylist.reduce((prev,curr) => {
-  //       return new Date(prev).getTime() <= new Date(curr).getTime() ? curr : prev;
-  //   }));
-    
-  // }
+  const [latestDate] = useMemo(() => getLatestTime(dates), [dates]);
 
   return (
     <Question>
-      <Qbody>{props.contents}</Qbody>
+      <Qbody>{props.questionContents}</Qbody>
       <Userinfo>
         <StyleLink to="/edit">Edit</StyleLink>
         <User>
-          <Date>asked {props.createdAt}</Date>
+          <StyledDate>asked {latestDate}</StyledDate>
           <Username>
-            <p>user:</p> {props.user?.username}
+            <p>user:</p> {props.user?.userName}
           </Username>
         </User>
       </Userinfo>
@@ -85,7 +78,7 @@ const User = styled.div`
     margin: 0;
   }
 `;
-const Date = styled.p`
+const StyledDate = styled.p`
   color: #6a737c;
   font-size: 12px;
 `;

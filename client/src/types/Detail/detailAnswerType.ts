@@ -1,6 +1,6 @@
 export interface IDetailedQnA {
-  Question?: IQuestion;
-  AnswerList?: IAnswer[];
+  data?: IQuestion;
+  answers?: (IAnswer | undefined)[];
   pageInfo?: {
     page?: number;
     size?: number;
@@ -10,23 +10,33 @@ export interface IDetailedQnA {
 }
 
 export interface IQuestion {
-  title?: string;
+  questionId?: number;
+  questionTitle?: string;
+  questionContents?: string;
+  view?: string;
   createdAt?: string;
   modifiedAt?: string;
-  views?: string;
-  contents?: string;
   user?: IQuestionUser;
 }
 
 export interface IQuestionUser {
-  username?: string;
+  userId?: number;
   email?: string;
+  userName?: string;
 }
 
 export interface IAnswer {
-  contents?: string;
-  views?: number;
+  answerId?: number;
+  answerContents?: string;
   createdAt?: string;
   modifiedAt?: string;
   user?: IQuestionUser;
 }
+
+export interface NewAnswer {
+  answerContents?: string;
+}
+
+export const initialAnswer = {
+  answerContents: '',
+};
