@@ -59,8 +59,6 @@ dependencies {
 
 	// 서버 환경 변수 설정 라이브러리
 	implementation group: 'io.awspring.cloud', name: 'spring-cloud-starter-aws-parameter-store-config'
-	implementation group: 'org.springframework.cloud', name: 'spring-cloud-starter-parent', version: 'Hoxton.SR12', ext: 'pom'
-	implementation 'org.springframework.cloud:spring-cloud-starter-aws-parameter-store-config:2.2.6.RELEASE'
 }
 
 
