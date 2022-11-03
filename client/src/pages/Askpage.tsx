@@ -30,6 +30,7 @@ export default function Askpage() {
   }
   
   return (
+  
     <AskMain>
       <Qstitle>Ask a public question</Qstitle>
 
@@ -77,6 +78,7 @@ export default function Askpage() {
       <SubmitButton onClick={handleSubmit}>Post your question</SubmitButton>
 
     </AskMain>
+   
   );
 }
 

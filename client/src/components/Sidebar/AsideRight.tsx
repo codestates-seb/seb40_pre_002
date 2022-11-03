@@ -1,8 +1,8 @@
-import { Outlet } from 'react-router-dom';
 import styled from 'styled-components';
 import pencil from '../../images/pencil.png';
 import stack from '../../images/stackimg.png';
 import wing from '../../images/wing.png';
+
 const AsideRight = () => {
   return (
     <>
@@ -95,7 +95,6 @@ const AsideRight = () => {
           </li>
         </Sidebar1>
       </Right>
-      <Outlet />
     </>
   );
 };

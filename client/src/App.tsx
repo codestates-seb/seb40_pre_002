@@ -1,3 +1,4 @@
+import { useState } from 'react';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import Navbar from './components/navbar/Navbar';
 import AsideLeft from './components/Sidebar/AsideLeft';
@@ -16,37 +17,12 @@ function App() {
 
   return (
     <BrowserRouter>
+    <Navbar isLogin={isLogin} setIsLogin={setIsLogin}/>
       <Routes>
-        <Route
-          element={[
-            <HomeAsideLeft />,
-            <AsideRight />,
-            <Navbar isLogin={isLogin} setIsLogin={setIsLogin} />,
-          ]}
-        >
-          <Route path="/" element={<Home isLogin={isLogin} />} />
-        </Route>
-        <Route
-          element={[
-            <AsideLeft />,
-            <Navbar isLogin={isLogin} setIsLogin={setIsLogin} />,
-            <AsideRight />,
-          ]}
-        >
-          <Route path="detail/:id" element={<Detail isLogin={isLogin} />} />
-        </Route>
-        <Route
-          element={[
-            <AskAsideLeft />,
-            <Navbar isLogin={isLogin} setIsLogin={setIsLogin} />,
-            <AskAsideRight />,
-          ]}
-        >
-          <Route path="askpage" element={<Askpage />} />
-        </Route>
-        <Route>
-          <Route path="login" element={<Login setGlobalLogin={setIsLogin} />} />
-        </Route>
+        <Route path="/" element={[<HomeAsideLeft/>,<AsideRight/>,<Home isLogin={isLogin} />]} />
+        <Route path="detail/:id" element={[<AsideLeft/>,<AsideRight/>,<Detail isLogin={isLogin} />]} />
+        <Route path="askpage" element={[<AskAsideLeft/>,<AskAsideRight/>,<Askpage />]} />
+        <Route path="login" element={<Login setGlobalLogin={setIsLogin}/>} />
       </Routes>
     </BrowserRouter>
   );
