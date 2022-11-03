@@ -11,13 +11,14 @@ import pre_002.stackOverFlow_Clone.exception.BusinessLogicException;
 import pre_002.stackOverFlow_Clone.exception.ExceptionCode;
 import pre_002.stackOverFlow_Clone.question.entity.Question;
 import pre_002.stackOverFlow_Clone.question.repository.QuestionRepository;
-import pre_002.stackOverFlow_Clone.question.vote.QuestionVote;
-import pre_002.stackOverFlow_Clone.question.vote.QuestionVoteRepository;
+import pre_002.stackOverFlow_Clone.question.vote.entity.QuestionVote;
+import pre_002.stackOverFlow_Clone.question.vote.repository.QuestionVoteRepository;
 import pre_002.stackOverFlow_Clone.user.entity.User;
 import pre_002.stackOverFlow_Clone.user.service.UserService;
 
 import java.security.Principal;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.Objects;
 import java.util.Optional;
 
@@ -56,6 +57,8 @@ public class QuestionService{
         QuestionVote vote = question.getVote();
         vote.setQuestion(question);
         vote.setVoteCount(0);
+        vote.setUpUserId(new ArrayList<>());
+        vote.setDownUserId(new ArrayList<>());
 
         return questionRepository.save(question);
     }
@@ -89,7 +92,7 @@ public class QuestionService{
         QuestionVote questionVote = question.getVote();
 
         // 질문 투표 up한 유저일 경우
-        if (Objects.equals(questionVote.getUpUserId(), user.getUserId())) {
+        if (questionVote.getUpUserId().contains(user.getUserId())) {
             // request vote가 0보다 크면
             if (vote > 0) {
                 throw new BusinessLogicException(ExceptionCode.VOTE_EXIST);
@@ -97,14 +100,14 @@ public class QuestionService{
             // request vote가 0보다 작으면 투표수 감소
             else {
                 questionVote.setVoteCount(questionVote.getVoteCount() - 1);
-                questionVote.setUpUserId(null);
+                questionVote.getUpUserId().remove(user.getUserId());
                 questionVoteRepository.save(questionVote);
                 question.setVote(questionVote);
                 questionRepository.save(question);
             }
         }
         // 질문 투표 down한 유저일 경우
-        else if (Objects.equals(questionVote.getDownUserId(), user.getUserId())){
+        else if (questionVote.getDownUserId().contains(user.getUserId())){
             // request vote가 0보다 작으면
             if (vote < 0) {
                 throw new BusinessLogicException(ExceptionCode.VOTE_EXIST);
@@ -112,7 +115,7 @@ public class QuestionService{
             // request vote가 0보다 크면
             else {
                 questionVote.setVoteCount(questionVote.getVoteCount() + 1);
-                questionVote.setDownUserId(null);
+                questionVote.getDownUserId().remove(user.getUserId());
                 questionVoteRepository.save(questionVote);
                 question.setVote(questionVote);
                 questionRepository.save(question);
@@ -123,7 +126,7 @@ public class QuestionService{
             // request vote가 0보다 크면
             if (vote > 0) {
                 questionVote.setVoteCount(questionVote.getVoteCount() + 1);
-                questionVote.setUpUserId(user.getUserId());
+                questionVote.getUpUserId().add(user.getUserId());
                 questionVoteRepository.save(questionVote);
                 question.setVote(questionVote);
                 questionRepository.save(question);
@@ -131,7 +134,7 @@ public class QuestionService{
             // request vote가 0보다 작으면
             else if (vote < 0) {
                 questionVote.setVoteCount(questionVote.getVoteCount() - 1);
-                questionVote.setDownUserId(user.getUserId());
+                questionVote.getDownUserId().add(user.getUserId());
                 questionVoteRepository.save(questionVote);
                 question.setVote(questionVote);
                 questionRepository.save(question);
