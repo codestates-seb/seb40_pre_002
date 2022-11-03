@@ -5,6 +5,7 @@ import io.jsonwebtoken.ExpiredJwtException;
 import io.jsonwebtoken.JwtException;
 import io.jsonwebtoken.security.SignatureException;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
@@ -25,6 +26,7 @@ import java.util.List;
 import java.util.Map;
 
 @RequiredArgsConstructor
+@Slf4j
 public class JwtVerificationFilter extends OncePerRequestFilter {   // OncePerRequestFilter -> JWT 검증은 요청당 한번만 수행하면 되므로 전용 Filter로 사용하기 적절
     private final JwtTokenizer jwtTokenizer;    // JWT 검증 및 토큰에 포함된 정보인 Claims를 얻는데 사용
     private final CustomAuthorityUtils authorityUtils;      // 검증 성공 후 Authentication 객체에 채울 사용자의 권한을 생성하는데 사용
