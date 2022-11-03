@@ -13,7 +13,7 @@ public class DetailQuestionResponseDto {
     private String questionTitle;
     private String questionContents;
     private int view;
-    private int vote = 0;
+    private int vote;
     private LocalDateTime createdAt;
     private LocalDateTime modifiedAt;
     private UserDto.Response user;
