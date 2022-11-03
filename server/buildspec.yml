@@ -1,11 +1,11 @@
 version: 0.2
 
-env:
-  parameter-store:
-    AWS_RDS_Endpoint: "/spring-boot-aws/cloud-parameter-store/spring.datasource.url"
-    RDS_Mysql_Admin_id: "/spring-boot-aws/cloud-parameter-store/spring.datasource.username"
-    RDS_Mysql_Admin_password: "/spring-boot-aws/cloud-parameter-store/spring.datasource.password"
-    AWS_jwt_secret_key: "/spring-boot-aws/cloud-parameter-store/jwt.secret-key"
+#env:
+#  parameter-store:
+#    AWS_RDS_Endpoint: "/spring-boot-aws/cloud-parameter-store/spring.datasource.url"
+#    RDS_Mysql_Admin_id: "/spring-boot-aws/cloud-parameter-store/spring.datasource.username"
+#    RDS_Mysql_Admin_password: "/spring-boot-aws/cloud-parameter-store/spring.datasource.password"
+#    AWS_jwt_secret_key: "/spring-boot-aws/cloud-parameter-store/jwt.secret-key"
 
 phases:
   install:
