@@ -30,6 +30,7 @@ public interface QuestionMapper {
                 .createdAt(question.getCreatedAt())
                 .modifiedAt(question.getModifiedAt())
                 .view(question.getViews())
+                .vote(question.getVote().getVoteCount())
                 .user(userMapper.userToUserResponseDto(question.getUser()))
                 .build();
     }
@@ -60,6 +61,7 @@ public interface QuestionMapper {
                         .questionTitle(question.getQuestionTitle())
                         .questionContents(question.getQuestionContents())
                         .views(question.getViews())
+                        .vote(question.getVote().getVoteCount())
                         .countAnswer(question.getCountAnswer())
                         .createdAt(question.getCreatedAt())
                         .modifiedAt(question.getModifiedAt())

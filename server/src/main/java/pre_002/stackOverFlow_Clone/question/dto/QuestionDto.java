@@ -7,6 +7,7 @@ import lombok.Setter;
 import pre_002.stackOverFlow_Clone.answer.dto.AnswerDto;
 import pre_002.stackOverFlow_Clone.dto.MultiResponseDto;
 import pre_002.stackOverFlow_Clone.user.dto.UserDto;
+import pre_002.stackOverFlow_Clone.user.entity.User;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
