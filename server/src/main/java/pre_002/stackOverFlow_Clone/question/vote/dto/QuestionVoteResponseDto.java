@@ -13,5 +13,4 @@ public class QuestionVoteResponseDto {
     private int vote;
     private List<Long> voteUpUsers;
     private List<Long> voteDownUsers;
-    private Long questionId;
 }
