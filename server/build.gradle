@@ -103,4 +103,3 @@ bootJar {
 		into 'static/docs'
 	}
 }
->>>>>>> f1010c12759dd082dab42c1af316230bb3d688cb
