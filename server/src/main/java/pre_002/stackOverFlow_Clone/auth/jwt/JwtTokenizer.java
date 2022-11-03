@@ -26,9 +26,9 @@ public class JwtTokenizer {
     @Value("${jwt.access-token-expiration-minutes}")
     private int accessTokenExpirationMinutes;       // Access Token 만료 시간 정보
 
-    @Getter
-    @Value("${jwt.refresh-token-expiration-minutes}")
-    private int refreshTokenExpirationMinutes;      // Refresh Token 만료 시간 정보
+//    @Getter
+//    @Value("${jwt.refresh-token-expiration-minutes}")
+//    private int refreshTokenExpirationMinutes;      // Refresh Token 만료 시간 정보
 
 //     Plain Text 형태인 key의 byte[]를 Base64 형식 문자열로 인코딩
     public String encodeBase64SecretKey(String secretKey) {
