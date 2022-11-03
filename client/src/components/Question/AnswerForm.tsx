@@ -3,6 +3,7 @@ import styled from 'styled-components';
 import { useNavigate } from 'react-router-dom';
 import { postAns } from '../../api/postAns';
 import { IAnswer } from '../../types/Detail/detailAnswerType';
+import PostButton from '../button/Postbutton';
 
 export interface AnswerProps {
   id: string | undefined;
@@ -11,14 +12,21 @@ export interface AnswerProps {
 
 const AnswerForm = ({ id, setAnswerList }: AnswerProps) => {
   const [answer, setAnswer] = useState<string>('');
+
+  const [isDisable, setIsDisable] = useState<boolean>(false);
+
   const navigate = useNavigate();
-  const getContent = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const { value } = e.target;
+
+  const getContent = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
+    const { value } = e.target; //이부분
     setAnswer(value);
+
+    //setAnswer(e.target.value)
   };
 
   const handleSubmit = async () => {
     try {
+      setIsDisable(true);
       const response = await postAns(id, answer);
       if (Number.isNaN(response)) throw new Error('response is nan');
       navigate(`/detail/${id}`);
@@ -28,21 +36,15 @@ const AnswerForm = ({ id, setAnswerList }: AnswerProps) => {
     } catch (err) {
       console.error(err);
     }
+    setIsDisable(false);
   };
 
   return (
     <Answerform>
       <p>Your Answer</p>
       <Form>
-        <input
-          onChange={getContent}
-          type="text"
-          name="answerContents"
-          value={answer}
-        />
-        <Button type="button" onClick={handleSubmit}>
-          post Your Answer
-        </Button>
+        <textarea onChange={getContent} name="answerContents" value={answer} />
+        <PostButton onClick={handleSubmit} isDisable={isDisable} />
       </Form>
     </Answerform>
   );
@@ -59,7 +61,7 @@ const Answerform = styled.div`
       'Segoe UI', 'Liberation Sans', sans-serif;
   }
 `;
-const Form = styled.form`
+const Form = styled.div`
   display: flex;
   flex-direction: column;
 
@@ -93,5 +95,4 @@ const Button = styled.button`
     background-color: hsl(206, 100%, 40%);
   }
 `;
-
 export default AnswerForm;

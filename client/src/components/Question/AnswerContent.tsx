@@ -1,20 +1,40 @@
 import React, { useMemo } from 'react';
 import styled from 'styled-components';
+import { useNavigate } from 'react-router-dom';
 import { Link } from 'react-router-dom';
 import { IAnswer } from '../../types/Detail/detailAnswerType';
+import { deleAns } from '../../api/deleAns';
 import { getLatestTime } from '../../utils/helper/date/getLastestTime';
 
-const AnswerContent = (answers: IAnswer) => {
+interface AnswerContentProps {
+  id: string | undefined;
+  answers: IAnswer;
+}
+
+const AnswerContent = ({ id, answers }: AnswerContentProps) => {
+  const navigate = useNavigate();
+
   const [latestDate, latestUtc] = useMemo(
     () => getLatestTime([answers.createdAt, answers.modifiedAt]),
     [answers.createdAt, answers.modifiedAt]
   );
+
+  const handleSubmit = async () => {
+    try {
+      const status = await deleAns(id); //200? 401
+      if (status !== 200) throw new Error('status is not good');
+      navigate(`/detail/${id}`);
+    } catch (err) {
+      console.error(err);
+    }
+  };
 
   return (
     <Answer>
       <Content>{answers.answerContents}</Content>
       <Userinfo>
         <StyleLink to="/edit">Edit</StyleLink>
+        <Button onClick={handleSubmit}>delete</Button>
         <User>
           <StyledDate>
             {latestUtc === answers.createdAt ? 'asked : ' : 'modified : '} :
@@ -31,6 +51,11 @@ const AnswerContent = (answers: IAnswer) => {
 };
 
 const StyleLink = styled(Link)`
+  text-decoration: none;
+  font-size: 13px;
+  color: #6a737c;
+`;
+const Button = styled.button`
   text-decoration: none;
   font-size: 13px;
   color: #6a737c;
