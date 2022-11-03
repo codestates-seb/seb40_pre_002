@@ -1,7 +1,7 @@
 Spring:
-  config:
-    #    activate:
-    #      on-profile: production
+#  config:
+#    activate:
+#      on-profile: production
 #    import: 'aws-parameterstore:'
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
