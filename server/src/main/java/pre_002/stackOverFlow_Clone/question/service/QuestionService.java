@@ -11,6 +11,8 @@ import pre_002.stackOverFlow_Clone.exception.BusinessLogicException;
 import pre_002.stackOverFlow_Clone.exception.ExceptionCode;
 import pre_002.stackOverFlow_Clone.question.entity.Question;
 import pre_002.stackOverFlow_Clone.question.repository.QuestionRepository;
+import pre_002.stackOverFlow_Clone.question.vote.QuestionVote;
+import pre_002.stackOverFlow_Clone.question.vote.QuestionVoteRepository;
 import pre_002.stackOverFlow_Clone.user.entity.User;
 import pre_002.stackOverFlow_Clone.user.service.UserService;
 
@@ -23,7 +25,7 @@ import java.util.Optional;
 @RequiredArgsConstructor
 @Transactional
 public class QuestionService{
-
+    private final QuestionVoteRepository questionVoteRepository;
     private final QuestionRepository questionRepository;
     private final UserService userService;
 
@@ -49,6 +51,11 @@ public class QuestionService{
 
         User user = userService.findVerifiedUserByEmail(principal.getName());
         question.setUser(user);
+        question.setVote(new QuestionVote());
+
+        QuestionVote vote = question.getVote();
+        vote.setQuestion(question);
+        vote.setVoteCount(0);
 
         return questionRepository.save(question);
     }
@@ -72,6 +79,64 @@ public class QuestionService{
         verifyUserConfirm(question, principal);
 
         questionRepository.delete(question);
+    }
+
+
+    public void voteQuestion(Long questionId, Principal principal, int vote) {
+
+        Question question = questionRepository.findByQuestionId(questionId);
+        User user = userService.findVerifiedUserByEmail(principal.getName());
+        QuestionVote questionVote = question.getVote();
+
+        // 질문 투표 up한 유저일 경우
+        if (Objects.equals(questionVote.getUpUserId(), user.getUserId())) {
+            // request vote가 0보다 크면
+            if (vote > 0) {
+                throw new BusinessLogicException(ExceptionCode.VOTE_EXIST);
+            }
+            // request vote가 0보다 작으면 투표수 감소
+            else {
+                questionVote.setVoteCount(questionVote.getVoteCount() - 1);
+                questionVote.setUpUserId(null);
+                questionVoteRepository.save(questionVote);
+                question.setVote(questionVote);
+                questionRepository.save(question);
+            }
+        }
+        // 질문 투표 down한 유저일 경우
+        else if (Objects.equals(questionVote.getDownUserId(), user.getUserId())){
+            // request vote가 0보다 작으면
+            if (vote < 0) {
+                throw new BusinessLogicException(ExceptionCode.VOTE_EXIST);
+            }
+            // request vote가 0보다 크면
+            else {
+                questionVote.setVoteCount(questionVote.getVoteCount() + 1);
+                questionVote.setDownUserId(null);
+                questionVoteRepository.save(questionVote);
+                question.setVote(questionVote);
+                questionRepository.save(question);
+            }
+        }
+        // 투표하지않은 유저일 경우
+        else {
+            // request vote가 0보다 크면
+            if (vote > 0) {
+                questionVote.setVoteCount(questionVote.getVoteCount() + 1);
+                questionVote.setUpUserId(user.getUserId());
+                questionVoteRepository.save(questionVote);
+                question.setVote(questionVote);
+                questionRepository.save(question);
+            }
+            // request vote가 0보다 작으면
+            else if (vote < 0) {
+                questionVote.setVoteCount(questionVote.getVoteCount() - 1);
+                questionVote.setDownUserId(user.getUserId());
+                questionVoteRepository.save(questionVote);
+                question.setVote(questionVote);
+                questionRepository.save(question);
+            }
+        }
     }
 
     public Question findVerifiedQuestion(long questionId) {

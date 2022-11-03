@@ -1,12 +1,18 @@
 Spring:
+#  config:
+#    activate:
+#      on-profile: production
+#    import: 'aws-parameterstore:'
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
-    url: jdbc:mysql://${AWS_RDS_Endpoint}:3306/pre_project_db?createDatabaseIfNotExist=true&useUnicode=true&characterEncoding=UTF-8
-    username: ${RDS_Mysql_Admin_id}
-    password: ${RDS_Mysql_Admin_password}
+#    url: ${spring.datasource.url}
+#    username: ${spring.datasource.username}
+#    password: ${spring.datasource.password}
+
 
   jpa:
     database: mysql
+    database-platform: org.hibernate.dialect.MySQL5InnoDBDialect
     show-sql: true
     hibernate:
       ddl-auto: update
@@ -15,26 +21,44 @@ Spring:
         show_sql: true
         format_sql: true
 
+#aws:
+#  paramstore:
+#    prefix: /config
+#    name: application
+#    enabled: true
+#    profile-separator: _
+#    region: ap-northeast-2
+#    AWS_RDS_Endpoint: ${/spring-boot-aws/cloud-parameter-store/spring.datasource.url}
+#    RDS_Mysql_Admin_id: ${/spring-boot-aws/cloud-parameter-store/spring.datasource.username}
+#    RDS_Mysql_Admin_password: ${/spring-boot-aws/cloud-parameter-store/spring.datasource.password}
+#    AWS_jwt_secret_key: ${/spring-boot-aws/cloud-parameter-store/jwt.secret-key}
+
 logging:
   level:
     org:
       springframework:
         orm:
           jpa: DEBUG
+#    io:
+#      awspring:
+#        clout:
+#          paramstore:
+#            AwsParamStorePropertySource=debug
+
 
 
 server:
   port: 8080
-#  ssl:
-#    enabled: true
-#    key-store: classpath:localhost.p12
-#    key-store-type: PKCS12
+  #  ssl:
+  #    enabled: true
+  #    key-store: classpath:localhost.p12
+  #    key-store-type: PKCS12
   servlet:
     encoding:
       force-response: true
 
 jwt:
-  secret-key: ${AWS_jwt_secret_key}
+#  secret-key: ${jwy.secret-key}
   access-token-expiration-minutes: 180
 #  refresh-token-expiration-minutes: 420
 

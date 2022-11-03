@@ -14,6 +14,8 @@ public enum ExceptionCode {
 
     QUESTION_NOT_FOUND(404,  "Question is not found."),
 
+    VOTE_EXIST(409, "You already vote."),
+    
     EXPIRED_TOKEN(401, "Token is expired"),
 
     INVALID_TOKEN(401, "Token is expired"),
