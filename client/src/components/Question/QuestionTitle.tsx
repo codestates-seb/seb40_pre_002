@@ -57,6 +57,7 @@ const Tbody = styled.div`
 `;
 const Button = styled(Link)`
   display: flex;
+  margin-top: 10px;
   white-space: nowrap !important;
   padding: 1em;
   border: 1px solid transparent;
@@ -71,8 +72,8 @@ const Button = styled(Link)`
   text-align: center;
   text-decoration: none;
   cursor: pointer;
-  width: 100px;
-  height: 40px;
+  width: 70px;
+  height: 20px;
   background-color: hsl(206, 100%, 52%);
   box-shadow: inset 0 1px 0 0 hsl(0deg 0% 100% / 40%);
   &:hover {
