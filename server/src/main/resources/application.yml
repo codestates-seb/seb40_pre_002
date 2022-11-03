@@ -21,13 +21,13 @@ Spring:
         show_sql: true
         format_sql: true
 
-#aws:
-#  paramstore:
-#    prefix: /config
-#    name: application
-#    enabled: true
-#    profile-separator: _
-#    region: ap-northeast-2
+aws:
+  paramstore:
+    prefix: /config
+    name: application
+    enabled: true
+    profile-separator: _
+    region: ap-northeast-2
 #    AWS_RDS_Endpoint: ${/spring-boot-aws/cloud-parameter-store/spring.datasource.url}
 #    RDS_Mysql_Admin_id: ${/spring-boot-aws/cloud-parameter-store/spring.datasource.username}
 #    RDS_Mysql_Admin_password: ${/spring-boot-aws/cloud-parameter-store/spring.datasource.password}
