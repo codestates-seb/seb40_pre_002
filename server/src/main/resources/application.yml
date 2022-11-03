@@ -1,8 +1,4 @@
 spring:
-#  config:
-#    activate:
-#      on-profile: production
-#    import: 'aws-parameterstore:'
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
 #    url: ${spring.datasource.url}
@@ -21,17 +17,6 @@ spring:
         show_sql: true
         format_sql: true
 
-#aws:
-#  paramstore:
-#    prefix: /config
-#    name: application
-#    enabled: true
-#    profile-separator: _
-#    region: ap-northeast-2
-#    AWS_RDS_Endpoint: ${/spring-boot-aws/cloud-parameter-store/spring.datasource.url}
-#    RDS_Mysql_Admin_id: ${/spring-boot-aws/cloud-parameter-store/spring.datasource.username}
-#    RDS_Mysql_Admin_password: ${/spring-boot-aws/cloud-parameter-store/spring.datasource.password}
-#    AWS_jwt_secret_key: ${/spring-boot-aws/cloud-parameter-store/jwt.secret-key}
 
 logging:
   level:
@@ -39,20 +24,11 @@ logging:
       springframework:
         orm:
           jpa: DEBUG
-#    io:
-#      awspring:
-#        clout:
-#          paramstore:
-#            AwsParamStorePropertySource=debug
 
 
 
 server:
   port: 8080
-#  ssl:
-#    enabled: true
-#    key-store: classpath:localhost.p12
-#    key-store-type: PKCS12
   servlet:
     encoding:
       force-response: true
