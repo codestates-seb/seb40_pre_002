@@ -20,6 +20,7 @@ Spring:
       hibernate:
         show_sql: true
         format_sql: true
+    defer-datasource-initialization: true # error: 'dataSourceScriptDatabaseInitializer'
 
 #aws:
 #  paramstore:
