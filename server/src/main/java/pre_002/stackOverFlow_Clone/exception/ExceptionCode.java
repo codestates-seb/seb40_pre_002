@@ -22,9 +22,9 @@ public enum ExceptionCode {
 
     UNAUTHORIZED(401, "Unauthorized"),
 
-    NOT_LOGIN(401, "Not Log-in");
+    NOT_LOGIN(401, "Not Log-in"),
 
-
+    DUPLICATE_VOTE(406, "Duplicate vote");
 
     @Getter
     private final int statusCode;

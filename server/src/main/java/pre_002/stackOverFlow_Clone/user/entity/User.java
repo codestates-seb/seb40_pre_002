@@ -7,6 +7,7 @@ import pre_002.stackOverFlow_Clone.answer.entity.Answer;
 import pre_002.stackOverFlow_Clone.question.entity.Question;
 
 import javax.persistence.*;
+import javax.validation.constraints.Email;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -19,6 +20,7 @@ public class User {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long userId;
 
+    @Email
     @Column(nullable = false)
     private String email;
 
