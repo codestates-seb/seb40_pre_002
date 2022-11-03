@@ -26,7 +26,7 @@ public class AnswerVoteController {
     private final UserService userService;
     private final AnswerService answerService;
 
-    @PostMapping("/auth/questionlist/{answer-id}/vote")
+    @PostMapping("/auth/questionlist/{question-id}/vote/{answer-id}")
     public ResponseEntity postVote(@PathVariable("answer-id") @Positive Long answerId,
                                    @RequestBody AnswerVoteDto answerVoteDto, Principal principal){
         Long userId = userService.findVerifiedUserByEmail(principal.getName()).getUserId();
@@ -39,7 +39,7 @@ public class AnswerVoteController {
         return new ResponseEntity<>(new VotePostResponse(response, votes), httpStatus);
     }
 
-    @GetMapping("/auth/questionlist/{answer-id}/vote")
+    @GetMapping("/auth/questionlist/{question-id}/vote/{answer-id}")
     public ResponseEntity getVote(@PathVariable("answer-id") @Positive Long answerId, Principal principal){
         Long userId = userService.findVerifiedUserByEmail(principal.getName()).getUserId();
         int votes = answerService.findVerifiedAnswer(answerId).getVotes();
