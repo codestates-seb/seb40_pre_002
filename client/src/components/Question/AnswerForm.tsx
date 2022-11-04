@@ -3,7 +3,7 @@ import styled from 'styled-components';
 import { useNavigate } from 'react-router-dom';
 import { postAns } from '../../api/postAns';
 import { IAnswer } from '../../types/Detail/detailAnswerType';
-import PostButton from '../button/Postbutton';
+import { PostButton } from '../button/Postbutton';
 
 export interface AnswerProps {
   id: string | undefined;
@@ -36,6 +36,7 @@ const AnswerForm = ({ id, setAnswerList }: AnswerProps) => {
     } catch (err) {
       console.error(err);
     }
+    setAnswer('');
     setIsDisable(false);
   };
 
@@ -65,34 +66,9 @@ const Form = styled.div`
   display: flex;
   flex-direction: column;
 
-  input {
+  textarea {
     height: 250px;
   }
 `;
-const Button = styled.button`
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  white-space: nowrap !important;
-  padding: 0.9em;
-  margin-top: 15px;
-  border-radius: 3px;
-  border: 1px solid transparent;
-  outline: none;
-  color: hsl(0, 0%, 100%);
-  font-family: inherit;
-  font-weight: 600;
-  font-size: 13px;
-  text-align: center;
-  text-decoration: none;
-  cursor: pointer;
-  width: 128px;
-  height: 37px;
-  background-color: hsl(206, 100%, 52%);
-  box-shadow: inset 0 1px 0 0 hsl(0deg 0% 100% / 40%);
-  &:hover {
-    color: white;
-    background-color: hsl(206, 100%, 40%);
-  }
-`;
+
 export default AnswerForm;

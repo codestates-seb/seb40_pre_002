@@ -26,7 +26,7 @@ export interface IQuestionUser {
 }
 
 export interface IAnswer {
-  answerId?: number;
+  answerId?: string | undefined;
   answerContents?: string;
   createdAt?: string;
   modifiedAt?: string;
@@ -34,6 +34,7 @@ export interface IAnswer {
 }
 
 export interface NewAnswer {
+  answerId?: string | undefined;
   answerContents?: string;
 }
 

@@ -73,7 +73,7 @@ const Button = styled(Link)`
   text-decoration: none;
   cursor: pointer;
   width: 70px;
-  height: 20px;
+  height: 12px;
   background-color: hsl(206, 100%, 52%);
   box-shadow: inset 0 1px 0 0 hsl(0deg 0% 100% / 40%);
   &:hover {

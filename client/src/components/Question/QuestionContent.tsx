@@ -45,15 +45,18 @@ const StyleLink = styled(Link)`
 `;
 const Question = styled.div`
   display: flex;
-  width: 80%;
+  width: 860px;
   padding: 5px 20px 30px 20px;
   flex-direction: column;
 `;
 const Qbody = styled.div`
-  height: 200px;
+  height: 100%;
+  width: 100%;
+  margin-right: 20px;
+  word-break: break-all;
   margin-bottom: 1.1em;
   color: #232629;
-  padding: 5px 20px;
+  padding: 8px 8px;
 `;
 const Userinfo = styled.div`
   display: flex;
