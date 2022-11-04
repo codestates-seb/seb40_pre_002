@@ -1,10 +1,7 @@
 package pre_002.stackOverFlow_Clone.question.service;
 
 import lombok.RequiredArgsConstructor;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Pageable;
-import org.springframework.data.domain.Sort;
+import org.springframework.data.domain.*;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import pre_002.stackOverFlow_Clone.exception.BusinessLogicException;
@@ -18,9 +15,7 @@ import pre_002.stackOverFlow_Clone.user.service.UserService;
 
 import java.security.Principal;
 import java.time.LocalDateTime;
-import java.util.ArrayList;
-import java.util.Objects;
-import java.util.Optional;
+import java.util.*;
 
 @Service
 @RequiredArgsConstructor
@@ -156,4 +151,23 @@ public class QuestionService{
             throw new BusinessLogicException(ExceptionCode.FORBIDDEN_USER);
         }
     }
+
+    public Page<Question> searchQuestion(String keyword, int page, int size) {
+
+        // pageable 구현
+        Pageable pageable =
+                PageRequest.of(page - 1, size,
+                        Sort.by("questionId").descending());
+
+        // 저장소에서 list 형태로 가져옴
+        List<Question> questionList = questionRepository.findByQuestionTitleContainingOrderByQuestionIdDesc(keyword);
+
+        // List -> Page 형태로 변환
+        int start = (int) pageable.getOffset();
+        int end = Math.min((start + pageable.getPageSize()), questionList.size());
+        Page<Question> questionPage = new PageImpl<>(questionList.subList(start, end), pageable, questionList.size());
+
+        return questionPage;
+    }
+
 }

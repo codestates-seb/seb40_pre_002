@@ -2,8 +2,10 @@ package pre_002.stackOverFlow_Clone.question.controller;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.*;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.ui.Model;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import pre_002.stackOverFlow_Clone.answer.mapper.AnswerMapper;
@@ -133,5 +135,18 @@ public class QuestionController {
                 questionVoteMapper.entityToResponse(question.getVote()), HttpStatus.OK);
 
 //        return question.getVote().getVoteCount();
+    }
+
+    // 검색 질문 조회
+    @GetMapping("/questionlist/search")
+    public ResponseEntity getQuestionList(@RequestParam(name = "keyword") String keyword,
+                                          @RequestParam(name = "page", required = false, defaultValue = "1") int page,
+                                          @RequestParam(name = "size", required = false, defaultValue = "15") int size){
+//        @PageableDefault(size = 15, sort = "id", direction = Sort.Direction.DESC) Pageable pageable -> 사용가능
+        Page<Question> questionPage= questionService.searchQuestion(keyword, page, size);
+        PageInfo pageInfo = PageInfo.of(questionPage);
+        List<QuestionListResponseDto> list = questionMapper.questionsToResponses(questionPage.getContent());
+
+        return new ResponseEntity<>(new MultiResponseDto<>(list, pageInfo), HttpStatus.OK);
     }
 }
