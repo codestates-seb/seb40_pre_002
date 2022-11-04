@@ -20,6 +20,8 @@ export default function Navbar({ isLogin, setIsLogin }: NavbarProps) {
     navigate(`/`);
   };
 
+  if(window.location.pathname === '/login') return null;
+
   return (
     <Nav>
       <Link to="/">

@@ -7,6 +7,8 @@ import AnswerContent from '../components/Question/AnswerContent';
 import QuestionContent from '../components/Question/QuestionContent';
 import QuestionTitle from '../components/Question/QuestionTitle';
 import AnswerForm from '../components/Question/AnswerForm';
+import AsideLeft from '../components/Sidebar/AsideLeft';
+import AsideRight from '../components/Sidebar/AsideRight';
 
 interface DetailProps {
   isLogin: boolean;
@@ -27,7 +29,6 @@ export default function Detail({ isLogin }: DetailProps) {
   }, []);
 
   return (
-    <>
       <Q>
         <QuestionTitle {...question} />
         <QuestionContent {...question} />
@@ -40,7 +41,6 @@ export default function Detail({ isLogin }: DetailProps) {
         </>
         {isLogin ? <AnswerForm setAnswerList={setAnswerList} id={id} /> : <></>}
       </Q>
-    </>
   );
 }
 

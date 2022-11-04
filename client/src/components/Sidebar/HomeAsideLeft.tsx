@@ -1,7 +1,7 @@
-import { Outlet } from 'react-router-dom';
 import styled from 'styled-components';
 
-const HomeAsideLeft = () => {
+const HomeAsideLeft = ({location} : any) => {
+
   return (
     <>
       <Left>

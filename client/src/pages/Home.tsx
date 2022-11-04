@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import styled from 'styled-components';
-import { Link } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 import ItemList from '../components/list/ItemList';
 import { mainQuestionsAPIs } from '../api/mainQuestions';
 import { QuestionElement } from '../types/mainQuestions/questionTypes';
@@ -14,7 +14,10 @@ interface HomeProps {
 }
 
 export default function Home({ isLogin }: HomeProps) {
+
   const [questions, setQuestions] = useState<QuestionElement[]>([]);
+  // const location = useLocation();
+  // console.log(location.pathname);
 
   useEffect(() => {
     mainQuestionsAPIs.getMainQuestions().then((res) => {
@@ -22,6 +25,7 @@ export default function Home({ isLogin }: HomeProps) {
     });
   }, []);
   return (
+    
     <Main>
       <MainHead>
         <Question>
@@ -44,19 +48,21 @@ export default function Home({ isLogin }: HomeProps) {
         </ul>
       </div>
     </Main>
+
   );
 }
 
 const Main = styled.main`
-  position: relative;
-  margin-top: 80px;
+  position: fixed;
+  margin-top: 100px;
   margin-left: 20vw;
-  min-width: 50vw;
+  min-width: 40vw;
+  height: 100vh;
 `;
 
 const MainHead = styled.div`
   height: 110px;
-  margin: 20px;
+  margin-left: 20px;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
