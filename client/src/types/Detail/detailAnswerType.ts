@@ -1,6 +1,6 @@
 export interface IDetailedQnA {
   data?: IQuestion;
-  answers?: (IAnswer | undefined)[];
+  answers: (IAnswer | undefined)[];
   pageInfo?: {
     page?: number;
     size?: number;
@@ -26,7 +26,7 @@ export interface IQuestionUser {
 }
 
 export interface IAnswer {
-  answerId?: number;
+  answerId?: string | undefined;
   answerContents?: string;
   createdAt?: string;
   modifiedAt?: string;
@@ -34,6 +34,7 @@ export interface IAnswer {
 }
 
 export interface NewAnswer {
+  answerId?: string | undefined;
   answerContents?: string;
 }
 

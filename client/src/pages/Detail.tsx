@@ -7,8 +7,6 @@ import AnswerContent from '../components/Question/AnswerContent';
 import QuestionContent from '../components/Question/QuestionContent';
 import QuestionTitle from '../components/Question/QuestionTitle';
 import AnswerForm from '../components/Question/AnswerForm';
-import AsideLeft from '../components/Sidebar/AsideLeft';
-import AsideRight from '../components/Sidebar/AsideRight';
 
 interface DetailProps {
   isLogin: boolean;
@@ -27,19 +25,26 @@ export default function Detail({ isLogin }: DetailProps) {
       setAnswerList(ans);
     });
   }, []);
-
+  console.log(answerList);
   return (
-      <Q>
-        <QuestionTitle {...question} />
-        <QuestionContent {...question} />
-        <StyledP>{answerList?.length} Answers</StyledP>
-        <>
-          {answerList?.map((answer) => (
-            <AnswerContent {...answer} />
-          ))}
-        </>
-        {isLogin ? <AnswerForm setAnswerList={setAnswerList} id={id} /> : <></>}
-      </Q>
+    <Q>
+      <QuestionTitle {...question} />
+      <QuestionContent {...question} />
+      <StyledP>{answerList?.length} Answers</StyledP>
+      <>
+        {answerList?.map((answer) => {
+          if (!answer) return null;
+          return (
+            <AnswerContent
+              id={id}
+              answers={answer}
+              setAnswerList={setAnswerList}
+            />
+          );
+        })}
+      </>
+      {isLogin ? <AnswerForm setAnswerList={setAnswerList} id={id} /> : <></>}
+    </Q>
   );
 }
 
