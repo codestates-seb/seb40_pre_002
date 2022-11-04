@@ -48,7 +48,7 @@ public class AnswerController {
 
         AnswerDto.Response response = answerMapper.answerToResponse(answer);
 
-        return new ResponseEntity(response, HttpStatus.CREATED);
+        return new ResponseEntity<>(response, HttpStatus.CREATED);
     }
 
     /*
@@ -59,14 +59,9 @@ public class AnswerController {
                                       @Valid @RequestBody AnswerDto.Patch patch,
                                       Principal principal) {
 
-        Answer getAnswer = answerService.readAnswer(answerMapper.patchToAnswer(patch).getAnswerId());
-        if(!Objects.equals(principal.getName(), getAnswer.getUser().getEmail())){
-            throw new BusinessLogicException(ExceptionCode.FORBIDDEN_USER);
-        }
-
         Answer answer = answerService.updateAnswer(answerMapper.patchToAnswer(patch), questionId, principal);
         AnswerDto.Response response = answerMapper.answerToResponse(answer);
-        return new ResponseEntity(response, HttpStatus.OK);
+        return new ResponseEntity<>(response, HttpStatus.OK);
     }
 
     /*
@@ -76,12 +71,9 @@ public class AnswerController {
     public ResponseEntity deleteAnswer(@PathVariable("question-id") @Positive Long questionId,
                                        @PathVariable("answer-id") @Positive Long answerId,
                                        Principal principal) {
-        Answer answer = answerService.readAnswer(answerId);
-        if(!Objects.equals(principal.getName(), answer.getUser().getEmail())){
-            throw new BusinessLogicException(ExceptionCode.FORBIDDEN_USER);
-        }
+
         answerService.deleteAnswer(answerId, questionId, principal);
-        return new ResponseEntity(new DeleteAnswerResponseDto<>("답변 삭제 완료"), HttpStatus.OK);
+        return new ResponseEntity<>(new DeleteAnswerResponseDto<>("답변 삭제 완료"), HttpStatus.OK);
     }
 
 }

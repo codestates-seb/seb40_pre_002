@@ -17,6 +17,7 @@ import pre_002.stackOverFlow_Clone.user.service.UserService;
 import java.security.Principal;
 import java.sql.Timestamp;
 import java.util.List;
+import java.util.Objects;
 import java.util.Optional;
 
 @Service
@@ -66,16 +67,17 @@ public class AnswerService {
      * */
     public Answer updateAnswer(Answer answer, Long questionId, Principal principal) {
 
-        User user = userService.findVerifiedUserByEmail(principal.getName());
         Question question = questionService.getQuestion(questionId);
         Answer findAnswer = answerRepository.findById(answer.getAnswerId()).get();
 
+        verifyUserConfirm(findAnswer, principal);
+
         findAnswer.setAnswerContents(answer.getAnswerContents());
         findAnswer.setModifiedAt(new Timestamp(System.currentTimeMillis()));
-        question.setModifiedAnsweredAt(new Timestamp(System.currentTimeMillis()));
 
-        answerRepository.save(findAnswer);
-        return findAnswer;
+        Answer saved = answerRepository.save(findAnswer);
+        question.setModifiedAnsweredAt(saved.getModifiedAt());
+        return saved;
     }
 
 
@@ -84,9 +86,10 @@ public class AnswerService {
      * */
     public void deleteAnswer(Long answerId, Long questionId, Principal principal) {
 
-        User user = userService.findVerifiedUserByEmail(principal.getName());
         Question question = questionService.getQuestion(questionId);
         Answer findAnswer = answerRepository.findById(answerId).get();
+
+        verifyUserConfirm(findAnswer, principal);
 
         List<Answer> answers = question.getAnswers();
         answers.remove(findAnswer);
@@ -108,6 +111,13 @@ public class AnswerService {
         Optional<Answer> optionalQuestion = answerRepository.findById(answerId);
         return optionalQuestion.orElseThrow(() ->
                 new BusinessLogicException(ExceptionCode.ANSWER_NOT_FOUND));
+    }
+
+    public void verifyUserConfirm(Answer answer, Principal principal) {
+
+        if (!Objects.equals(principal.getName(), answer.getUser().getEmail())) {
+            throw new BusinessLogicException(ExceptionCode.FORBIDDEN_USER);
+        }
     }
 
 }
