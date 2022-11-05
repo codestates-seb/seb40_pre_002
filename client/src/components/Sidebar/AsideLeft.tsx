@@ -13,7 +13,7 @@ const AsideLeft = () => {
 // styled component props 내려서 path별로 관리
 const Left = styled.aside`
   position: absolute;
-  min-width: 20vw;
+  min-width: 23vw;
   height: 100vh;
   border-right: solid 1px lightgray;
 `;

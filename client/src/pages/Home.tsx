@@ -51,6 +51,7 @@ export default function Home({ isLogin, question, setQuestion }: HomeProps) {
 const HomeMain = styled.div`
   display: flex;
   width: 100%;
+  margin-left: 45px;
   flex-direction: row;
 `;
 
@@ -59,11 +60,10 @@ const Main = styled.main`
   margin-top: 100px;
   margin-left: 20vw;
   width: 46vw;
-  height: 100vh;
 `;
 
 const MainHead = styled.div`
-  height: 110px;
+  height: 80px;
   margin-left: 20px;
   display: flex;
   flex-direction: column;
@@ -108,7 +108,7 @@ const AskLink = styled(Link)`
 
 const Aside = styled.div`
   position: absolute;
-  right: 600px;
+  right: 620px;
 `;
 // const BountiedInfo = styled.span`
 //   background-color: #1d74cc;

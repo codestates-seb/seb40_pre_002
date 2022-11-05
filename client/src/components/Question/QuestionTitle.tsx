@@ -12,8 +12,12 @@ function QuestionTitle(question: IQuestion) {
         <Button to="/askpage"> Ask question</Button>
       </Title>
       <Tbody>
-        Asked: {question.createdAt} Modified: {question.modifiedAt} viewed:{' '}
-        {question.view}
+        Asked: <p>{question.createdAt}</p> Modified:
+        <p>
+          {question.modifiedAt ? question.modifiedAt : question.createdAt}
+        </p>{' '}
+        viewed:
+        <p>{question.view}</p>
       </Tbody>
     </Head>
   );
@@ -21,13 +25,13 @@ function QuestionTitle(question: IQuestion) {
 
 const Head = styled.div`
   display: flex;
-  width: 111%;
+  width: 105%;
   height: 100%;
   padding: 5px 20px;
   flex-direction: column;
 `;
 const Title = styled.div`
-  margin-top: 75px;
+  margin-top: 95px;
   display: flex;
   height: 100%;
   flex-direction: row;
@@ -41,7 +45,7 @@ const Title = styled.div`
     font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI Adjusted',
       'Segoe UI', 'Liberation Sans', sans-serif;
     line-height: 1.35;
-    font-weight: normal;
+    font-weight: 600;
   }
 `;
 const Tbody = styled.div`
@@ -51,13 +55,20 @@ const Tbody = styled.div`
   color: #232629;
   align-items: center;
   padding-top: 0px;
+  padding-bottom: 15px;
   border-bottom-style: solid !important;
   border-bottom-width: 1px !important;
   border-color: hsl(210, 8%, 90%) !important;
+  p {
+    padding-left: 10px;
+    padding-right: 10px;
+    font-weight: 700;
+  }
 `;
 const Button = styled(Link)`
   display: flex;
   margin-top: 10px;
+  margin-right: 10px;
   white-space: nowrap !important;
   padding: 1em;
   border: 1px solid transparent;
