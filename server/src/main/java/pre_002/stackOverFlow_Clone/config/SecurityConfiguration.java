@@ -61,8 +61,9 @@ public class SecurityConfiguration {
                 .authorizeHttpRequests(authorize -> authorize
                         .antMatchers(HttpMethod.POST, "/users/**").permitAll()
                         .antMatchers(HttpMethod.POST, "/auth/**").hasRole("USER")
+                        .antMatchers(HttpMethod.PATCH, "/auth/**").hasRole("USER")
+                        .antMatchers(HttpMethod.DELETE, "/auth/**").hasRole("USER")
                         .antMatchers(HttpMethod.GET, "/users/userinfo").hasRole("USER")
-
                         .anyRequest().permitAll());
         return http.build();
     }
@@ -94,11 +95,11 @@ public class SecurityConfiguration {
 //    CorsConfigurationSource corsConfigurationSource() {
 //        CorsConfiguration configuration = new CorsConfiguration();
 //        // CORS 수정
-//        configuration.addAllowedOrigin("http://localhost:3000");
+//        configuration.addAllowedOriginPattern("*");
 //        configuration.addAllowedHeader("*");
 //        configuration.addAllowedMethod("*");
 //        configuration.setAllowCredentials(true);
-//        configuration.set
+//        configuration.setExposedHeaders("Authorization");
 //
 //        UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
 //        source.registerCorsConfiguration("/**", configuration);

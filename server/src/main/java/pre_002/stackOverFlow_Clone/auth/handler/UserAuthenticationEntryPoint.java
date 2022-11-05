@@ -6,6 +6,7 @@ import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.web.AuthenticationEntryPoint;
 import org.springframework.stereotype.Component;
 import pre_002.stackOverFlow_Clone.auth.utils.ErrorResponder;
+import pre_002.stackOverFlow_Clone.exception.ExceptionCode;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
@@ -17,18 +18,34 @@ import java.io.IOException;
 public class UserAuthenticationEntryPoint implements AuthenticationEntryPoint {
     @Override
     public void commence(HttpServletRequest request, HttpServletResponse response, AuthenticationException authException) throws IOException, ServletException{
-        Exception exception = (Exception) request.getAttribute("exception");
-        ErrorResponder.sendErrorResponse(response, HttpStatus.UNAUTHORIZED);
 
-        Exception signatureException = (Exception) request.getAttribute("signatureException");
-        ErrorResponder.sendErrorResponse(response, HttpStatus.UNAUTHORIZED);
+        ExceptionCode exception = (ExceptionCode) request.getAttribute("exception");
 
-        Exception expiredJwtException = (Exception) request.getAttribute("expiredJwtException");
-        ErrorResponder.sendErrorResponse(response, HttpStatus.UNAUTHORIZED);
+        // 토큰 없는 경우
+        if(exception == null) {
+            ErrorResponder.sendErrorResponse(response, ExceptionCode.EMPTY_TOKEN);
+            log.warn(ExceptionCode.EMPTY_TOKEN.getMessage());
+            return;
+        }
 
-        logExceptionMessage(authException, exception);
-        logExceptionMessage(authException, signatureException);
-        logExceptionMessage(authException, expiredJwtException);
+        // 토큰 만료된 경우
+        if(exception.equals(ExceptionCode.EXPIRED_TOKEN)) {
+            ErrorResponder.sendErrorResponse(response, ExceptionCode.EXPIRED_TOKEN);
+            log.warn(ExceptionCode.EXPIRED_TOKEN.getMessage());
+            return;
+        }
+
+        // 토큰 시그니처가 다른 경우
+        if(exception.equals(ExceptionCode.INVALID_TOKEN)) {
+            ErrorResponder.sendErrorResponse(response, ExceptionCode.INVALID_TOKEN);
+            log.warn(ExceptionCode.INVALID_TOKEN.getMessage());
+        }
+
+        // 토큰 손상이 있는 경우
+        if(exception.equals(ExceptionCode.UNAUTHORIZED)) {
+            ErrorResponder.sendErrorResponse(response, ExceptionCode.UNAUTHORIZED);
+            log.warn(ExceptionCode.UNAUTHORIZED.getMessage());
+        }
     }
 
     private void logExceptionMessage(AuthenticationException authException, Exception exception) {

@@ -6,6 +6,7 @@ import lombok.Setter;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 import pre_002.stackOverFlow_Clone.answer.entity.Answer;
+import pre_002.stackOverFlow_Clone.question.vote.entity.QuestionVote;
 import pre_002.stackOverFlow_Clone.user.entity.User;
 
 import javax.persistence.*;
@@ -27,11 +28,14 @@ public class Question {
     @Column
     private String questionTitle;
 
-    @Column
+    @Column(columnDefinition = "LONGTEXT")
     private String questionContents;
 
     @Column
     private int views;
+
+    @OneToOne(mappedBy = "question", cascade = CascadeType.ALL)
+    private QuestionVote vote;
 
     @Column
     private int countAnswer;

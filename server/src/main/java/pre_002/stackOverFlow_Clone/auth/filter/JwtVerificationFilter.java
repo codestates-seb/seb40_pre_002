@@ -2,8 +2,10 @@ package pre_002.stackOverFlow_Clone.auth.filter;
 
 
 import io.jsonwebtoken.ExpiredJwtException;
+import io.jsonwebtoken.JwtException;
 import io.jsonwebtoken.security.SignatureException;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
@@ -11,6 +13,8 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.filter.OncePerRequestFilter;
 import pre_002.stackOverFlow_Clone.auth.jwt.JwtTokenizer;
 import pre_002.stackOverFlow_Clone.auth.utils.CustomAuthorityUtils;
+import pre_002.stackOverFlow_Clone.exception.BusinessLogicException;
+import pre_002.stackOverFlow_Clone.exception.ExceptionCode;
 
 
 import javax.servlet.FilterChain;
@@ -22,6 +26,7 @@ import java.util.List;
 import java.util.Map;
 
 @RequiredArgsConstructor
+@Slf4j
 public class JwtVerificationFilter extends OncePerRequestFilter {   // OncePerRequestFilter -> JWT 검증은 요청당 한번만 수행하면 되므로 전용 Filter로 사용하기 적절
     private final JwtTokenizer jwtTokenizer;    // JWT 검증 및 토큰에 포함된 정보인 Claims를 얻는데 사용
     private final CustomAuthorityUtils authorityUtils;      // 검증 성공 후 Authentication 객체에 채울 사용자의 권한을 생성하는데 사용
@@ -32,11 +37,11 @@ public class JwtVerificationFilter extends OncePerRequestFilter {   // OncePerRe
             Map<String, Object> claims = verifyJws(request);
             setAuthenticationToContext(claims);     // Security Context에 Authentication을 저장
         } catch (SignatureException signatureException) {
-            request.setAttribute("signatureException", signatureException);
+            request.setAttribute("exception", ExceptionCode.INVALID_TOKEN);
         } catch (ExpiredJwtException expiredJwtException) {
-            request.setAttribute("expiredJwtException", expiredJwtException);
-        } catch (Exception exception) {
-            request.setAttribute("exception", exception);
+            request.setAttribute("exception", ExceptionCode.EXPIRED_TOKEN);
+        } catch (JwtException jwtException) {
+            request.setAttribute("exception", ExceptionCode.UNAUTHORIZED);
         }
         filterChain.doFilter(request, response);    // 다음 Filter 호출
     }
