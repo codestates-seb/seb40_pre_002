@@ -145,7 +145,7 @@ const StyledDate = styled.p`
   font-size: 12px;
 `;
 
-const Username = styled.p`
+const Username = styled.div`
   display: flex;
   flex-direction: row;
   color: #0074cc;

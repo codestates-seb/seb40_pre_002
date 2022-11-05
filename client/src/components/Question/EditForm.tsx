@@ -34,7 +34,6 @@ const EditForm = ({
       const response = await editAns(paramsId, ansId, editAnswer);
       let arr: (IAnswer | undefined)[];
       setAnswerList((prev) => {
-        console.log(prev);
         arr = prev;
         return prev.map((e) => {
           if (e?.answerId === ansId)

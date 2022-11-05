@@ -1,9 +1,10 @@
 import { useEffect, useState } from 'react';
 import styled from 'styled-components';
-import { Link, useLocation } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import ItemList from '../components/list/ItemList';
 import { mainQuestionsAPIs } from '../api/mainQuestions';
 import { QuestionElement } from '../types/mainQuestions/questionTypes';
+import AsideRight from '../components/Sidebar/AsideRight';
 
 // Aside -> Component -> 외부로 빼기
 // 로그인 창에 nav바, aside가 안보여야 됨
@@ -14,7 +15,6 @@ interface HomeProps {
 }
 
 export default function Home({ isLogin }: HomeProps) {
-
   const [questions, setQuestions] = useState<QuestionElement[]>([]);
   // const location = useLocation();
   // console.log(location.pathname);
@@ -25,38 +25,46 @@ export default function Home({ isLogin }: HomeProps) {
     });
   }, []);
   return (
-    
-    <Main>
-      <MainHead>
-        <Question>
-          <Title>Top Questions</Title>
-          {isLogin ? <AskLink to="askpage">Ask Question</AskLink> : <></>}
-        </Question>
-
-        {/* <FilterBtnList>
-          <button>
-            <BountiedInfo>271</BountiedInfo> Bountied
-          </button>
-          <button>Interesting</button>
-        </FilterBtnList> */}
-      </MainHead>
-      <div>
-        <ul>
-          {questions.map((question) => {
-            return <ItemList {...question} />;
-          })}
-        </ul>
-      </div>
-    </Main>
-
+    <HomeMain>
+      <Main>
+        <MainHead>
+          <Question>
+            <Title>Top Questions</Title>
+            {isLogin ? <AskLink to="askpage">Ask Question</AskLink> : <></>}
+          </Question>
+          <FilterBtnList>
+            <button>
+              <BountiedInfo>271</BountiedInfo> Bountied
+            </button>
+            <button>Interesting</button>
+          </FilterBtnList>
+        </MainHead>
+        <div>
+          <ul>
+            {questions.map((question, index) => {
+              return <ItemList key={index} {...question} />;
+            })}
+          </ul>
+        </div>
+      </Main>
+      <Aside>
+        <AsideRight />
+      </Aside>
+    </HomeMain>
   );
 }
 
+const HomeMain = styled.div`
+  display: flex;
+  width: 100%;
+  flex-direction: row;
+`;
+
 const Main = styled.main`
-  position: relative;
-  padding-top: 100px;
+  position: absolute;
+  margin-top: 100px;
   margin-left: 20vw;
-  width: 43vw;
+  width: 46vw;
   height: 100vh;
 `;
 
@@ -104,9 +112,14 @@ const AskLink = styled(Link)`
 //   }
 // `;
 
+const Aside = styled.div`
+  position: absolute;
+  margin-left: 1150px;
+`;
 // const BountiedInfo = styled.span`
 //   background-color: #1d74cc;
 //   color: white;
 //   padding: 3px;
 //   border-radius: 3px;
 // `;
+

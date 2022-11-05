@@ -34,6 +34,7 @@ const ItemList = (question: QuestionElement) => {
       </QuestionInfo1>
 
       <QuestionInfo2>
+
         <StyledLink to={`/detail/${question.questionId}`}><TitleInfo>{question.questionTitle}</TitleInfo></StyledLink>
         <TimelineInfo><AuthorInfo>{question.username}</AuthorInfo>{latestDate.keyWord} {latestDate.filteredlatestDate}</TimelineInfo>
       </QuestionInfo2>
@@ -50,7 +51,7 @@ const QuestionLi = styled.li`
   display: flex;
   border-top: solid 1px #c2c4c7;
   border-bottom: solid 1px #c2c4c7;
-`
+`;
 
 const QuestionInfo1 = styled.span`
   width: 15%;
@@ -59,7 +60,7 @@ const QuestionInfo1 = styled.span`
   flex-direction: column;
   justify-content: center;
   text-align: right;
-`
+`;
 
 const VoteInfo = styled.div`
     margin-top: 5px;
@@ -70,37 +71,36 @@ const VoteInfo = styled.div`
 `
 
 const AnswerInfo = styled.div`
-    margin-top: 5px;
-    margin-bottom: 5px;
-    color: gray;
-    font-size: 13px;
-`
+  margin-top: 5px;
+  margin-bottom: 5px;
+  color: gray;
+  font-size: 13px;
+`;
 
 const ViewInfo = styled.div`
-    margin-top: 5px;
-    margin-bottom: 5px;
-    color: gray;
-    font-size: 13px;
-`
+  margin-top: 5px;
+  margin-bottom: 5px;
+  color: gray;
+  font-size: 13px;
+`;
 
 const QuestionInfo2 = styled.span`
   position: relative;
   margin-left: 20px;
   width: 85%;
   height: 110px;
-`
-
+  `
 const StyledLink = styled(Link)`
   text-decoration-line: none;
 `
 
 const TitleInfo = styled.div`
-    margin-top: 25px;
-    margin-left: 25px;
-    font-size: 17px;
-    font-weight: bold;
-    color: #1D74cc;
-`
+  margin-top: 25px;
+  margin-left: 25px;
+  font-size: 17px;
+  font-weight: bold;
+  color: #1d74cc;
+`;
 
 const TimelineInfo = styled.div`
   margin-top: 30px;
@@ -110,13 +110,20 @@ const TimelineInfo = styled.div`
   position: absolute;
   right: 5%;
   bottom: 10px;
-`
+`;
 
 const AuthorInfo = styled.span`
   padding-right: 10px;
-  color: #1D74cc;
-`
+  color: #1d74cc;
+`;
 
+
+// const VoteInfo = styled.div`
+//     margin-top: 5px;
+//     margin-bottom: 5px;
+//     color: black;
+//     font-weight: bold;
+//     font-size: 13px;
 // const NumInfo = styled.span`
 //   color: #000000ca;
 //   font-weight: bold;
@@ -135,4 +142,4 @@ const AuthorInfo = styled.span`
 //     }
 // `
 
-export default ItemList
+export default ItemList;

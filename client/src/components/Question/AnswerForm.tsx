@@ -18,10 +18,9 @@ const AnswerForm = ({ id, setAnswerList }: AnswerProps) => {
   const navigate = useNavigate();
 
   const getContent = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
-    const { value } = e.target; //이부분
-    setAnswer(value);
-
-    //setAnswer(e.target.value)
+    //const { value } = e.target; //이부분
+    //setAnswer(value);
+    setAnswer(e.target.value);
   };
 
   const handleSubmit = async () => {
@@ -29,7 +28,7 @@ const AnswerForm = ({ id, setAnswerList }: AnswerProps) => {
       setIsDisable(true);
       const response = await postAns(id, answer);
       if (Number.isNaN(response)) throw new Error('response is nan');
-      navigate(`/detail/${id}`);
+
       setAnswerList((prev) => {
         return [...prev, response];
       });

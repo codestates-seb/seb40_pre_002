@@ -1,12 +1,12 @@
 import styled from 'styled-components';
 
-const HomeAsideLeft = ({location} : any) => {
-
+const HomeAsideLeft = ({ location }: any) => {
   return (
     <>
       <Left>
         <HomeBar>
-          Home<Index></Index>
+          Home
+          <Index />
         </HomeBar>
       </Left>
       {/* BUG: Outlet component both in HomeAsideLeft.tsx
