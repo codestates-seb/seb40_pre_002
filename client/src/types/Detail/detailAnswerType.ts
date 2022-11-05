@@ -14,6 +14,7 @@ export interface IQuestion {
   questionTitle?: string;
   questionContents?: string;
   view?: string;
+  vote?: number;
   createdAt?: string;
   modifiedAt?: string;
   user?: IQuestionUser;
