@@ -12,10 +12,7 @@ export interface AnswerProps {
 
 const AnswerForm = ({ id, setAnswerList }: AnswerProps) => {
   const [answer, setAnswer] = useState<string>('');
-
   const [isDisable, setIsDisable] = useState<boolean>(false);
-
-  const navigate = useNavigate();
 
   const getContent = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
     //const { value } = e.target; //이부분
