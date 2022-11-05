@@ -8,8 +8,8 @@ interface EditFormProps {
   paramsId: string | undefined;
   ansId: string | undefined;
   setEditOpen: React.Dispatch<React.SetStateAction<boolean>>;
-  setAnswerList: React.Dispatch<React.SetStateAction<(IAnswer | undefined)[]>>;
-  answerContent: string | undefined;
+  setAnswerList: React.Dispatch<React.SetStateAction<IAnswer[]>>;
+  answerContent: string;
 }
 
 const EditForm = ({
@@ -32,7 +32,7 @@ const EditForm = ({
     try {
       setIsDisable(true);
       const response = await editAns(paramsId, ansId, editAnswer);
-      let arr: (IAnswer | undefined)[];
+      let arr: IAnswer[];
       setAnswerList((prev) => {
         arr = prev;
         return prev.map((e) => {

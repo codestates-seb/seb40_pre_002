@@ -9,7 +9,9 @@ import EditForm from './EditForm';
 interface AnswerContentProps {
   id: string | undefined;
   answers: IAnswer;
-  setAnswerList: React.Dispatch<React.SetStateAction<(IAnswer | undefined)[]>>;
+  createdAt: string;
+  modifiedAt: string | undefined;
+  setAnswerList: React.Dispatch<React.SetStateAction<IAnswer[]>>;
 }
 
 const AnswerContent = ({ id, answers, setAnswerList }: AnswerContentProps) => {
