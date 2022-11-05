@@ -17,12 +17,21 @@ function App() {
 
   return (
     <BrowserRouter>
-    <Navbar isLogin={isLogin} setIsLogin={setIsLogin}/>
+      <Navbar isLogin={isLogin} setIsLogin={setIsLogin} />
       <Routes>
-        <Route path="/" element={[<HomeAsideLeft/>,<AsideRight/>,<Home isLogin={isLogin} />]} />
-        <Route path="detail/:id" element={[<AsideLeft/>,<AsideRight/>,<Detail isLogin={isLogin} />]} />
-        <Route path="askpage" element={[<AskAsideLeft/>,<AskAsideRight/>,<Askpage />]} />
-        <Route path="login" element={<Login setGlobalLogin={setIsLogin}/>} />
+        <Route
+          path="/"
+          element={[<HomeAsideLeft />, <Home isLogin={isLogin} />]}
+        />
+        <Route
+          path="detail/:id"
+          element={[<AsideLeft />, <Detail isLogin={isLogin} />]}
+        />
+        <Route
+          path="askpage"
+          element={[<AskAsideLeft />, <AskAsideRight />, <Askpage />]}
+        />
+        <Route path="login" element={<Login setGlobalLogin={setIsLogin} />} />
       </Routes>
     </BrowserRouter>
   );

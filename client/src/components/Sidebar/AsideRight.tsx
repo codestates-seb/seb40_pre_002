@@ -115,9 +115,9 @@ const AsideRight = () => {
 
 const Right = styled.aside`
   position: absolute;
-  margin-left: 67vw;
+
   min-width: 30vw;
-  margin-top: 180px;
+  margin-top: 100px;
   height: 100vh;
   @media only screen and (max-width: 1500px) {
     display: none;

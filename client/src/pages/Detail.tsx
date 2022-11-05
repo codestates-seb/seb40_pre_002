@@ -7,6 +7,7 @@ import AnswerContent from '../components/Question/AnswerContent';
 import QuestionContent from '../components/Question/QuestionContent';
 import QuestionTitle from '../components/Question/QuestionTitle';
 import AnswerForm from '../components/Question/AnswerForm';
+import AsideRight from '../components/Sidebar/AsideRight';
 
 interface DetailProps {
   isLogin: boolean;
@@ -22,41 +23,60 @@ export default function Detail({ isLogin }: DetailProps) {
       const quest = res?.data.data;
       const ans = res?.data.answers || [];
       setQuestionList(quest);
-      setAnswerList(ans);
+      setAnswerList(ans.reverse());
     });
   }, []);
-  console.log(answerList);
+
   return (
-    <Q>
-      <QuestionTitle {...question} />
-      <QuestionContent {...question} />
-      <StyledP>{answerList?.length} Answers</StyledP>
-      <>
-        {answerList?.map((answer) => {
-          if (!answer) return null;
-          return (
-            <AnswerContent
-              id={id}
-              answers={answer}
-              setAnswerList={setAnswerList}
-            />
-          );
-        })}
-      </>
-      {isLogin ? <AnswerForm setAnswerList={setAnswerList} id={id} /> : <></>}
-    </Q>
+    <Detailpage>
+      <Q>
+        <QuestionTitle {...question} />
+        <QuestionContent {...question} />
+        <StyledP>{answerList?.length} Answers</StyledP>
+        <>
+          {answerList?.map((answer, index) => {
+            if (!answer) return null;
+            return (
+              <AnswerContent
+                key={index}
+                id={id}
+                answers={answer}
+                setAnswerList={setAnswerList}
+              />
+            );
+          })}
+        </>
+        {isLogin ? <AnswerForm setAnswerList={setAnswerList} id={id} /> : <></>}
+      </Q>
+      <Aside>
+        <AsideRight />
+      </Aside>
+    </Detailpage>
   );
 }
+
+const Detailpage = styled.div`
+  display: flex;
+  width: 100%;
+  flex-direction: row;
+`;
 
 const StyledP = styled.p`
   margin-left: 30px;
   font-size: 19px;
+  width: 500px;
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI Adjusted',
     'Segoe UI', 'Liberation Sans', sans-serif;
 `;
 const Q = styled.div`
   display: flex;
   flex-direction: column;
-  width: 1072px;
+  width: 63.5%;
   margin-left: 20vw;
+`;
+
+const Aside = styled.div`
+  position: absolute;
+  margin-left: 1250px;
+  margin-top: 80px;
 `;
