@@ -52,7 +52,7 @@ const AnswerForm = ({ id, setAnswerList }: AnswerProps) => {
 
 const Answerform = styled.div`
   display: flex;
-  width: 80%;
+  width: 78%;
   flex-direction: column;
   padding: 5px 20px;
   p {

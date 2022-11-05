@@ -12,18 +12,31 @@ import Askpage from './pages/Askpage';
 import Detail from './pages/Detail';
 import Home from './pages/Home';
 import Login from './pages/Login';
+import { QuestionElement } from './types/mainQuestions/questionTypes';
 
 function App() {
   const [isLogin, setIsLogin] = useLogin();
 
+  const [question, setQuestion] = useState<QuestionElement[]>([]);
+
   return (
     <BrowserRouter>
-      <Navbar isLogin={isLogin} setIsLogin={setIsLogin} />
+      <Navbar
+        setQuestion={setQuestion}
+        isLogin={isLogin}
+        setIsLogin={setIsLogin}
+      />
       <Routes>
-
         <Route
           path="/"
-          element={[<HomeAsideLeft />, <Home isLogin={isLogin} />]}
+          element={[
+            <HomeAsideLeft />,
+            <Home
+              question={question}
+              setQuestion={setQuestion}
+              isLogin={isLogin}
+            />,
+          ]}
         />
         <Route
           path="detail/:id"
@@ -34,7 +47,6 @@ function App() {
           element={[<AskAsideLeft />, <AskAsideRight />, <Askpage />]}
         />
         <Route path="login" element={<Login setGlobalLogin={setIsLogin} />} />
-
       </Routes>
     </BrowserRouter>
   );

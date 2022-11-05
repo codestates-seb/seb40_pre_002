@@ -1,18 +1,26 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 import logo from '../../images/stackoverlogo.png';
 import { useNavigate } from 'react-router-dom';
 import { deleteStorageToken } from '../../utils/token/token';
 import { deleteStorgeUser } from '../../utils/user/user';
+import { QuestionElement } from '../../types/mainQuestions/questionTypes';
+import { searchApi } from '../../api/searchApi';
 
 interface NavbarProps {
   isLogin: boolean;
   setIsLogin: React.Dispatch<React.SetStateAction<boolean>>;
+  setQuestion: React.Dispatch<React.SetStateAction<QuestionElement[]>>;
 }
 
-export default function Navbar({ isLogin, setIsLogin }: NavbarProps) {
+export default function Navbar({
+  setQuestion,
+  isLogin,
+  setIsLogin,
+}: NavbarProps) {
   const navigate = useNavigate();
+  const [searchValue, setSearchValue] = useState('');
   const handleLogout = () => {
     deleteStorageToken();
     deleteStorgeUser();
@@ -20,14 +28,32 @@ export default function Navbar({ isLogin, setIsLogin }: NavbarProps) {
     navigate(`/`);
   };
 
-  if(window.location.pathname === '/login') return null;
+  if (window.location.pathname === '/login') return null;
+
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setSearchValue(e.target.value);
+  };
+  const handleSearch = (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    searchApi.getSearch(searchValue).then((res) => {
+      setQuestion(res);
+      setSearchValue('');
+    });
+  };
 
   return (
     <Nav>
       <Link to="/">
         <img alt="logo" src={logo} />
       </Link>
-      <Input placeholder="🔍 search..." />
+      <Form onSubmit={handleSearch}>
+        <input
+          placeholder="🔍 search..."
+          value={searchValue}
+          onChange={handleChange}
+          type="text"
+        />
+      </Form>
       <Div>
         {isLogin ? (
           <Button onClick={handleLogout}>Logout</Button>
@@ -64,12 +90,15 @@ const Nav = styled.nav`
     height: 70px;
   }
 `;
-const Input = styled.input`
-  width: 60%;
+const Form = styled.form`
+  width: 800px;
   height: 28px;
-  margin-top: 10px;
-  margin-left: 20px;
-  margin-right: 30px;
+  .input {
+    margin-top: 10px;
+    margin-left: 20px;
+    margin-right: 30px;
+    width: 100%;
+  }
 `;
 
 const Div = styled.div`

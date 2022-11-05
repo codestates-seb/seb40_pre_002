@@ -17,7 +17,8 @@ const HomeAsideLeft = ({ location }: any) => {
 };
 
 const Left = styled.aside`
-  position: fixed;
+  position: absolute;
+  left: 0;
   min-width: 20vw;
   height: 100vh;
   border-right: solid 1px lightgray;

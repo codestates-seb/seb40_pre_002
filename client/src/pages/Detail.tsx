@@ -77,6 +77,6 @@ const Q = styled.div`
 
 const Aside = styled.div`
   position: absolute;
-  margin-left: 1250px;
+  right: 500px;
   margin-top: 80px;
 `;

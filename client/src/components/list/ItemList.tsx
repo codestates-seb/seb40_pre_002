@@ -1,27 +1,26 @@
-import { useMemo } from "react";
-import { Link } from "react-router-dom";
-import styled from "styled-components"
-import { Question, QuestionElement } from "../../types/mainQuestions/questionTypes";
-import { getLatestTime } from "../../utils/helper/date/getLastestTime";
+import { useMemo } from 'react';
+import { Link } from 'react-router-dom';
+import styled from 'styled-components';
+import {
+  Question,
+  QuestionElement,
+} from '../../types/mainQuestions/questionTypes';
+import { getLatestTime } from '../../utils/helper/date/getLastestTime';
 
 const ItemList = (question: QuestionElement) => {
-
   const QcreatedAt = question?.createdAt;
   const QmodifiedAt = question?.modifiedAt;
   const AcreatedAt = question?.createdAnsweredAt;
   const AmodifiedAt = question?.modifiedansweredAt;
 
-  const dates = useMemo(
-    () => {
-      return {
-        createdAt : QcreatedAt,
-        modifiedAt : QmodifiedAt,
-        createdAnsweredAt : AcreatedAt,
-        modifiedAnsweredAt : AmodifiedAt
-      }
-    },
-    [QcreatedAt, QmodifiedAt, AcreatedAt, AmodifiedAt]
-  );
+  const dates = useMemo(() => {
+    return {
+      createdAt: QcreatedAt,
+      modifiedAt: QmodifiedAt,
+      createdAnsweredAt: AcreatedAt,
+      modifiedAnsweredAt: AmodifiedAt,
+    };
+  }, [QcreatedAt, QmodifiedAt, AcreatedAt, AmodifiedAt]);
 
   const latestDate = useMemo(() => getLatestTime(dates), [dates]);
 
@@ -34,15 +33,17 @@ const ItemList = (question: QuestionElement) => {
       </QuestionInfo1>
 
       <QuestionInfo2>
-
-        <StyledLink to={`/detail/${question.questionId}`}><TitleInfo>{question.questionTitle}</TitleInfo></StyledLink>
-        <TimelineInfo><AuthorInfo>{question.username}</AuthorInfo>{latestDate.keyWord} {latestDate.filteredlatestDate}</TimelineInfo>
+        <StyledLink to={`/detail/${question.questionId}`}>
+          <TitleInfo>{question.questionTitle}</TitleInfo>
+        </StyledLink>
+        <TimelineInfo>
+          <AuthorInfo>{question.username}</AuthorInfo>
+          {latestDate.keyWord} {latestDate.filteredlatestDate}
+        </TimelineInfo>
       </QuestionInfo2>
     </QuestionLi>
-  )
-
-
-}
+  );
+};
 
 const QuestionLi = styled.li`
   width: 40vw;
@@ -63,12 +64,12 @@ const QuestionInfo1 = styled.span`
 `;
 
 const VoteInfo = styled.div`
-    margin-top: 5px;
-    margin-bottom: 5px;
-    color: black;
-    font-weight: bold;
-    font-size: 13px;
-`
+  margin-top: 5px;
+  margin-bottom: 5px;
+  color: black;
+  font-weight: bold;
+  font-size: 13px;
+`;
 
 const AnswerInfo = styled.div`
   margin-top: 5px;
@@ -89,10 +90,10 @@ const QuestionInfo2 = styled.span`
   margin-left: 20px;
   width: 85%;
   height: 110px;
-  `
+`;
 const StyledLink = styled(Link)`
   text-decoration-line: none;
-`
+`;
 
 const TitleInfo = styled.div`
   margin-top: 25px;
@@ -116,7 +117,6 @@ const AuthorInfo = styled.span`
   padding-right: 10px;
   color: #1d74cc;
 `;
-
 
 // const VoteInfo = styled.div`
 //     margin-top: 5px;
