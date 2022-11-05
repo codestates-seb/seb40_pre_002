@@ -7,7 +7,7 @@ import { PostButton } from '../button/Postbutton';
 
 export interface AnswerProps {
   id: string | undefined;
-  setAnswerList: React.Dispatch<React.SetStateAction<(IAnswer | undefined)[]>>;
+  setAnswerList: React.Dispatch<React.SetStateAction<IAnswer[]>>;
 }
 
 const AnswerForm = ({ id, setAnswerList }: AnswerProps) => {
@@ -28,6 +28,7 @@ const AnswerForm = ({ id, setAnswerList }: AnswerProps) => {
       setIsDisable(true);
       const response = await postAns(id, answer);
       if (Number.isNaN(response)) throw new Error('response is nan');
+      if (!response) throw new Error('response is null');
 
       setAnswerList((prev) => {
         return [...prev, response];
