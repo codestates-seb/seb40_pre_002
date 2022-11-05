@@ -45,7 +45,7 @@ const StyleLink = styled(Link)`
 `;
 const Question = styled.div`
   display: flex;
-  width: 860px;
+  width: 80%;
   padding: 5px 20px 30px 20px;
   flex-direction: column;
 `;
@@ -88,7 +88,7 @@ const StyledDate = styled.p`
   font-size: 12px;
 `;
 
-const Username = styled.p`
+const Username = styled.div`
   display: flex;
   flex-direction: row;
   color: #0074cc;

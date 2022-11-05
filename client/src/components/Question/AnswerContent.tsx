@@ -20,10 +20,9 @@ const AnswerContent = ({ id, answers, setAnswerList }: AnswerContentProps) => {
     [answers.createdAt, answers.modifiedAt]
   );
 
-  const handleSubmit = async () => {
+  const handleDeleteClick = async () => {
     try {
       const status = await deleAns(id, answers.answerId); //200? 401
-      console.log(status);
       if (status !== 200) throw new Error('status is not good');
       //렌더링
       setAnswerList((prev) =>
@@ -54,7 +53,7 @@ const AnswerContent = ({ id, answers, setAnswerList }: AnswerContentProps) => {
           <Userinfo>
             <Mody>
               <Button onClick={handleClick}>Edit </Button>
-              <Button onClick={handleSubmit}>Delete</Button>
+              <Button onClick={handleDeleteClick}>Delete</Button>
             </Mody>
             <User>
               <StyledDate>
@@ -130,7 +129,7 @@ const StyledDate = styled.p`
   color: #6a737c;
   font-size: 12px;
 `;
-const Username = styled.p`
+const Username = styled.div`
   color: #0074cc;
   font-size: 15px;
   display: flex;
