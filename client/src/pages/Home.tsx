@@ -33,12 +33,12 @@ export default function Home({ isLogin }: HomeProps) {
           {isLogin ? <AskLink to="askpage">Ask Question</AskLink> : <></>}
         </Question>
 
-        <FilterBtnList>
+        {/* <FilterBtnList>
           <button>
             <BountiedInfo>271</BountiedInfo> Bountied
           </button>
           <button>Interesting</button>
-        </FilterBtnList>
+        </FilterBtnList> */}
       </MainHead>
       <div>
         <ul>
@@ -53,10 +53,10 @@ export default function Home({ isLogin }: HomeProps) {
 }
 
 const Main = styled.main`
-  position: fixed;
-  margin-top: 100px;
+  position: relative;
+  padding-top: 100px;
   margin-left: 20vw;
-  min-width: 40vw;
+  width: 43vw;
   height: 100vh;
 `;
 
@@ -90,23 +90,23 @@ const AskLink = styled(Link)`
   align-items: center;
   border-radius: 5px;
 `;
-const FilterBtnList = styled.div`
-  display: flex;
-  flex-direction: row-reverse;
-  margin-bottom: 15px;
+// const FilterBtnList = styled.div`
+//   display: flex;
+//   flex-direction: row-reverse;
+//   margin-bottom: 15px;
 
-  > button {
-    height: 40px;
-    color: #686868;
-    background-color: white;
-    border: solid 1px #959595;
-    padding: 10px;
-  }
-`;
+//   > button {
+//     height: 40px;
+//     color: #686868;
+//     background-color: white;
+//     border: solid 1px #959595;
+//     padding: 10px;
+//   }
+// `;
 
-const BountiedInfo = styled.span`
-  background-color: #1d74cc;
-  color: white;
-  padding: 3px;
-  border-radius: 3px;
-`;
+// const BountiedInfo = styled.span`
+//   background-color: #1d74cc;
+//   color: white;
+//   padding: 3px;
+//   border-radius: 3px;
+// `;

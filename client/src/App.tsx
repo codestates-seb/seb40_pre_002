@@ -5,6 +5,7 @@ import AsideLeft from './components/Sidebar/AsideLeft';
 import AsideRight from './components/Sidebar/AsideRight';
 import AskAsideLeft from './components/Sidebar/AskAsideLeft';
 import AskAsideRight from './components/Sidebar/AskAsideRight';
+import DetailAsideLeft from './components/Sidebar/DetailAsideLeft';
 import HomeAsideLeft from './components/Sidebar/HomeAsideLeft';
 import { useLogin } from './hooks/user/users';
 import Askpage from './pages/Askpage';
@@ -20,7 +21,7 @@ function App() {
     <Navbar isLogin={isLogin} setIsLogin={setIsLogin}/>
       <Routes>
         <Route path="/" element={[<HomeAsideLeft/>,<AsideRight/>,<Home isLogin={isLogin} />]} />
-        <Route path="detail/:id" element={[<AsideLeft/>,<AsideRight/>,<Detail isLogin={isLogin} />]} />
+        <Route path="detail/:id" element={[<DetailAsideLeft/>,<AsideRight/>,<Detail isLogin={isLogin} />]} />
         <Route path="askpage" element={[<AskAsideLeft/>,<AskAsideRight/>,<Askpage />]} />
         <Route path="login" element={<Login setGlobalLogin={setIsLogin}/>} />
       </Routes>

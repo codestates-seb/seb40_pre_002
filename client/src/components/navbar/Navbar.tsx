@@ -43,6 +43,7 @@ export default function Navbar({ isLogin, setIsLogin }: NavbarProps) {
 }
 
 const Nav = styled.nav`
+  margin-top: 0px;
   z-index: 100;
   position: fixed;
   text-align: center;
