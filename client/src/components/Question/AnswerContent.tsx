@@ -15,7 +15,7 @@ interface AnswerContentProps {
 const AnswerContent = ({ id, answers, setAnswerList }: AnswerContentProps) => {
   const [editOpen, setEditOpen] = useState<boolean>(false);
 
-  const [latestDate, latestUtc] = useMemo(
+  const { filteredlatestDate, keyWord } = useMemo(
     () => getLatestTime([answers.createdAt, answers.modifiedAt]),
     [answers.createdAt, answers.modifiedAt]
   );
@@ -57,8 +57,8 @@ const AnswerContent = ({ id, answers, setAnswerList }: AnswerContentProps) => {
             </Mody>
             <User>
               <StyledDate>
-                {latestUtc === answers.createdAt ? 'asked : ' : 'modified : '} :
-                {latestDate}
+                {filteredlatestDate === answers.createdAt ? 'asked : ' : 'modified : '} :
+                {filteredlatestDate}
               </StyledDate>
               <Username>
                 <p>user:</p>

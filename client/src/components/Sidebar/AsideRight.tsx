@@ -119,7 +119,7 @@ const Right = styled.aside`
   min-width: 30vw;
   margin-top: 100px;
   height: 100vh;
-  @media only screen and (max-width: 1000px) {
+  @media only screen and (max-width: 1300px) {
     display: none;
     background-color: black;
   }

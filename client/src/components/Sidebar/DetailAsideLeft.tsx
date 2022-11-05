@@ -1,24 +1,20 @@
 import styled from 'styled-components';
 
-const HomeAsideLeft = ({ location }: any) => {
+const DetailAsideLeft = ({location} : any) => {
+
   return (
     <>
       <Left>
         <HomeBar>
-          Home
-          <Index />
+          Question<Index></Index>
         </HomeBar>
       </Left>
-      {/* BUG: Outlet component both in HomeAsideLeft.tsx
-      and AsideRight renders <Home /> twice,  */}
-      {/* <Outlet/> */}
     </>
   );
 };
 
 const Left = styled.aside`
-  position: absolute;
-  left: 0;
+  position: fixed;
   min-width: 20vw;
   height: 100vh;
   border-right: solid 1px lightgray;
@@ -40,10 +36,10 @@ const HomeBar = styled.div`
 
 const Index = styled.span`
   position: relative;
-  left: 95px;
+  left: 72px;
   width: 5px;
   height: 34px;
   background-color: orange;
 `;
 
-export default HomeAsideLeft;
+export default DetailAsideLeft;

@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import { Link } from 'react-router-dom';
 import ItemList from '../components/list/ItemList';
@@ -12,16 +12,16 @@ import AsideRight from '../components/Sidebar/AsideRight';
 
 interface HomeProps {
   isLogin: boolean;
+  question: QuestionElement[];
+  setQuestion: React.Dispatch<React.SetStateAction<QuestionElement[]>>;
 }
 
-export default function Home({ isLogin }: HomeProps) {
-  const [questions, setQuestions] = useState<QuestionElement[]>([]);
-  // const location = useLocation();
-  // console.log(location.pathname);
+export default function Home({ isLogin, question, setQuestion }: HomeProps) {
+  // const [questions, setQuestions] = useState<QuestionElement[]>([]);
 
   useEffect(() => {
     mainQuestionsAPIs.getMainQuestions().then((res) => {
-      setQuestions(res.data.data);
+      setQuestion(res.data.data);
     });
   }, []);
   return (
@@ -32,17 +32,10 @@ export default function Home({ isLogin }: HomeProps) {
             <Title>Top Questions</Title>
             {isLogin ? <AskLink to="askpage">Ask Question</AskLink> : <></>}
           </Question>
-
-          <FilterBtnList>
-            <button>
-              <BountiedInfo>271</BountiedInfo> Bountied
-            </button>
-            <button>Interesting</button>
-          </FilterBtnList>
         </MainHead>
         <div>
           <ul>
-            {questions.map((question, index) => {
+            {question.map((question, index) => {
               return <ItemList key={index} {...question} />;
             })}
           </ul>
@@ -99,28 +92,27 @@ const AskLink = styled(Link)`
   align-items: center;
   border-radius: 5px;
 `;
-const FilterBtnList = styled.div`
-  display: flex;
-  flex-direction: row-reverse;
-  margin-bottom: 15px;
+// const FilterBtnList = styled.div`
+//   display: flex;
+//   flex-direction: row-reverse;
+//   margin-bottom: 15px;
 
-  > button {
-    height: 40px;
-    color: #686868;
-    background-color: white;
-    border: solid 1px #959595;
-    padding: 10px;
-  }
-`;
-
-const BountiedInfo = styled.span`
-  background-color: #1d74cc;
-  color: white;
-  padding: 3px;
-  border-radius: 3px;
-`;
+//   > button {
+//     height: 40px;
+//     color: #686868;
+//     background-color: white;
+//     border: solid 1px #959595;
+//     padding: 10px;
+//   }
+// `;
 
 const Aside = styled.div`
   position: absolute;
-  margin-left: 1000px;
+  right: 600px;
 `;
+// const BountiedInfo = styled.span`
+//   background-color: #1d74cc;
+//   color: white;
+//   padding: 3px;
+//   border-radius: 3px;
+// `;
