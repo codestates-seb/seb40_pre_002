@@ -1,39 +1,51 @@
-import { Link } from 'react-router-dom';
-import styled from 'styled-components';
-import {
-  Question,
-  QuestionElement,
-} from '../../types/mainQuestions/questionTypes';
+import { useMemo } from "react";
+import { Link } from "react-router-dom";
+import styled from "styled-components"
+import { Question, QuestionElement } from "../../types/mainQuestions/questionTypes";
+import { getLatestTime } from "../../utils/helper/date/getLastestTime";
 
 const ItemList = (question: QuestionElement) => {
-  // console.log(question.id);
 
-  // questionElement에서 가장 최신 순 시간 가져와서 뿌리기 -> 함수
+  const QcreatedAt = question?.createdAt;
+  const QmodifiedAt = question?.modifiedAt;
+  const AcreatedAt = question?.createdAnsweredAt;
+  const AmodifiedAt = question?.modifiedansweredAt;
 
-  // console.log(question);
+  const dates = useMemo(
+    () => {
+      return {
+        createdAt : QcreatedAt,
+        modifiedAt : QmodifiedAt,
+        createdAnsweredAt : AcreatedAt,
+        modifiedAnsweredAt : AmodifiedAt
+      }
+    },
+    [QcreatedAt, QmodifiedAt, AcreatedAt, AmodifiedAt]
+  );
+
+  const latestDate = useMemo(() => getLatestTime(dates), [dates]);
 
   return (
     <QuestionLi>
       <QuestionInfo1>
+        <VoteInfo>{question.vote} votes</VoteInfo>
         <AnswerInfo>{question.countAnswers} answers</AnswerInfo>
         <ViewInfo>{question.views} views</ViewInfo>
       </QuestionInfo1>
 
       <QuestionInfo2>
-        <Link to={`/detail/${question.questionId}`}>
-          <TitleInfo>{question.questionTitle}</TitleInfo>
-        </Link>
-        <TimelineInfo>
-          <AuthorInfo>{question.username}</AuthorInfo>
-          <NumInfo>{question.questionId}</NumInfo>
-          {question.createdAt}
-        </TimelineInfo>
+
+        <StyledLink to={`/detail/${question.questionId}`}><TitleInfo>{question.questionTitle}</TitleInfo></StyledLink>
+        <TimelineInfo><AuthorInfo>{question.username}</AuthorInfo>{latestDate.keyWord} {latestDate.filteredlatestDate}</TimelineInfo>
       </QuestionInfo2>
     </QuestionLi>
-  );
-};
+  )
+
+
+}
+
 const QuestionLi = styled.li`
-  width: 44vw;
+  width: 40vw;
   box-sizing: border-box;
   padding-left: 0;
   display: flex;
@@ -49,6 +61,14 @@ const QuestionInfo1 = styled.span`
   justify-content: center;
   text-align: right;
 `;
+
+const VoteInfo = styled.div`
+    margin-top: 5px;
+    margin-bottom: 5px;
+    color: black;
+    font-weight: bold;
+    font-size: 13px;
+`
 
 const AnswerInfo = styled.div`
   margin-top: 5px;
@@ -69,7 +89,11 @@ const QuestionInfo2 = styled.span`
   margin-left: 20px;
   width: 85%;
   height: 110px;
-`;
+  `
+const StyledLink = styled(Link)`
+  text-decoration-line: none;
+`
+
 const TitleInfo = styled.div`
   margin-top: 25px;
   margin-left: 25px;
@@ -93,11 +117,6 @@ const AuthorInfo = styled.span`
   color: #1d74cc;
 `;
 
-const NumInfo = styled.span`
-  color: #000000ca;
-  font-weight: bold;
-  margin-right: 10px;
-`;
 
 // const VoteInfo = styled.div`
 //     margin-top: 5px;
@@ -105,6 +124,10 @@ const NumInfo = styled.span`
 //     color: black;
 //     font-weight: bold;
 //     font-size: 13px;
+// const NumInfo = styled.span`
+//   color: #000000ca;
+//   font-weight: bold;
+//   margin-right: 10px;
 // `
 
 // const TagInfo = styled.div`

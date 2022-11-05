@@ -1,34 +1,78 @@
-import React, { useMemo } from 'react';
+import React, { useEffect, useMemo, useState } from 'react';
 import styled from 'styled-components';
-import { Link } from 'react-router-dom';
-import { IQuestion } from '../../types/Detail/detailAnswerType';
+import { Link, useParams } from 'react-router-dom';
+import { IAnswer, IQuestion } from '../../types/Detail/detailAnswerType';
 import { getLatestTime } from '../../utils/helper/date/getLastestTime';
+import { QuestionElement } from '../../types/mainQuestions/questionTypes';
+import { detailAPIs } from '../../api/detail';
 
 const QuestionContent = (props: IQuestion) => {
   // useCallback or useMemo --> 최근 시간 추출하는 함수 작성
   // IQuestion createdAt, modifiedAt 에서 최신 날짜 추출
   // IAnswer createdAt, modifiedAt 에서 최신 날짜 추출
 
-  const QcreatedAt = props.createdAt;
-  const QmodifiedAt = props.modifiedAt;
-  const AcreatedAt = props.createdAt;
-  const AmodifiedAt = props.modifiedAt;
+  const { id } = useParams();
+  const [question, setQuestionList] = useState<IQuestion | undefined>({});
+  const [answerList, setAnswerList] = useState<(IAnswer | undefined)[]>([]);
 
+  useEffect(() => {
+    detailAPIs.getDetail(id).then((res) => {
+      const quest = res?.data.data;
+      const ans = res?.data.answers || [];
+      setQuestionList(quest);
+      // console.log("quest",quest);
+      setAnswerList(ans);
+    });
+  }, []);
+
+  const QcreatedAt = question?.createdAt;
+  const QmodifiedAt = question?.modifiedAt;
+  const AcreatedAt = answerList[0]?.createdAt;
+  const AmodifiedAt = answerList[0]?.modifiedAt;
+
+  // dates : 가장 최근 게시글/댓글 작성 및 수정시간 반영하여 객체로 리턴
   const dates = useMemo(
-    () => [QcreatedAt, QmodifiedAt, AcreatedAt, AmodifiedAt],
-
+    () => {
+      return {
+        createdAt : QcreatedAt,
+        modifiedAt : QmodifiedAt,
+        createdAnsweredAt : AcreatedAt,
+        modifiedAnsweredAt : AmodifiedAt
+      }
+    },
     [QcreatedAt, QmodifiedAt, AcreatedAt, AmodifiedAt]
   );
 
-  const [latestDate] = useMemo(() => getLatestTime(dates), [dates]);
+  const latestDate = useMemo(() => getLatestTime(dates), [dates]);
+
+  // console.log("question",question);
+  // console.log("dates", dates);
+  // console.log("latesDate", latestDate);
+
+  const [votenumber, setVotenumber] = useState(0);
+
+  function Plusvotenum(){
+
+  } 
+  
+  function Minusvotenum(){
+
+  }
 
   return (
     <Question>
+      <VoteQbody>
+      <VoteInfo>
+        <button onClick={() => Plusvotenum}>▲</button>
+        <span>{votenumber}</span>
+        <button onClick={() => Minusvotenum}>▼</button>
+      </VoteInfo>
       <Qbody>{props.questionContents}</Qbody>
+      </VoteQbody>
       <Userinfo>
         <StyleLink to="/edit">Edit</StyleLink>
         <User>
-          <StyledDate>asked {latestDate}</StyledDate>
+          <StyledDate>{latestDate.keyWord} {latestDate.filteredlatestDate}</StyledDate>
           <Username>
             <p>user:</p> {props.user?.userName}
           </Username>
@@ -49,14 +93,27 @@ const Question = styled.div`
   padding: 5px 20px 30px 20px;
   flex-direction: column;
 `;
+const VoteQbody =styled.div`
+  display: flex;
+`
+const VoteInfo = styled.span`
+  width: 50px;
+  height: 100px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+
+  button {
+    margin-top: 10px;
+    margin-bottom: 10px;
+  }
+`
 const Qbody = styled.div`
-  height: 100%;
-  width: 100%;
-  margin-right: 20px;
-  word-break: break-all;
+  height: 200px;
   margin-bottom: 1.1em;
   color: #232629;
-  padding: 8px 8px;
+  padding: 5px 20px;
 `;
 const Userinfo = styled.div`
   display: flex;

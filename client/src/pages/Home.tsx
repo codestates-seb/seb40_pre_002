@@ -32,7 +32,6 @@ export default function Home({ isLogin }: HomeProps) {
             <Title>Top Questions</Title>
             {isLogin ? <AskLink to="askpage">Ask Question</AskLink> : <></>}
           </Question>
-
           <FilterBtnList>
             <button>
               <BountiedInfo>271</BountiedInfo> Bountied
@@ -99,28 +98,28 @@ const AskLink = styled(Link)`
   align-items: center;
   border-radius: 5px;
 `;
-const FilterBtnList = styled.div`
-  display: flex;
-  flex-direction: row-reverse;
-  margin-bottom: 15px;
+// const FilterBtnList = styled.div`
+//   display: flex;
+//   flex-direction: row-reverse;
+//   margin-bottom: 15px;
 
-  > button {
-    height: 40px;
-    color: #686868;
-    background-color: white;
-    border: solid 1px #959595;
-    padding: 10px;
-  }
-`;
-
-const BountiedInfo = styled.span`
-  background-color: #1d74cc;
-  color: white;
-  padding: 3px;
-  border-radius: 3px;
-`;
+//   > button {
+//     height: 40px;
+//     color: #686868;
+//     background-color: white;
+//     border: solid 1px #959595;
+//     padding: 10px;
+//   }
+// `;
 
 const Aside = styled.div`
   position: absolute;
   margin-left: 1150px;
 `;
+// const BountiedInfo = styled.span`
+//   background-color: #1d74cc;
+//   color: white;
+//   padding: 3px;
+//   border-radius: 3px;
+// `;
+
