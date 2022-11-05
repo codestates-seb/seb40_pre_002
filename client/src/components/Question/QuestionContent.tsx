@@ -5,6 +5,7 @@ import { IAnswer, IQuestion } from '../../types/Detail/detailAnswerType';
 import { getLatestTime } from '../../utils/helper/date/getLastestTime';
 import { QuestionElement } from '../../types/mainQuestions/questionTypes';
 import { detailAPIs } from '../../api/detail';
+import { vote } from '../../api/vote';
 
 const QuestionContent = (props: IQuestion) => {
   // useCallback or useMemo --> 최근 시간 추출하는 함수 작성
@@ -14,13 +15,17 @@ const QuestionContent = (props: IQuestion) => {
   const { id } = useParams();
   const [question, setQuestionList] = useState<IQuestion | undefined>({});
   const [answerList, setAnswerList] = useState<(IAnswer | undefined)[]>([]);
-
+  const [votenumber, setVotenumber] = useState<number | undefined>(
+    question?.vote
+  );
   useEffect(() => {
     detailAPIs.getDetail(id).then((res) => {
       const quest = res?.data.data;
       const ans = res?.data.answers || [];
       setQuestionList(quest);
-      // console.log("quest",quest);
+      console.log('q', question?.vote);
+      console.log('vote', quest?.vote);
+
       setAnswerList(ans);
     });
   }, []);
@@ -46,19 +51,32 @@ const QuestionContent = (props: IQuestion) => {
   // console.log("dates", dates);
   // console.log("latesDate", latestDate);
 
-  const [votenumber, setVotenumber] = useState(0);
+  const Plusvotenum = async () => {
+    try {
+      const response = await vote(id, 1);
+      setVotenumber(response?.vote);
+      console.log(response);
+    } catch (err) {
+      console.error(err);
+    }
+  };
 
-  function Plusvotenum() {}
-
-  function Minusvotenum() {}
-
+  const Minusvotenum = async () => {
+    try {
+      const response = await vote(id, -1);
+      setVotenumber(response?.vote);
+      console.log(response);
+    } catch (err) {
+      console.error(err);
+    }
+  };
   return (
     <Question>
       <VoteQbody>
         <VoteInfo>
-          <button onClick={() => Plusvotenum}>▲</button>
-          <span>{votenumber}</span>
-          <button onClick={() => Minusvotenum}>▼</button>
+          <button onClick={Plusvotenum}>▲</button>
+          <span>{question?.vote}</span>
+          <button onClick={Minusvotenum}>▼</button>
         </VoteInfo>
         <Qbody>{props.questionContents}</Qbody>
       </VoteQbody>
