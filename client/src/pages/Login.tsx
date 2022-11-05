@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { FormEvent, useEffect, useState } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 import { UserAccess } from '../api/signin';
@@ -6,7 +6,11 @@ import SignInButton from '../components/button/SignInButton';
 import { useIsValidPassword } from '../hooks/Login/LoginHooks';
 import { initialUser, LoginUserType } from '../types/loginUserType';
 
-export default function Login() {
+interface LoginProps {
+  setGlobalLogin: React.Dispatch<React.SetStateAction<boolean>>;
+}
+
+export default function Login({ setGlobalLogin }: LoginProps) {
   const [isLogin, setIsLogin] = useState(false);
   const [userData, setUserData] = useState<LoginUserType>(initialUser);
   const { isValidPassword } = useIsValidPassword(userData.password);
@@ -21,13 +25,14 @@ export default function Login() {
     setIsLogin(!isLogin);
   };
 
-  const handleSubmit = () => {
+  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
     if (!isLogin) {
-      UserAccess.signup(userData);
+      UserAccess.signup(userData).then(() => setGlobalLogin(true));
       // move to home page
     } else if (isLogin) {
       delete userData.userName;
-      UserAccess.login(userData);
+      UserAccess.login(userData).then(() => setGlobalLogin(true));
     }
     navigate(`/`);
   };
@@ -35,59 +40,72 @@ export default function Login() {
     <Background>
       <Container>
         <InputBox>
-          <div className="top-section">
-            {!isLogin ? ( //회원가입인경우
+          <form onSubmit={handleSubmit}>
+            <div className="top-section">
+              {!isLogin ? ( //회원가입인경우
+                <div className="input-ctn">
+                  <label htmlFor="userName">Display Name</label>
+                  <input
+                    autoFocus={true}
+                    autoComplete={'on'}
+                    required={true}
+                    value={userData.userName}
+                    onChange={handleDataInput}
+                    type="text"
+                    id="userName"
+                    name="userName"
+                  />
+                </div>
+              ) : null}
               <div className="input-ctn">
-                <label htmlFor="userName">Display Name</label>
+                <label htmlFor="email">Email</label>
                 <input
+                  required={true}
+                  value={userData.email}
                   onChange={handleDataInput}
-                  type="text"
-                  id="userName"
-                  name="userName"
+                  type="email"
+                  name="email"
+                  id=""
                 />
               </div>
-            ) : null}
-            <div className="input-ctn">
-              <label htmlFor="email">Email</label>
-              <input
-                onChange={handleDataInput}
-                type="email"
-                name="email"
-                id=""
-              />
+              <div className="input-ctn">
+                <label htmlFor="password">Password</label>
+                <input
+                  required={true}
+                  value={userData.password}
+                  onChange={handleDataInput}
+                  type="password"
+                  name="password"
+                  id=""
+                />
+              </div>
+              <div className="p-ctn">
+                {isValidPassword ? (
+                  <p>
+                    Password Must contain at least eight characters, including
+                    at least 1 letter and 1 number.
+                  </p>
+                ) : (
+                  <p style={{ color: 'red' }}>
+                    Password Must contain at least eight characters, including
+                    at least 1 letter and 1 number.
+                  </p>
+                )}
+              </div>
             </div>
-            <div className="input-ctn">
-              <label htmlFor="password">Password</label>
-              <input
-                onChange={handleDataInput}
-                type="password"
-                name="password"
-                id=""
-              />
+            <div className="bottom-section">
+              <SignInButton isLogin={isLogin} />
+              <p>
+                {isLogin ? 'Dont have an account?' : 'Already have an account?'}
+                <span
+                  style={{ marginLeft: '2px' }}
+                  onClick={handleLoginOrSignUp}
+                >
+                  {isLogin ? ' Sign up' : 'Log in'}
+                </span>
+              </p>
             </div>
-            <div className="p-ctn">
-              {isValidPassword ? (
-                <p>
-                  Password Must contain at least eight characters, including at
-                  least 1 letter and 1 number.
-                </p>
-              ) : (
-                <p style={{ color: 'red' }}>
-                  Password Must contain at least eight characters, including at
-                  least 1 letter and 1 number.
-                </p>
-              )}
-            </div>
-          </div>
-          <div className="bottom-section">
-            <SignInButton handleClick={handleSubmit} isLogin={isLogin} />
-            <p>
-              {isLogin ? 'Dont have an account?' : 'Already have an account?'}
-              <span style={{ marginLeft: '2px' }} onClick={handleLoginOrSignUp}>
-                {isLogin ? ' Sign up' : 'Log in'}
-              </span>
-            </p>
-          </div>
+          </form>
         </InputBox>
       </Container>
     </Background>

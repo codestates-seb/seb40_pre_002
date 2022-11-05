@@ -2,8 +2,26 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 import logo from '../../images/stackoverlogo.png';
+import { useNavigate } from 'react-router-dom';
+import { deleteStorageToken } from '../../utils/token/token';
+import { deleteStorgeUser } from '../../utils/user/user';
 
-export default function Navbar() {
+interface NavbarProps {
+  isLogin: boolean;
+  setIsLogin: React.Dispatch<React.SetStateAction<boolean>>;
+}
+
+export default function Navbar({ isLogin, setIsLogin }: NavbarProps) {
+  const navigate = useNavigate();
+  const handleLogout = () => {
+    deleteStorageToken();
+    deleteStorgeUser();
+    setIsLogin(false);
+    navigate(`/`);
+  };
+
+  if(window.location.pathname === '/login') return null;
+
   return (
     <Nav>
       <Link to="/">
@@ -11,14 +29,21 @@ export default function Navbar() {
       </Link>
       <Input placeholder="🔍 search..." />
       <Div>
-        <StyledLink to="/login">Login</StyledLink>
-        <StyledLink2 to="/login">Signup</StyledLink2>
+        {isLogin ? (
+          <Button onClick={handleLogout}>Logout</Button>
+        ) : (
+          <>
+            <StyledLink to="/login">Login</StyledLink>
+            <StyledLink2 to="/login">Signup</StyledLink2>
+          </>
+        )}
       </Div>
     </Nav>
   );
 }
 
 const Nav = styled.nav`
+  margin-top: 0px;
   z-index: 100;
   position: fixed;
   text-align: center;
@@ -82,6 +107,36 @@ const StyledLink = styled(Link)`
   }
 `;
 
+const Button = styled.button`
+  box-sizing: border-box;
+  position: relative;
+  display: inline-block;
+  padding: 0.8em;
+  align-self: center;
+  padding-top: 8px;
+  padding-bottom: 8px;
+  margin-right: 10px;
+  color: hsl(205, 47%, 42%);
+  background-color: hsl(205, 46%, 92%);
+  border-color: hsl(205, 41%, 63%);
+  text-decoration: none;
+  box-shadow: inset 0 1px 0 0 hsl(0deg 0% 100% / 70%);
+  border: 1px solid hsl(206, 100%, 40%);
+  border-radius: 3px;
+  outline: none;
+  font-family: inherit;
+  font-size: 13px;
+  font-weight: normal;
+  line-height: calc((15) / 13);
+  text-align: center;
+  cursor: pointer;
+  user-select: none;
+  &:hover {
+    color: white;
+    background-color: hsl(206, 90%, 69.5%);
+  }
+`;
+
 const StyledLink2 = styled(Link)`
   display: inline-block;
   box-sizing: border-box;
@@ -93,9 +148,7 @@ const StyledLink2 = styled(Link)`
 
   border: 1px solid transparent;
   border-radius: 3px;
-
   outline: none;
-
   color: hsl(0, 0%, 100%);
   font-family: inherit;
   font-weight: normal;
