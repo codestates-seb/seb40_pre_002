@@ -122,5 +122,5 @@ const BountiedInfo = styled.span`
 
 const Aside = styled.div`
   position: absolute;
-  margin-left: 1150px;
+  margin-left: 1000px;
 `;
