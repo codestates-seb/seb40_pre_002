@@ -58,6 +58,7 @@ export default function Detail({ isLogin }: DetailProps) {
 const Detailpage = styled.div`
   display: flex;
   width: 100%;
+  margin-left: 60px;
   flex-direction: row;
 `;
 
@@ -77,6 +78,6 @@ const Q = styled.div`
 
 const Aside = styled.div`
   position: absolute;
-  right: 500px;
-  margin-top: 80px;
+  right: 473px;
+  margin-top: 115px;
 `;

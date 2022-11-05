@@ -31,17 +31,14 @@ const QuestionContent = (props: IQuestion) => {
   const AmodifiedAt = answerList[0]?.modifiedAt;
 
   // dates : 가장 최근 게시글/댓글 작성 및 수정시간 반영하여 객체로 리턴
-  const dates = useMemo(
-    () => {
-      return {
-        createdAt : QcreatedAt,
-        modifiedAt : QmodifiedAt,
-        createdAnsweredAt : AcreatedAt,
-        modifiedAnsweredAt : AmodifiedAt
-      }
-    },
-    [QcreatedAt, QmodifiedAt, AcreatedAt, AmodifiedAt]
-  );
+  const dates = useMemo(() => {
+    return {
+      createdAt: QcreatedAt,
+      modifiedAt: QmodifiedAt,
+      createdAnsweredAt: AcreatedAt,
+      modifiedAnsweredAt: AmodifiedAt,
+    };
+  }, [QcreatedAt, QmodifiedAt, AcreatedAt, AmodifiedAt]);
 
   const latestDate = useMemo(() => getLatestTime(dates), [dates]);
 
@@ -51,28 +48,26 @@ const QuestionContent = (props: IQuestion) => {
 
   const [votenumber, setVotenumber] = useState(0);
 
-  function Plusvotenum(){
+  function Plusvotenum() {}
 
-  } 
-  
-  function Minusvotenum(){
-
-  }
+  function Minusvotenum() {}
 
   return (
     <Question>
       <VoteQbody>
-      <VoteInfo>
-        <button onClick={() => Plusvotenum}>▲</button>
-        <span>{votenumber}</span>
-        <button onClick={() => Minusvotenum}>▼</button>
-      </VoteInfo>
-      <Qbody>{props.questionContents}</Qbody>
+        <VoteInfo>
+          <button onClick={() => Plusvotenum}>▲</button>
+          <span>{votenumber}</span>
+          <button onClick={() => Minusvotenum}>▼</button>
+        </VoteInfo>
+        <Qbody>{props.questionContents}</Qbody>
       </VoteQbody>
       <Userinfo>
         <StyleLink to="/edit">Edit</StyleLink>
         <User>
-          <StyledDate>{latestDate.keyWord} {latestDate.filteredlatestDate}</StyledDate>
+          <StyledDate>
+            {latestDate.keyWord} {latestDate.filteredlatestDate}
+          </StyledDate>
           <Username>
             <p>user:</p> {props.user?.userName}
           </Username>
@@ -91,11 +86,12 @@ const Question = styled.div`
   display: flex;
   width: 80%;
   padding: 5px 20px 30px 20px;
+  margin-top: 20px;
   flex-direction: column;
 `;
-const VoteQbody =styled.div`
+const VoteQbody = styled.div`
   display: flex;
-`
+`;
 const VoteInfo = styled.span`
   width: 50px;
   height: 100px;
@@ -108,10 +104,9 @@ const VoteInfo = styled.span`
     margin-top: 10px;
     margin-bottom: 10px;
   }
-`
+`;
 const Qbody = styled.div`
-  height: 200px;
-  margin-bottom: 1.1em;
+  height: 100%;
   color: #232629;
   padding: 5px 20px;
 `;
@@ -119,7 +114,7 @@ const Userinfo = styled.div`
   display: flex;
   flex-direction: row;
   height: 30px;
-
+  margin-top: 25px;
   justify-content: space-between;
   padding: 5px 20px;
   align-items: center;

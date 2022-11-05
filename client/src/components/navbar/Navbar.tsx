@@ -46,8 +46,9 @@ export default function Navbar({
       <Link to="/">
         <img alt="logo" src={logo} />
       </Link>
+      <p>Products</p>
       <Form onSubmit={handleSearch}>
-        <input
+        <Input
           placeholder="🔍 search..."
           value={searchValue}
           onChange={handleChange}
@@ -80,7 +81,7 @@ const Nav = styled.nav`
   width: 100%;
   align-items: center;
   justify-content: center;
-  padding: 10px;
+  padding: 10px 0px;
   display: flex;
   background-color: hsl(210, 8%, 97.5%);
   flex-direction: row;
@@ -89,16 +90,17 @@ const Nav = styled.nav`
     width: 168px;
     height: 70px;
   }
+  p {
+    margin-top: 26px;
+  }
 `;
 const Form = styled.form`
-  width: 800px;
+  width: 53%;
   height: 28px;
-  .input {
-    margin-top: 10px;
-    margin-left: 20px;
-    margin-right: 30px;
-    width: 100%;
-  }
+`;
+const Input = styled.input`
+  height: 30px;
+  width: 97%;
 `;
 
 const Div = styled.div`
