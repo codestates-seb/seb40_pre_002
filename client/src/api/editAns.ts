@@ -9,7 +9,7 @@ export async function editAns(
 ) {
   try {
     const response = await axios.patch<IAnswer>(
-      `https://pioneroroom.com/auth/questionlist/${paramsId}/edi`,
+      `https://pioneroroom.com/auth/questionlist/${paramsId}/edit`,
       { answerId: Number(ansId), answerContents },
       {
         headers: {

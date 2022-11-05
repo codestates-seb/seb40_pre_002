@@ -8,7 +8,6 @@ export const detailAPIs = {
       const response = await axios.get<IDetailedQnA>(
         `https://pioneroroom.com/questionlist/${id}`
       );
-      console.log(response);
       if (!response) throw new Error('getDetail response is undefined');
       return response;
     } catch (error) {
