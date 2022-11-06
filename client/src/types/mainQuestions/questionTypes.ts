@@ -6,7 +6,7 @@ export interface Question {
 export interface QuestionElement {
       questionId: number;
       questionTitle: string;
-      countAnswers: number; // 추가해야함
+      countAnswer: number; // 추가해야함
       views: number;
       vote:number;
       username: string;

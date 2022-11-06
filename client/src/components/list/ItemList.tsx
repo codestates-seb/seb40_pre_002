@@ -28,7 +28,7 @@ const ItemList = (question: QuestionElement) => {
     <QuestionLi>
       <QuestionInfo1>
         <VoteInfo>{question.vote} votes</VoteInfo>
-        <AnswerInfo>{question.countAnswers} answers</AnswerInfo>
+        <AnswerInfo>{question.countAnswer} answers</AnswerInfo>
         <ViewInfo>{question.views} views</ViewInfo>
       </QuestionInfo1>
 
