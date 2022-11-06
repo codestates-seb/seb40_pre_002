@@ -6,6 +6,8 @@ import { getLatestTime } from '../../utils/helper/date/getLastestTime';
 import { QuestionElement } from '../../types/mainQuestions/questionTypes';
 import { detailAPIs } from '../../api/detail';
 import { vote } from '../../api/vote';
+import upvote from '../../images/upvote.png'
+import downvote from '../../images/downvote.png'
 
 interface QuestionContentProps {
   setQuestion: React.Dispatch<React.SetStateAction<IQuestion>>;
@@ -37,9 +39,9 @@ const QuestionContent = ({ question, setQuestion }: QuestionContentProps) => {
     <Question>
       <VoteQbody>
         <VoteInfo>
-          <button onClick={() => Plusvotenum(1)}>▲</button>
+          <button type='button' onClick={() => Plusvotenum(1)}><img alt='upvote' src={upvote}/></button>
           <span>{question?.vote}</span>
-          <button onClick={() => Plusvotenum(-1)}>▼</button>
+          <button  type='button' onClick={() => Plusvotenum(-1)}><img alt='downvote' src={downvote}/></button>
         </VoteInfo>
         <Qbody>{question.questionContents}</Qbody>
       </VoteQbody>
@@ -84,6 +86,8 @@ const VoteInfo = styled.span`
   button {
     margin-top: 10px;
     margin-bottom: 10px;
+    background-color: white;
+    border: solid 0px white;
   }
 `;
 const Qbody = styled.div`

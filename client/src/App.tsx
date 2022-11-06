@@ -40,7 +40,7 @@ function App() {
         />
         <Route
           path="detail/:id"
-          element={[<AsideLeft />, <Detail isLogin={isLogin} />]}
+          element={[<DetailAsideLeft />, <Detail isLogin={isLogin} />]}
         />
         <Route
           path="askpage"
