@@ -29,30 +29,36 @@ const EditForm = ({
   };
 
   const handleEditClick = async () => {
-    try {
-      setIsDisable(true);
-      const response = await editAns(paramsId, ansId, editAnswer);
-      let arr: IAnswer[];
-      setAnswerList((prev) => {
-        arr = prev;
-        return prev.map((e) => {
-          if (e?.answerId === ansId)
-            return { ...e, answerContents: editAnswer };
-          return e;
-        });
-      });
-      if (response !== 200) {
+    const totalByte = Number(editAnswer.length);
+    if (totalByte < 30) {
+      alert('30자 이상 작성하세요');
+    } else {
+      try {
+        setIsDisable(true);
+        const response = await editAns(paramsId, ansId, editAnswer);
+        let arr: IAnswer[];
         setAnswerList((prev) => {
-          return arr;
+          arr = prev;
+          return prev.map((e) => {
+            if (e?.answerId === ansId)
+              return { ...e, answerContents: editAnswer };
+            return e;
+          });
         });
+        if (response !== 200) {
+          setAnswerList((prev) => {
+            return arr;
+          });
+        }
+      } catch (err) {
+        console.error(err);
       }
-    } catch (err) {
-      console.error(err);
+      setEditAnswer('');
+      setEditOpen(false);
+      setIsDisable(false);
     }
-    setEditAnswer('');
-    setEditOpen(false);
-    setIsDisable(false);
   };
+
   const handleCancel = () => {
     setEditOpen(false);
   };
@@ -61,11 +67,15 @@ const EditForm = ({
     <Answerform>
       <p>Answer</p>
       <Form>
-        <textarea
-          onChange={getContent}
-          name="answerContents"
-          value={editAnswer}
-        />
+        <div>
+          <textarea
+            onChange={getContent}
+            name="answerContents"
+            value={editAnswer}
+          />
+          <span>{editAnswer.length}/30</span>
+        </div>
+
         <Div>
           <EditButton onClick={handleEditClick} isDisable={isDisable} />
           <Button onClick={handleCancel}>Cancel</Button>
@@ -76,7 +86,7 @@ const EditForm = ({
 };
 const Answerform = styled.div`
   display: flex;
-  width: 80%;
+  width: 82%;
   flex-direction: column;
   padding: 5px 20px;
   p {
@@ -89,8 +99,18 @@ const Form = styled.div`
   display: flex;
   flex-direction: column;
 
+  div {
+    display: flex;
+    flex-direction: row;
+  }
   textarea {
     height: 150px;
+    width: 91%;
+  }
+  span {
+    padding: 5px;
+    margin-top: 130px;
+    font-size: small;
   }
 `;
 const Div = styled.div`
@@ -112,5 +132,8 @@ const Button = styled.button`
   background-color: white;
   margin-left: 10px;
   color: #6a737c;
+  &:hover {
+    color: hsl(0, 67.17948717948717%, 61.76470588235294%);
+  }
 `;
 export default EditForm;
