@@ -21,11 +21,19 @@ const QuestionContent = ({ question, setQuestion }: QuestionContentProps) => {
     try {
       const response = await vote(id, num);
       setQuestion((prev) => {
-        return { ...prev, vote: response?.vote ?? question.vote };
+        return { ...prev, vote: response?.data.vote ?? question.vote };
       });
-      console.log(response);
+
+      // console.log("response",response);
+      if(response === undefined){
+        alert('You alreay vote');
+      }
+
     } catch (err) {
       console.error(err);
+      // token(로그인 안했을때) 에러 시 -status 401번
+      // already vote 시 - status 409번
+
     }
   };
 
@@ -88,6 +96,7 @@ const VoteInfo = styled.span`
     margin-bottom: 10px;
     background-color: white;
     border: solid 0px white;
+    cursor: pointer;
   }
 `;
 const Qbody = styled.div`
