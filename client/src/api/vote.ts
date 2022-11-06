@@ -20,8 +20,8 @@ export async function vote(paramsId: string | undefined, vote: number) {
         },
       }
     );
-    console.log(response.data);
-    return response.data;
+    // console.log("response",response);
+    return response;
   } catch (err) {
     console.log(err);
   }
