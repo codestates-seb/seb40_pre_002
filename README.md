@@ -1,4 +1,4 @@
-<a href="https://stackoverflow.com/"><img src=https://upload.wikimedia.org/wikipedia/commons/thumb/e/ef/Stack_Overflow_icon.svg/120px-Stack_Overflow_icon.svg.png?20190716190036/></a>![header](https://capsule-render.vercel.app/api?type=Cylinder&color=FF9E0F&height=100&section=header&text=StackOverFlow%20Clone&fontSize=45)
+![header](https://capsule-render.vercel.app/api?type=Cylinder&color=FF9E0F&height=100&section=header&text=StackOverFlow%20Clone&fontSize=45)
 
 ## 🔗 배포링크
 <a href="링크"></a>
