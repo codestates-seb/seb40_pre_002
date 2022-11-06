@@ -30,22 +30,6 @@
       <td align="center">BE서효진</td>    
   </tr>
 </table>
-
-<!-- <table>
-
- <tr>
-  <td align="center"><a href="https://github.com/NTY-1017"><img src=https://avatars.githubusercontent.com/u/88229250?v=4 width="100px;" alt=""/><br /><sub><b>@NTY-1017</b></sub></a><br /></td>
-     <td align="center"><a href="https://github.com/Seung-IL-Bang"><img src=https://avatars.githubusercontent.com/u/87510898?v=4 width="100px;"/><br /><sub><b>@Seung-IL-Bang</b></sub></a><br /></td>
-     <td align="center"><a href="https://github.com/hyoreal"><img src=https://avatars.githubusercontent.com/u/102732425?v=4 width="100px;"/><br /><sub><b>@hyoreal</b></sub></a><br /></td>
-
-</tr>
-<tr>
-      <td align="center">BE노태윤</td>
-      <td align="center">BE방승일</td>
-      <td align="center">BE서효진</td>
-   
-</tr>
-</table> -->
 </div>
 
 <br/>
@@ -70,16 +54,11 @@
 
 ### Back-End
 
-<img src="https://img.shields.io/badge/java-007396?style=for-the-badge&logo=OpenJDK&logoColor=white"> 
-<img src="https://img.shields.io/badge/Spring-6DB33F?style=for-the-badge&logo=Spring&logoColor=white"> 
-<img src="https://img.shields.io/badge/Spring Boot-6DB33F?style=for-the-badge&logo=Spring Boot&logoColor=white">
+<img src="https://img.shields.io/badge/java-007396?style=for-the-badge&logo=OpenJDK&logoColor=white"> <img src="https://img.shields.io/badge/Spring-6DB33F?style=for-the-badge&logo=Spring&logoColor=white"> <img src="https://img.shields.io/badge/Spring Boot-6DB33F?style=for-the-badge&logo=Spring Boot&logoColor=white">
 
-<img src="https://img.shields.io/badge/Spring Security-6DB33F?style=for-the-badge&logo=Spring Security&logoColor=white">
-<img src="https://img.shields.io/badge/Spring Data JPA-0ABF53?style=for-the-badge">
+<img src="https://img.shields.io/badge/Spring Security-6DB33F?style=for-the-badge&logo=Spring Security&logoColor=white"><img src="https://img.shields.io/badge/Spring Data JPA-0ABF53?style=for-the-badge">
 
-<img src="https://img.shields.io/badge/MySQL-4479A1?style=for-the-badge&logo=MySQL&logoColor=white"> 
-<img src="https://img.shields.io/badge/JUnit5-25A162?style=for-the-badge&logo=JUnit5&logoColor=white"> 
-<img src="https://img.shields.io/badge/NGINX-009639?style=for-the-badge&logo=NGINX&logoColor=white">
+<img src="https://img.shields.io/badge/MySQL-4479A1?style=for-the-badge&logo=MySQL&logoColor=white"> <img src="https://img.shields.io/badge/JUnit5-25A162?style=for-the-badge&logo=JUnit5&logoColor=white"> <img src="https://img.shields.io/badge/NGINX-009639?style=for-the-badge&logo=NGINX&logoColor=white">
 
 <img src="https://img.shields.io/badge/AWS-232F3E?style=for-the-badge&logo=AmazonAWS&logoColor=white">
 <img src="https://img.shields.io/badge/Amazon EC2-FF9900?style=for-the-badge&logo=AmazonEC2&logoColor=white">
