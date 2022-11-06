@@ -59,7 +59,7 @@ const Main = styled.main`
   position: absolute;
   margin-top: 100px;
   margin-left: 20vw;
-  width: 46vw;
+  width: 43vw;
 `;
 
 const MainHead = styled.div`
