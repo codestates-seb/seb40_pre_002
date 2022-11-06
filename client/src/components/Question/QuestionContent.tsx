@@ -13,16 +13,19 @@ const QuestionContent = (props: IQuestion) => {
   // IAnswer createdAt, modifiedAt 에서 최신 날짜 추출
 
   const { id } = useParams();
-  const [question, setQuestionList] = useState<IQuestion | undefined>({});
+  const [question, setQuestion] = useState<IQuestion>({});
   const [answerList, setAnswerList] = useState<(IAnswer | undefined)[]>([]);
-  const [votenumber, setVotenumber] = useState<number | undefined>(
-    question?.vote
-  );
+
   useEffect(() => {
     detailAPIs.getDetail(id).then((res) => {
       const quest = res?.data.data;
       const ans = res?.data.answers || [];
-      setQuestionList(quest);
+      if(quest){
+        setQuestion(quest);
+      } else {
+        setQuestion({});
+      }
+      
       console.log('q', question?.vote);
       console.log('vote', quest?.vote);
 
@@ -51,32 +54,25 @@ const QuestionContent = (props: IQuestion) => {
   // console.log("dates", dates);
   // console.log("latesDate", latestDate);
 
-  const Plusvotenum = async () => {
+  const Plusvotenum = async (num : number) => {
     try {
-      const response = await vote(id, 1);
-      setVotenumber(response?.vote);
+      const response = await vote(id, num);
+      setQuestion((prev) =>{
+        return {...prev, vote:response?.vote ?? prev.vote}
+      })
       console.log(response);
     } catch (err) {
       console.error(err);
     }
   };
 
-  const Minusvotenum = async () => {
-    try {
-      const response = await vote(id, -1);
-      setVotenumber(response?.vote);
-      console.log(response);
-    } catch (err) {
-      console.error(err);
-    }
-  };
   return (
     <Question>
       <VoteQbody>
         <VoteInfo>
-          <button onClick={Plusvotenum}>▲</button>
-          <span>{question?.vote}</span>
-          <button onClick={Minusvotenum}>▼</button>
+          <button onClick={()=>Plusvotenum(1)}>▲</button>
+          <span>{question.vote}</span>
+          <button onClick={()=>Plusvotenum(-1)}>▼</button>
         </VoteInfo>
         <Qbody>{props.questionContents}</Qbody>
       </VoteQbody>
