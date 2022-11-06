@@ -21,27 +21,40 @@ const AnswerForm = ({ id, setAnswerList }: AnswerProps) => {
   };
 
   const handleSubmit = async () => {
-    try {
-      setIsDisable(true);
-      const response = await postAns(id, answer);
-      if (Number.isNaN(response)) throw new Error('response is nan');
-      if (!response) throw new Error('response is null');
+    const totalByte = Number(answer.length);
+    if (totalByte < 30) {
+      alert('30자 이상 작성하세요');
+    } else {
+      try {
+        setIsDisable(true);
+        const response = await postAns(id, answer);
+        if (Number.isNaN(response)) throw new Error('response is nan');
+        if (!response) throw new Error('response is null');
 
-      setAnswerList((prev) => {
-        return [...prev, response];
-      });
-    } catch (err) {
-      console.error(err);
+        setAnswerList((prev) => {
+          return [...prev, response];
+        });
+      } catch (err) {
+        console.error(err);
+      }
+      setAnswer('');
+      setIsDisable(false);
     }
-    setAnswer('');
-    setIsDisable(false);
   };
 
   return (
     <Answerform>
       <p>Your Answer</p>
+
       <Form>
-        <textarea onChange={getContent} name="answerContents" value={answer} />
+        <div>
+          <textarea
+            onChange={getContent}
+            name="answerContents"
+            value={answer}
+          />
+          <span>{answer.length}/30</span>
+        </div>
         <PostButton onClick={handleSubmit} isDisable={isDisable} />
       </Form>
     </Answerform>
@@ -50,7 +63,7 @@ const AnswerForm = ({ id, setAnswerList }: AnswerProps) => {
 
 const Answerform = styled.div`
   display: flex;
-  width: 78%;
+  width: 83%;
   flex-direction: column;
   padding: 5px 20px;
   p {
@@ -58,13 +71,24 @@ const Answerform = styled.div`
     font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI Adjusted',
       'Segoe UI', 'Liberation Sans', sans-serif;
   }
+  span {
+    padding: 5px;
+  }
 `;
 const Form = styled.div`
   display: flex;
   flex-direction: column;
-
+  div {
+    display: flex;
+    flex-direction: row;
+  }
+  span {
+    margin-top: 210px;
+    font-size: small;
+  }
   textarea {
-    height: 250px;
+    height: 230px;
+    width: 90%;
   }
 `;
 
