@@ -1,15 +1,5 @@
 import moment from 'moment';
 
-// asked, modified, answered
-// 매개변수 (timeObj: any)
-
-// interface datesInterface {
-//   createdAt: string|undefined,
-//   modifiedAt: string|undefined,
-//   createdAnsweredAt: string|undefined,
-//   modifiedAnsweredAt: string|undefined
-// }
-
 export const getLatestTime = (timeObj: any) => {
   // string | undefined로 이루어진 배열 dates 선언
   const dates: (string | undefined)[] = [];
@@ -28,7 +18,7 @@ export const getLatestTime = (timeObj: any) => {
 
   // latesUtc : newDates 중, 가장 최근 날짜 리턴
   const latestUtc = newDates.sort(
-    (a, b) => new Date(b).getTime() + offset - (new Date(a).getTime() + offset)
+    (a, b) => (new Date(b).getTime() + offset) - (new Date(a).getTime() + offset)
   )[0];
 
   // latestDate : 가장 최근 날짜를 형식에 맞춰서 보여줌
@@ -60,9 +50,6 @@ export const getLatestTime = (timeObj: any) => {
       break;
   }
 
-  // return date if the date is past more than 48 hours,
-  // if not, return the time difference from the current date, in a formatted way such as stackoverflow
-
   // now : 현재 시간
   const now = moment();
 
@@ -92,15 +79,6 @@ export const getLatestTime = (timeObj: any) => {
 
   return { filteredlatestDate, keyWord };
 };
-
-// export const timeObj = {
-//   createdAt: '2022-10-24 00:00:01',
-//   modifiedAt: '2022-10-31 22:22:22',
-//   createdAnsweredAt: '2022-10-25 00:00:00',
-//   modifiedAnsweredAt: null,
-// };
-
-// getLatestTime(timeObj);
 
 // latestUtc와 timeObj를 받아서 timeObj의 key들 중, latestUtc(가장 최근 시간)과 일치하는 시간이 있으면 최근시간과 일치하는 key값을 리턴함.
 function getKeywords(latestUtc: string, timeObj: any) {
