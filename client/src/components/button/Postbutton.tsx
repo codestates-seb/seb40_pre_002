@@ -16,7 +16,7 @@ export const PostButton = ({ onClick, isDisable }: PostButtonProps) => {
 export const EditButton = ({ onClick, isDisable }: PostButtonProps) => {
   return (
     <Button onClick={onClick} disabled={isDisable}>
-      {!isDisable ? ' save edits' : 'wait'}
+      {!isDisable ? ' save edit' : 'wait'}
     </Button>
   );
 };

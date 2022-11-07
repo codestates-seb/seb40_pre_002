@@ -27,6 +27,7 @@ const ItemList = (question: QuestionElement) => {
   // console.log(question);
 
   return (
+
     <QuestionLi>
       <QuestionInfo1>
         <VoteInfo>{question.vote} votes</VoteInfo>
