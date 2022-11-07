@@ -6,6 +6,7 @@ import lombok.Getter;
 
 import java.sql.Timestamp;
 import java.time.LocalDateTime;
+import java.time.ZonedDateTime;
 
 @Getter
 @AllArgsConstructor
@@ -17,8 +18,8 @@ public class QuestionListResponseDto {
     private Integer views;
     private int vote;
     private Integer countAnswer;
-    private LocalDateTime createdAt;
-    private LocalDateTime modifiedAt;
+    private ZonedDateTime createdAt;
+    private ZonedDateTime modifiedAt;
     private Timestamp createdAnsweredAt;
     private Timestamp modifiedAnsweredAt;
     private String username;

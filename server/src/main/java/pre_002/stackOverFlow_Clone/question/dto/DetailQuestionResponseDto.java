@@ -3,7 +3,7 @@ package pre_002.stackOverFlow_Clone.question.dto;
 import lombok.*;
 import pre_002.stackOverFlow_Clone.user.dto.UserDto;
 
-import java.time.LocalDateTime;
+import java.time.ZonedDateTime;
 
 @Getter
 @Builder
@@ -14,7 +14,7 @@ public class DetailQuestionResponseDto {
     private String questionContents;
     private int view;
     private int vote;
-    private LocalDateTime createdAt;
-    private LocalDateTime modifiedAt;
+    private ZonedDateTime createdAt;
+    private ZonedDateTime modifiedAt;
     private UserDto.Response user;
 }

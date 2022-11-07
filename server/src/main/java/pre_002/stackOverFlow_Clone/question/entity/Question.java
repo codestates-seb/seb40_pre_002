@@ -12,6 +12,7 @@ import pre_002.stackOverFlow_Clone.user.entity.User;
 import javax.persistence.*;
 import java.sql.Timestamp;
 import java.time.LocalDateTime;
+import java.time.ZonedDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -40,12 +41,12 @@ public class Question {
     @Column
     private int countAnswer;
 
-    @CreatedDate
+//    @CreatedDate
     @Column(updatable = false)
-    private LocalDateTime createdAt;
+    private ZonedDateTime createdAt;
 
     @Column(insertable = false)
-    private LocalDateTime modifiedAt;
+    private ZonedDateTime modifiedAt;
 
     @Column
     private Timestamp createdAnsweredAt;

@@ -15,6 +15,8 @@ import pre_002.stackOverFlow_Clone.user.service.UserService;
 
 import java.security.Principal;
 import java.time.LocalDateTime;
+import java.time.ZoneId;
+import java.time.ZonedDateTime;
 import java.util.*;
 
 @Service
@@ -47,6 +49,7 @@ public class QuestionService{
 
         User user = userService.findVerifiedUserByEmail(principal.getName());
         question.setUser(user);
+        question.setCreatedAt(ZonedDateTime.now(ZoneId.of("Asia/Seoul")));
         question.setVote(new QuestionVote());
 
         QuestionVote vote = question.getVote();
@@ -61,7 +64,7 @@ public class QuestionService{
     public Question patchQuestion(Question question, Principal principal) {
 
         Question getQuestion = findVerifiedQuestion(question.getQuestionId());
-        getQuestion.setModifiedAt(LocalDateTime.now());
+        getQuestion.setModifiedAt(ZonedDateTime.now(ZoneId.of("Asia/Seoul")));
         getQuestion.setQuestionTitle(question.getQuestionTitle());
         getQuestion.setQuestionContents(question.getQuestionContents());
 
