@@ -97,7 +97,7 @@ export const getLatestTime = (timeObj: any) => {
 function getKeywords(latestUtc: string, timeObj: any) {
   let val = '';
   for (const key in timeObj) {
-    if (timeObj[key] === latestUtc.slice(0, 20)) {
+    if (timeObj[key] === latestUtc.slice(0,20)) {
       val = key;
     }
   }
