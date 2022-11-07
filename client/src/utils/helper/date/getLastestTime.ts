@@ -14,9 +14,18 @@ export const getLatestTime = (timeObj: any) => {
     (e) => typeof e === 'string'
   ) as string[];
 
-  const newDates = tempDates.map(e => e.length < 27 ? e.slice(0,-1) + '.000+00:00' : e)
+  const newDates = tempDates.map((e) => {
+    if (e.length < 27 && e[e.length - 1] !== 'Z') {
+      return e + '.000+00:00';
+    }
+    return e.length < 27 ? e.slice(0, -1) + '.000+00:00' : e;
+  });
 
-  console.log(newDates);
+  if (newDates.length === 0)
+    return {
+      filteredlatestDate: '',
+      keyWord: '',
+    };
 
   const offset = 1000 * 60 * 60 * 9;
 
@@ -88,13 +97,7 @@ export const getLatestTime = (timeObj: any) => {
 function getKeywords(latestUtc: string, timeObj: any) {
   let val = '';
   for (const key in timeObj) {
-
-if(timeObj[key] === undefined){
-      return
-    }
-
-    else if (timeObj[key] === latestUtc.slice(0,20)) {
-   
+    if (timeObj[key] === latestUtc.slice(0, 20)) {
       val = key;
     }
   }

@@ -13,6 +13,7 @@ export async function postAns(id: string | undefined, answerContents: string) {
         },
       }
     );
+
     return response.data;
   } catch (err) {
     console.error(err);

@@ -30,7 +30,6 @@ const AnswerForm = ({ id, setAnswerList }: AnswerProps) => {
         const response = await postAns(id, answer);
         if (Number.isNaN(response)) throw new Error('response is nan');
         if (!response) throw new Error('response is null');
-
         setAnswerList((prev) => {
           return [...prev, response];
         });

@@ -38,7 +38,6 @@ const AnswerContent = ({ id, answers, setAnswerList }: AnswerContentProps) => {
   const handleClick = () => {
     setEditOpen(!editOpen);
   };
-
   return (
     <>
       {editOpen ? (
@@ -52,6 +51,8 @@ const AnswerContent = ({ id, answers, setAnswerList }: AnswerContentProps) => {
       ) : (
         <Answer>
           <Content>{answers.answerContents}</Content>
+          {/* <p>{'asdfasdf\\nasdfdasf\tasdfsadf\\asdfasdf'}</p>
+          <div>{answers.answerContents}</div> */}
           <Userinfo>
             <Mody>
               <Button onClick={handleClick}>Edit </Button>
@@ -59,7 +60,6 @@ const AnswerContent = ({ id, answers, setAnswerList }: AnswerContentProps) => {
             </Mody>
             <User>
               <StyledDate>
-
                 {answers.modifiedAt ? (
                   <p>modified : {filteredlatestDate}</p>
                 ) : (
@@ -103,10 +103,12 @@ const Answer = styled.div`
   padding: 5px 20px;
   flex-direction: column;
 `;
-const Content = styled.div`
+const Content = styled.p`
   height: 100%;
   margin-bottom: 1.1em;
   color: #232629;
+  white-space: pre-wrap;
+
   padding: 5px 20px;
 `;
 const Userinfo = styled.div`
