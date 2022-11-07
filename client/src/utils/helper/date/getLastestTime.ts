@@ -18,7 +18,7 @@ export const getLatestTime = (timeObj: any) => {
 
   // latesUtc : newDates 중, 가장 최근 날짜 리턴
   const latestUtc = newDates.sort(
-    (a, b) => (new Date(b).getTime() + offset) - (new Date(a).getTime() + offset)
+    (a, b) => new Date(b).getTime() + offset - (new Date(a).getTime() + offset)
   )[0];
 
   // latestDate : 가장 최근 날짜를 형식에 맞춰서 보여줌

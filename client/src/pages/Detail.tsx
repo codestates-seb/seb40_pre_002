@@ -29,7 +29,7 @@ export default function Detail({ isLogin }: DetailProps) {
         const ans = res?.data.answers ?? [];
 
         setQuestion(quest);
-        setAnswerList(ans);
+        setAnswerList(ans.reverse());
       })
       .catch(console.error);
   }, []);
