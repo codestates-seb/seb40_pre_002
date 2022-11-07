@@ -2,7 +2,7 @@
 
 ## 🔗 배포링크
 <a href="링크"></a>
-
+https://seb40-pre-002-cp1s-q4jky52zr-40-pre-002.vercel.app/
 
 ## 💡프로젝트 개요
 이번 프로젝트에선 Stackoverflow를 클론코딩하였습니다. 
