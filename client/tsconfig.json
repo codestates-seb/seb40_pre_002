@@ -1,7 +1,15 @@
 {
   "compilerOptions": {
     "target": "es5",
+<<<<<<< HEAD
     "lib": ["dom", "dom.iterable", "esnext", "es6"],
+=======
+    "lib": [
+      "dom",
+      "dom.iterable",
+      "esnext"
+    ],
+>>>>>>> 155cb716278e134386ea3ca3410fe1ad2c7b30c9
     "allowJs": true,
     "skipLibCheck": true,
     "esModuleInterop": true,
@@ -14,10 +22,18 @@
     "resolveJsonModule": true,
     "isolatedModules": true,
     "noEmit": true,
+<<<<<<< HEAD
     "jsx": "react-jsx",
     "noImplicitAny": true,
     "noImplicitThis": true,
     "strictNullChecks": true
   },
   "include": ["src", "App.tsx"]
+=======
+    "jsx": "react-jsx"
+  },
+  "include": [
+    "src"
+  ]
+>>>>>>> 155cb716278e134386ea3ca3410fe1ad2c7b30c9
 }
