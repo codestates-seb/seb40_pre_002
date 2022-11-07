@@ -18,32 +18,33 @@ import java.io.IOException;
 public class UserAuthenticationEntryPoint implements AuthenticationEntryPoint {
     @Override
     public void commence(HttpServletRequest request, HttpServletResponse response, AuthenticationException authException) throws IOException, ServletException{
-//        Exception exception = (Exception) request.getAttribute("exception");
-//        ErrorResponder.sendErrorResponse(response, HttpStatus.UNAUTHORIZED);
-//
-//        logExceptionMessage(authException, exception);
+
         ExceptionCode exception = (ExceptionCode) request.getAttribute("exception");
 
         // 토큰 없는 경우
         if(exception == null) {
-            ErrorResponder.sendErrorResponse(response, ExceptionCode.NOT_LOGIN);
+            ErrorResponder.sendErrorResponse(response, ExceptionCode.EMPTY_TOKEN);
+            log.warn(ExceptionCode.EMPTY_TOKEN.getMessage());
             return;
         }
 
         // 토큰 만료된 경우
         if(exception.equals(ExceptionCode.EXPIRED_TOKEN)) {
             ErrorResponder.sendErrorResponse(response, ExceptionCode.EXPIRED_TOKEN);
+            log.warn(ExceptionCode.EXPIRED_TOKEN.getMessage());
             return;
         }
 
         // 토큰 시그니처가 다른 경우
         if(exception.equals(ExceptionCode.INVALID_TOKEN)) {
             ErrorResponder.sendErrorResponse(response, ExceptionCode.INVALID_TOKEN);
+            log.warn(ExceptionCode.INVALID_TOKEN.getMessage());
         }
 
         // 토큰 손상이 있는 경우
         if(exception.equals(ExceptionCode.UNAUTHORIZED)) {
             ErrorResponder.sendErrorResponse(response, ExceptionCode.UNAUTHORIZED);
+            log.warn(ExceptionCode.UNAUTHORIZED.getMessage());
         }
     }
 

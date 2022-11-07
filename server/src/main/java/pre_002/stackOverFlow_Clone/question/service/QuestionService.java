@@ -1,25 +1,23 @@
 package pre_002.stackOverFlow_Clone.question.service;
 
 import lombok.RequiredArgsConstructor;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Pageable;
-import org.springframework.data.domain.Sort;
+import org.springframework.data.domain.*;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import pre_002.stackOverFlow_Clone.exception.BusinessLogicException;
 import pre_002.stackOverFlow_Clone.exception.ExceptionCode;
 import pre_002.stackOverFlow_Clone.question.entity.Question;
 import pre_002.stackOverFlow_Clone.question.repository.QuestionRepository;
-import pre_002.stackOverFlow_Clone.question.vote.QuestionVote;
-import pre_002.stackOverFlow_Clone.question.vote.QuestionVoteRepository;
+import pre_002.stackOverFlow_Clone.question.vote.entity.QuestionVote;
+import pre_002.stackOverFlow_Clone.question.vote.repository.QuestionVoteRepository;
 import pre_002.stackOverFlow_Clone.user.entity.User;
 import pre_002.stackOverFlow_Clone.user.service.UserService;
 
 import java.security.Principal;
 import java.time.LocalDateTime;
-import java.util.Objects;
-import java.util.Optional;
+import java.time.ZoneId;
+import java.time.ZonedDateTime;
+import java.util.*;
 
 @Service
 @RequiredArgsConstructor
@@ -51,11 +49,14 @@ public class QuestionService{
 
         User user = userService.findVerifiedUserByEmail(principal.getName());
         question.setUser(user);
+        question.setCreatedAt(ZonedDateTime.now(ZoneId.of("Asia/Seoul")));
         question.setVote(new QuestionVote());
 
         QuestionVote vote = question.getVote();
         vote.setQuestion(question);
         vote.setVoteCount(0);
+        vote.setUpUserId(new ArrayList<>());
+        vote.setDownUserId(new ArrayList<>());
 
         return questionRepository.save(question);
     }
@@ -63,7 +64,7 @@ public class QuestionService{
     public Question patchQuestion(Question question, Principal principal) {
 
         Question getQuestion = findVerifiedQuestion(question.getQuestionId());
-        getQuestion.setModifiedAt(LocalDateTime.now());
+        getQuestion.setModifiedAt(ZonedDateTime.now(ZoneId.of("Asia/Seoul")));
         getQuestion.setQuestionTitle(question.getQuestionTitle());
         getQuestion.setQuestionContents(question.getQuestionContents());
 
@@ -89,7 +90,7 @@ public class QuestionService{
         QuestionVote questionVote = question.getVote();
 
         // 질문 투표 up한 유저일 경우
-        if (Objects.equals(questionVote.getUpUserId(), user.getUserId())) {
+        if (questionVote.getUpUserId().contains(user.getUserId())) {
             // request vote가 0보다 크면
             if (vote > 0) {
                 throw new BusinessLogicException(ExceptionCode.VOTE_EXIST);
@@ -97,14 +98,14 @@ public class QuestionService{
             // request vote가 0보다 작으면 투표수 감소
             else {
                 questionVote.setVoteCount(questionVote.getVoteCount() - 1);
-                questionVote.setUpUserId(null);
+                questionVote.getUpUserId().remove(user.getUserId());
                 questionVoteRepository.save(questionVote);
                 question.setVote(questionVote);
                 questionRepository.save(question);
             }
         }
         // 질문 투표 down한 유저일 경우
-        else if (Objects.equals(questionVote.getDownUserId(), user.getUserId())){
+        else if (questionVote.getDownUserId().contains(user.getUserId())){
             // request vote가 0보다 작으면
             if (vote < 0) {
                 throw new BusinessLogicException(ExceptionCode.VOTE_EXIST);
@@ -112,7 +113,7 @@ public class QuestionService{
             // request vote가 0보다 크면
             else {
                 questionVote.setVoteCount(questionVote.getVoteCount() + 1);
-                questionVote.setDownUserId(null);
+                questionVote.getDownUserId().remove(user.getUserId());
                 questionVoteRepository.save(questionVote);
                 question.setVote(questionVote);
                 questionRepository.save(question);
@@ -123,7 +124,7 @@ public class QuestionService{
             // request vote가 0보다 크면
             if (vote > 0) {
                 questionVote.setVoteCount(questionVote.getVoteCount() + 1);
-                questionVote.setUpUserId(user.getUserId());
+                questionVote.getUpUserId().add(user.getUserId());
                 questionVoteRepository.save(questionVote);
                 question.setVote(questionVote);
                 questionRepository.save(question);
@@ -131,7 +132,7 @@ public class QuestionService{
             // request vote가 0보다 작으면
             else if (vote < 0) {
                 questionVote.setVoteCount(questionVote.getVoteCount() - 1);
-                questionVote.setDownUserId(user.getUserId());
+                questionVote.getDownUserId().add(user.getUserId());
                 questionVoteRepository.save(questionVote);
                 question.setVote(questionVote);
                 questionRepository.save(question);
@@ -153,4 +154,23 @@ public class QuestionService{
             throw new BusinessLogicException(ExceptionCode.FORBIDDEN_USER);
         }
     }
+
+    public Page<Question> searchQuestion(String keyword, int page, int size) {
+
+        // pageable 구현
+        Pageable pageable =
+                PageRequest.of(page - 1, size,
+                        Sort.by("questionId").descending());
+
+        // 저장소에서 list 형태로 가져옴
+        List<Question> questionList = questionRepository.findByQuestionTitleContainingOrderByQuestionIdDesc(keyword);
+
+        // List -> Page 형태로 변환
+        int start = (int) pageable.getOffset();
+        int end = Math.min((start + pageable.getPageSize()), questionList.size());
+        Page<Question> questionPage = new PageImpl<>(questionList.subList(start, end), pageable, questionList.size());
+
+        return questionPage;
+    }
+
 }

@@ -1,4 +1,4 @@
-package pre_002.stackOverFlow_Clone.question.dto;
+package pre_002.stackOverFlow_Clone.question.vote.dto;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;

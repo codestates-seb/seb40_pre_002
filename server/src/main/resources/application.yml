@@ -9,7 +9,6 @@ Spring:
 #    username: ${spring.datasource.username}
 #    password: ${spring.datasource.password}
 
-
   jpa:
     database: mysql
     database-platform: org.hibernate.dialect.MySQL5InnoDBDialect
@@ -20,7 +19,8 @@ Spring:
       hibernate:
         show_sql: true
         format_sql: true
-    defer-datasource-initialization: true # error: 'dataSourceScriptDatabaseInitializer'
+#    defer-datasource-initialization: true # error: 'dataSourceScriptDatabaseInitializer'
+
 
 #aws:
 #  paramstore:
@@ -47,7 +47,6 @@ logging:
 #            AwsParamStorePropertySource=debug
 
 
-
 server:
   port: 8080
   #  ssl:
@@ -57,11 +56,14 @@ server:
   servlet:
     encoding:
       force-response: true
+  tomcat:
+    connection-timeout: 120000
 
 jwt:
 #  secret-key: ${jwy.secret-key}
   access-token-expiration-minutes: 180
 #  refresh-token-expiration-minutes: 420
+
 
 mail:
   address:

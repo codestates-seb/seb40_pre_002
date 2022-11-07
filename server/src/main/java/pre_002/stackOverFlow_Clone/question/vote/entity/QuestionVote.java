@@ -1,4 +1,4 @@
-package pre_002.stackOverFlow_Clone.question.vote;
+package pre_002.stackOverFlow_Clone.question.vote.entity;
 
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -7,6 +7,7 @@ import pre_002.stackOverFlow_Clone.question.entity.Question;
 import pre_002.stackOverFlow_Clone.user.entity.User;
 
 import javax.persistence.*;
+import java.util.ArrayList;
 
 @Entity
 @Getter
@@ -19,15 +20,12 @@ public class QuestionVote {
 
     private int voteCount = 0;
 
-    private Long upUserId;
+    private ArrayList<Long> upUserId;
 
-    private Long downUserId;
+    private ArrayList<Long> downUserId;
 
     @OneToOne
     @JoinColumn(name = "QUESTION_ID")
     private Question question;
 
-    @ManyToOne
-    @JoinColumn(name = "USER_ID")
-    private User user;
 }

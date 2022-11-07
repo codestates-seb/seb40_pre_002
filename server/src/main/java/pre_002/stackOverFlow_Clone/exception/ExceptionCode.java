@@ -14,18 +14,17 @@ public enum ExceptionCode {
 
     QUESTION_NOT_FOUND(404,  "Question is not found."),
 
+    ANSWER_NOT_FOUND(404, "Answer is not found."),
     VOTE_EXIST(409, "You already vote."),
-    
     EXPIRED_TOKEN(401, "Token is expired"),
 
     INVALID_TOKEN(401, "Token is expired"),
 
     UNAUTHORIZED(401, "Unauthorized"),
 
-    NOT_LOGIN(401, "Not Log-in"),
+    EMPTY_TOKEN(401, "Access Token is empty"),
 
-    ANSWER_NOT_FOUND(404, "Answer is not found.");
-
+    DUPLICATE_VOTE(406, "Duplicate vote");
 
     @Getter
     private final int statusCode;
