@@ -52,32 +52,38 @@ export default function Detail({ isLogin }: DetailProps) {
   const latestDate = useMemo(() => getLatestTime(dates), [dates]);
 
   return (
-    <Detailpage>
-      <Q>
-        <QuestionTitle {...question} />
-        <QuestionContent question={question} setQuestion={setQuestion} />
-        <StyledP>{answerList?.length} Answers</StyledP>
-        <>
-          {answerList?.map((answer, index) => {
-            if (!answer) return null;
-            return (
-              <AnswerContent
-                key={index}
-                id={id}
-                answers={answer}
-                setAnswerList={setAnswerList}
-                createdAt={answer.createdAt}
-                modifiedAt={answer.modifiedAt}
-              />
-            );
-          })}
-        </>
-        {isLogin ? <AnswerForm setAnswerList={setAnswerList} id={id} /> : <></>}
-      </Q>
-      <Aside>
-        <AsideRight />
-      </Aside>
-    </Detailpage>
+    <>
+      <Detailpage>
+        <Q>
+          <QuestionTitle {...question} />
+          <QuestionContent question={question} setQuestion={setQuestion} />
+          <StyledP>{answerList?.length} Answers</StyledP>
+          <>
+            {answerList?.map((answer, index) => {
+              if (!answer) return null;
+              return (
+                <AnswerContent
+                  key={index}
+                  id={id}
+                  answers={answer}
+                  setAnswerList={setAnswerList}
+                  createdAt={answer.createdAt}
+                  modifiedAt={answer.modifiedAt}
+                />
+              );
+            })}
+          </>
+          {isLogin ? (
+            <AnswerForm setAnswerList={setAnswerList} id={id} />
+          ) : (
+            <></>
+          )}
+        </Q>
+        <Aside>
+          <AsideRight />
+        </Aside>
+      </Detailpage>
+    </>
   );
 }
 

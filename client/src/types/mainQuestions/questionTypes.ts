@@ -27,3 +27,5 @@ export interface NewQuestion {
   questionTitle: string;
   questionContents: string;
 }
+
+export interface a {}
