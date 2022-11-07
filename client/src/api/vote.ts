@@ -12,7 +12,7 @@ export async function vote(paramsId: string | undefined, vote: number) {
     const response = await axios.post<VoteRes>(
       `https://pioneroroom.com/auth/questionlist/${paramsId}/vote`,
       {
-        vote:vote,
+        vote: vote,
       },
       {
         headers: {
@@ -20,9 +20,8 @@ export async function vote(paramsId: string | undefined, vote: number) {
         },
       }
     );
-    // console.log("response",response);
     return response;
   } catch (err) {
-    console.log(err);
+    console.error(err);
   }
 }

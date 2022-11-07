@@ -42,7 +42,6 @@ async function login(userData: LoginUserType) {
       const token = res.headers.authorization;
       setStorageToken(token);
       setUserStorage(user);
-      console.log('토큰', getStorageToken());
     }
     return res;
   } catch (err) {

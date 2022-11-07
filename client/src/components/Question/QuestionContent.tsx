@@ -12,35 +12,43 @@ import downvote from '../../images/downvote.png';
 interface QuestionContentProps {
   setQuestion: React.Dispatch<React.SetStateAction<IQuestion>>;
   question: IQuestion;
+  isLogin: boolean;
 }
 
-const QuestionContent = ({ question, setQuestion }: QuestionContentProps) => {
+const QuestionContent = ({
+  isLogin,
+  question,
+  setQuestion,
+}: QuestionContentProps) => {
   const { id } = useParams();
 
   const Plusvotenum = async (num: number) => {
+    if (!isLogin) {
+      alert('로그인이 필요한 서비스입니다.');
+      return;
+    }
     try {
       const response = await vote(id, num);
       setQuestion((prev) => {
         return { ...prev, vote: response?.data.vote ?? question.vote };
       });
 
-      // console.log("response",response);
       if (response === undefined) {
         alert('You alreay vote');
       }
     } catch (err) {
       console.error(err);
-      // token(로그인 안했을때) 에러 시 -status 401번
-      // already vote 시 - status 409번
     }
   };
 
   const date = useMemo(() => {
-    return { createdAt: question.createdAt, modifiedAt: question.modifiedAt };
+    return {
+      createdAt: question.createdAt,
+      modifiedAt: question.modifiedAt,
+    };
   }, [question.createdAt, question.modifiedAt]);
 
   const latestDate = useMemo(() => getLatestTime(date), [date]);
-
 
   return (
     <Question>
@@ -102,10 +110,11 @@ const VoteInfo = styled.span`
     cursor: pointer;
   }
 `;
-const Qbody = styled.div`
+const Qbody = styled.p`
   height: 100%;
   color: #232629;
   padding: 5px 20px;
+  white-space: pre-wrap;
 `;
 const Userinfo = styled.div`
   display: flex;

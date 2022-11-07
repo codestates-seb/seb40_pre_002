@@ -25,6 +25,7 @@ export default function Detail({ isLogin }: DetailProps) {
       .then((res) => {
         if (!res || !res.data || !res.data.answers)
           throw new Error('getting detailed failed');
+
         const quest = res?.data.data ?? {};
         const ans = res?.data.answers ?? [];
 
@@ -32,31 +33,18 @@ export default function Detail({ isLogin }: DetailProps) {
         setAnswerList(ans.reverse());
       })
       .catch(console.error);
-  }, [id]);
-
-  const QcreatedAt = question?.createdAt;
-  const QmodifiedAt = question?.modifiedAt;
-  const AcreatedAt = answerList[0]?.createdAt;
-  const AmodifiedAt = answerList[0]?.modifiedAt;
-
-  // dates : 가장 최근 게시글/댓글 작성 및 수정시간 반영하여 객체로 리턴
-  // const dates = useMemo(() => {
-  //   return {
-  //     createdAt: QcreatedAt,
-  //     modifiedAt: QmodifiedAt,
-  //     createdAnsweredAt: AcreatedAt,
-  //     modifiedAnsweredAt: AmodifiedAt,
-  //   };
-  // }, [QcreatedAt, QmodifiedAt, AcreatedAt, AmodifiedAt]);
-
-  // const latestDate = useMemo(() => getLatestTime(dates), [dates]);
+  }, []);
 
   return (
     <>
       <Detailpage>
         <Q>
           <QuestionTitle {...question} />
-          <QuestionContent question={question} setQuestion={setQuestion} />
+          <QuestionContent
+            isLogin={isLogin}
+            question={question}
+            setQuestion={setQuestion}
+          />
           <StyledP>{answerList?.length} Answers</StyledP>
           <>
             {answerList?.map((answer, index) => {
