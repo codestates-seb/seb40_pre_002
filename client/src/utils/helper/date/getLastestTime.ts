@@ -10,9 +10,13 @@ export const getLatestTime = (timeObj: any) => {
   }
 
   // newDates : dates 배열 중, string만 필터링
-  const newDates: string[] = dates.filter(
+  const tempDates: string[] = dates.filter(
     (e) => typeof e === 'string'
   ) as string[];
+
+  const newDates = tempDates.map(e => e.length < 27 ? e.slice(0,-1) + '.000+00:00' : e)
+
+  console.log(newDates);
 
   const offset = 1000 * 60 * 60 * 9;
 
@@ -84,7 +88,7 @@ export const getLatestTime = (timeObj: any) => {
 function getKeywords(latestUtc: string, timeObj: any) {
   let val = '';
   for (const key in timeObj) {
-    if (timeObj[key] === latestUtc) {
+    if (timeObj[key] === latestUtc.slice(0,20)) {
       val = key;
     }
   }
