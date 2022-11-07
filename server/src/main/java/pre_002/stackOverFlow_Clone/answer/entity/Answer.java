@@ -1,6 +1,7 @@
 package pre_002.stackOverFlow_Clone.answer.entity;
 
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -33,10 +34,12 @@ public class Answer {
     @Column
     private String answerContents;
 
+    @JsonFormat(timezone = "Asia/Seoul")
     @CreationTimestamp
     @Column(updatable = false)
     private Timestamp createdAt;
 
+    @JsonFormat(timezone = "Asia/Seoul")
     @UpdateTimestamp
     @Column(insertable = false)
     private Timestamp modifiedAt;
