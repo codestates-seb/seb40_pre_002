@@ -60,7 +60,7 @@ const AnswerContent = ({ id, answers, setAnswerList }: AnswerContentProps) => {
             <User>
               <StyledDate>
                 {answers.createdAt ? (
-                  <p>asked : {filteredlatestDate}</p>
+                  <p>answered : {filteredlatestDate}</p>
                 ) : (
                   <p>modified : {filteredlatestDate}</p>
                 )}
