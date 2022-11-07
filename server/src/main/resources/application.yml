@@ -57,7 +57,7 @@ server:
     encoding:
       force-response: true
   tomcat:
-    connection-timeout: 120000
+    connection-timeout: 180000
 
 jwt:
 #  secret-key: ${jwy.secret-key}
