@@ -3,6 +3,11 @@
 ## 🔗 배포링크
 <a href="링크"></a>
 
+
+## 💡프로젝트 개요
+이번 프로젝트에선 Stackoverflow를 클론코딩하였습니다. 
+CRUD 기능을 중점적으로 구현하는 것에 목표를 두었고 주요 기능 및 기술스텍은 아래와 같습니다.
+
 <br/>
 
 ## 🧑‍💻 PRE-002 null(비어있음) 팀원 소개
@@ -50,7 +55,8 @@
 
 <img src="https://img.shields.io/badge/html5-E34F26?style=for-the-badge&logo=html5&logoColor=white"> <img src="https://img.shields.io/badge/css-1572B6?style=for-the-badge&logo=css3&logoColor=white"> <img src="https://img.shields.io/badge/typescript-3178C6?style=for-the-badge&logo=typescript&logoColor=black"> <img src="https://img.shields.io/badge/react-61DAFB?style=for-the-badge&logo=react&logoColor=black"> 
 
-<img src="https://img.shields.io/badge/styledcomponents-DB7093?style=for-the-badge&logo=styledcomponents&logoColor=black"> <img src="https://img.shields.io/badge/recoil-0095EB?style=for-the-badge&logo=recoil&logoColor=black"> <img src="https://img.shields.io/badge/Axios-181717?style=for-the-badge&logo=Axios&logoColor=white"> <img src="https://img.shields.io/badge/Vercel-000000?style=for-the-badge&logo=Vercel&logoColor=white">
+
+<img src="https://img.shields.io/badge/styledcomponents-DB7093?style=for-the-badge&logo=styledcomponents&logoColor=black"> <img src="https://img.shields.io/badge/Axios-181717?style=for-the-badge&logo=Axios&logoColor=white"> <img src="https://img.shields.io/badge/Vercel-000000?style=for-the-badge&logo=Vercel&logoColor=white">
 
 
 ### Back-End
