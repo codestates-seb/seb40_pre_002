@@ -25,6 +25,7 @@ const ItemList = (question: QuestionElement) => {
   const latestDate = useMemo(() => getLatestTime(dates), [dates]);
 
   return (
+
     <QuestionLi>
       <QuestionInfo1>
         <VoteInfo>{question.vote} votes</VoteInfo>
