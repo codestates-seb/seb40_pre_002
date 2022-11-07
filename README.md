@@ -87,3 +87,42 @@ CRUD 기능을 중점적으로 구현하는 것에 목표를 두었고 주요 �
 - docs : 문서(주석) 수정
 - refactoring : 코드 리팩터링 
 - merge : 병합
+
+## 기능
+
+<table>
+<tr>
+      <td align="center">회원가입/로그인</td>
+      <td align="center">전체 질문 조회</td>
+      <td align="center">상세 질문 조회(투표기능 포함)</td>  
+ </tr>
+ <tr>
+     <td align="center">
+     <img src='https://user-images.githubusercontent.com/107908373/200320712-957c10ad-0712-45ac-843d-7ead99c9d2fd.png'>
+     </td>
+     <td align="center">
+     <img src='https://user-images.githubusercontent.com/107908373/200321092-f8caa59e-5f0b-4989-b16a-45abf17e9b8a.png'>
+     </td>
+     <td align="center">
+     <img src='https://user-images.githubusercontent.com/107908373/200321435-bf28ddb1-d21a-46e6-aa01-0c2b2c95eff0.png'>
+</table>
+
+<table>
+<tr>
+      <td align="center">질문 검색</td>
+      <td align="center">질문 작성</td>
+      <td align="center">답변 작성</td>    
+ </tr>
+ <tr>
+     <td align="center">
+     <img src='https://user-images.githubusercontent.com/107908373/200322279-3b211674-441f-432e-93c4-bb184f669fcc.png'>
+     </td>
+     <td align="center">
+     <img src='https://user-images.githubusercontent.com/107908373/200323359-fa49d312-0657-4ee0-9553-7249749830ed.png'>
+     </td>
+     <td align="center">
+     <img src='https://user-images.githubusercontent.com/107908373/200323359-fa49d312-0657-4ee0-9553-7249749830ed.png'>
+     </td>
+</table>
+
+</div>
