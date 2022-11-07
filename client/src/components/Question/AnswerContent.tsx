@@ -59,10 +59,10 @@ const AnswerContent = ({ id, answers, setAnswerList }: AnswerContentProps) => {
             </Mody>
             <User>
               <StyledDate>
-                {!answers.modifiedAt ? (
-                  <p>answer : {filteredlatestDate}</p>
-                ) : (
+                {answers.modifiedAt ? (
                   <p>modified : {filteredlatestDate}</p>
+                ) : (
+                  <p>answer : {filteredlatestDate}</p>
                 )}
               </StyledDate>
               <Username>

@@ -25,23 +25,25 @@ const ItemList = (question: QuestionElement) => {
   const latestDate = useMemo(() => getLatestTime(dates), [dates]);
 
   return (
-    <QuestionLi>
-      <QuestionInfo1>
-        <VoteInfo>{question.vote} votes</VoteInfo>
-        <AnswerInfo>{question.countAnswer} answers</AnswerInfo>
-        <ViewInfo>{question.views} views</ViewInfo>
-      </QuestionInfo1>
+    <>
+      <QuestionLi>
+        <QuestionInfo1>
+          <VoteInfo>{question.vote} votes</VoteInfo>
+          <AnswerInfo>{question.countAnswer} answers</AnswerInfo>
+          <ViewInfo>{question.views} views</ViewInfo>
+        </QuestionInfo1>
 
-      <QuestionInfo2>
-        <StyledLink to={`/detail/${question.questionId}`}>
-          <TitleInfo>{question.questionTitle}</TitleInfo>
-        </StyledLink>
-        <TimelineInfo>
-          <AuthorInfo>{question.username}</AuthorInfo>
-          {latestDate.keyWord} {latestDate.filteredlatestDate}
-        </TimelineInfo>
-      </QuestionInfo2>
-    </QuestionLi>
+        <QuestionInfo2>
+          <StyledLink to={`/detail/${question.questionId}`}>
+            <TitleInfo>{question.questionTitle}</TitleInfo>
+          </StyledLink>
+          <TimelineInfo>
+            <AuthorInfo>{question.username}</AuthorInfo>
+            {latestDate.keyWord} {latestDate.filteredlatestDate}
+          </TimelineInfo>
+        </QuestionInfo2>
+      </QuestionLi>
+    </>
   );
 };
 
