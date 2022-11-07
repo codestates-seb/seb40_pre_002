@@ -17,8 +17,6 @@ interface HomeProps {
 }
 
 export default function Home({ isLogin, question, setQuestion }: HomeProps) {
-  // const [questions, setQuestions] = useState<QuestionElement[]>([]);
-
   useEffect(() => {
     mainQuestionsAPIs.getMainQuestions().then((res) => {
       setQuestion(res.data.data);

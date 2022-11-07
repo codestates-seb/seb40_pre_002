@@ -12,7 +12,6 @@ export const searchApi = {
       const res = await axios.get(
         BASE_URL + `/questionlist/search?keyword=${value}`
       );
-      //console.log('res', res.data.data);
       return res.data.data;
     } catch (error) {
       console.error(error);

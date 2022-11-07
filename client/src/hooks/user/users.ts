@@ -12,7 +12,6 @@ export function useLogin() {
 
     userinfoAPIs.getUserInfo().then((res) => {
       const user = res.data.data;
-      console.log('res', res.data.data);
       if (!user.userName) {
         //유저가 없으면
         deleteStorageToken();
