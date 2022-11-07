@@ -32,7 +32,7 @@ export default function Detail({ isLogin }: DetailProps) {
         setAnswerList(ans.reverse());
       })
       .catch(console.error);
-  }, []);
+  }, [id]);
 
   const QcreatedAt = question?.createdAt;
   const QmodifiedAt = question?.modifiedAt;
@@ -40,16 +40,16 @@ export default function Detail({ isLogin }: DetailProps) {
   const AmodifiedAt = answerList[0]?.modifiedAt;
 
   // dates : 가장 최근 게시글/댓글 작성 및 수정시간 반영하여 객체로 리턴
-  const dates = useMemo(() => {
-    return {
-      createdAt: QcreatedAt,
-      modifiedAt: QmodifiedAt,
-      createdAnsweredAt: AcreatedAt,
-      modifiedAnsweredAt: AmodifiedAt,
-    };
-  }, [QcreatedAt, QmodifiedAt, AcreatedAt, AmodifiedAt]);
+  // const dates = useMemo(() => {
+  //   return {
+  //     createdAt: QcreatedAt,
+  //     modifiedAt: QmodifiedAt,
+  //     createdAnsweredAt: AcreatedAt,
+  //     modifiedAnsweredAt: AmodifiedAt,
+  //   };
+  // }, [QcreatedAt, QmodifiedAt, AcreatedAt, AmodifiedAt]);
 
-  const latestDate = useMemo(() => getLatestTime(dates), [dates]);
+  // const latestDate = useMemo(() => getLatestTime(dates), [dates]);
 
   return (
     <>

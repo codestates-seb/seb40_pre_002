@@ -6,8 +6,8 @@ import { getLatestTime } from '../../utils/helper/date/getLastestTime';
 import { QuestionElement } from '../../types/mainQuestions/questionTypes';
 import { detailAPIs } from '../../api/detail';
 import { vote } from '../../api/vote';
-import upvote from '../../images/upvote.png'
-import downvote from '../../images/downvote.png'
+import upvote from '../../images/upvote.png';
+import downvote from '../../images/downvote.png';
 
 interface QuestionContentProps {
   setQuestion: React.Dispatch<React.SetStateAction<IQuestion>>;
@@ -25,15 +25,13 @@ const QuestionContent = ({ question, setQuestion }: QuestionContentProps) => {
       });
 
       // console.log("response",response);
-      if(response === undefined){
+      if (response === undefined) {
         alert('You alreay vote');
       }
-
     } catch (err) {
       console.error(err);
       // token(로그인 안했을때) 에러 시 -status 401번
       // already vote 시 - status 409번
-
     }
   };
 
@@ -43,13 +41,18 @@ const QuestionContent = ({ question, setQuestion }: QuestionContentProps) => {
 
   const latestDate = useMemo(() => getLatestTime(date), [date]);
 
+
   return (
     <Question>
       <VoteQbody>
         <VoteInfo>
-          <button type='button' onClick={() => Plusvotenum(1)}><img alt='upvote' src={upvote}/></button>
+          <button type="button" onClick={() => Plusvotenum(1)}>
+            <img alt="upvote" src={upvote} />
+          </button>
           <span>{question?.vote}</span>
-          <button  type='button' onClick={() => Plusvotenum(-1)}><img alt='downvote' src={downvote}/></button>
+          <button type="button" onClick={() => Plusvotenum(-1)}>
+            <img alt="downvote" src={downvote} />
+          </button>
         </VoteInfo>
         <Qbody>{question.questionContents}</Qbody>
       </VoteQbody>

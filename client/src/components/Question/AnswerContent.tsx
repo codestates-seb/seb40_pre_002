@@ -38,7 +38,6 @@ const AnswerContent = ({ id, answers, setAnswerList }: AnswerContentProps) => {
   const handleClick = () => {
     setEditOpen(!editOpen);
   };
-
   return (
     <>
       {editOpen ? (
@@ -59,7 +58,6 @@ const AnswerContent = ({ id, answers, setAnswerList }: AnswerContentProps) => {
             </Mody>
             <User>
               <StyledDate>
-
                 {answers.modifiedAt ? (
                   <p>modified : {filteredlatestDate}</p>
                 ) : (
